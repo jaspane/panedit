@@ -488,7 +488,7 @@ function App() {
       </section>
 
                   {/* YouTube Video 2 */}
-          <section id="about" className="py-8 sm:py-12 px-4 sm:px-6 relative z-10">
+          <section id="about" className="py-4 sm:py-6 px-4 sm:px-6 relative z-10">
             <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
