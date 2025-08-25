@@ -26,6 +26,7 @@ function App() {
     phone: '',
     company: '',
     website: '',
+    monthlyRevenue: '',
     message: ''
   });
 
@@ -54,7 +55,7 @@ function App() {
     // Handle form submission logic here
     console.log('Form submitted:', formData);
     setIsModalOpen(false);
-    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', message: '' });
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -64,6 +65,12 @@ function App() {
     });
   };
 
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
       <SplashCursor />
@@ -516,6 +523,20 @@ function App() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
                 />
+              </div>
+              <div>
+                <select
+                  name="monthlyRevenue"
+                  value={formData.monthlyRevenue}
+                  onChange={handleSelectChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white"
+                >
+                  <option value="" className="text-gray-400">Select Monthly Revenue</option>
+                  <option value="5K - 50K">$5K - $50K</option>
+                  <option value="50K - 100K">$50K - $100K</option>
+                  <option value="100K - 500K">$100K - $500K</option>
+                  <option value="500K - 5M">$500K - $5M</option>
+                </select>
               </div>
               <div>
                 <textarea
