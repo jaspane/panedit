@@ -13,10 +13,10 @@ import {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-gradient-to-br from-white via-gray-50 to-gray-100 pt-32 pb-12 overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 pt-32 pb-12 overflow-hidden">
       {/* Background patterns */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#374151_1px,transparent_1px),linear-gradient(to_bottom,#374151_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5"></div>
       </div>
 
@@ -28,10 +28,11 @@ const Footer: React.FC = () => {
                 <Brain className="h-6 w-6" />
               </div>
               <span className="ml-3 text-xl font-bold tracking-tight bg-gradient-to-r from-black via-gray-800 to-gray-600 bg-clip-text text-transparent">
+              <span className="ml-3 text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                 Panèdit
               </span>
             </div>
-            <p className="text-gray-600 leading-relaxed mb-8">
+            <p className="text-gray-300 leading-relaxed mb-8">
               Transforming businesses with intelligent AI automation solutions that scale operations and accelerate growth.
             </p>
             <div className="flex space-x-4">
@@ -45,7 +46,7 @@ const Footer: React.FC = () => {
                 <a 
                   key={idx}
                   href={social.href} 
-                  className="w-10 h-10 rounded-xl bg-white/90 border border-black/10 flex items-center justify-center text-gray-600 hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent transition-all duration-300 shadow-sm hover:shadow-lg"
+                  className="w-10 h-10 rounded-xl bg-gray-800/90 border border-gray-700 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-500 hover:text-white hover:border-transparent transition-all duration-300 shadow-sm hover:shadow-lg"
                 >
                   <social.icon size={18} />
                 </a>
@@ -54,7 +55,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-bold tracking-tight mb-6 bg-gradient-to-r from-black via-gray-800 to-gray-600 bg-clip-text text-transparent">Services</h4>
+            <h4 className="text-lg font-bold tracking-tight mb-6 text-white">Services</h4>
             <ul className="space-y-4">
               {[
                 "AI Chat Agents",
@@ -65,7 +66,7 @@ const Footer: React.FC = () => {
                 "Sales Administration"
               ].map((service, idx) => (
                 <li key={idx}>
-                  <a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 flex items-center group">
+                  <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                     <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {service}
                   </a>
@@ -75,7 +76,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-bold tracking-tight mb-6 bg-gradient-to-r from-black via-gray-800 to-gray-600 bg-clip-text text-transparent">Company</h4>
+            <h4 className="text-lg font-bold tracking-tight mb-6 text-white">Company</h4>
             <ul className="space-y-4">
               {[
                 "About Us",
@@ -85,7 +86,7 @@ const Footer: React.FC = () => {
                 "Contact"
               ].map((item, idx) => (
                 <li key={idx}>
-                  <a href="#" className="text-gray-600 hover:text-black transition-colors duration-300 flex items-center group">
+                  <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                     <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {item}
                   </a>
@@ -95,20 +96,20 @@ const Footer: React.FC = () => {
           </div>
 
           <div>
-            <h4 className="text-lg font-bold tracking-tight mb-6 bg-gradient-to-r from-black via-gray-800 to-gray-600 bg-clip-text text-transparent">Contact</h4>
+            <h4 className="text-lg font-bold tracking-tight mb-6 text-white">Contact</h4>
             <ul className="space-y-4">
-              <li className="text-gray-600 flex items-center">
+              <li className="text-gray-400 flex items-center">
                 <MapPin className="w-5 h-5 mr-2 text-gray-400" />
                 San Francisco, CA
               </li>
               <li>
-                <a href="mailto:hello@panedit.com" className="text-gray-600 hover:text-black transition-colors duration-300 flex items-center group">
+                <a href="mailto:hello@panedit.com" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                   <Mail className="w-5 h-5 mr-2 text-gray-400" />
                   hello@panedit.com
                 </a>
               </li>
               <li>
-                <a href="tel:+15551234567" className="text-gray-600 hover:text-black transition-colors duration-300 flex items-center group">
+                <a href="tel:+15551234567" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                   <Phone className="w-5 h-5 mr-2 text-gray-400" />
                   +1 (555) 123-4567
                 </a>
@@ -117,9 +118,10 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-24 pt-8 border-t border-black/10 text-center">
-          <p className="text-gray-500 text-sm font-medium">
+        <div className="mt-24 pt-8 border-t border-gray-800 text-center">
+          <p className="text-gray-400 text-sm font-medium">
             © {new Date().getFullYear()} <a href="https://panedit.com/" className="hover:text-black transition-colors"><u>Panèdit</u></a>. All rights reserved.
+            © {new Date().getFullYear()} <a href="https://panedit.com/" className="hover:text-white transition-colors"><u>Panèdit</u></a>. All rights reserved.
           </p>
         </div>
       </div>
