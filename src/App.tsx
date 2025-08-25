@@ -25,6 +25,7 @@ function App() {
     email: '',
     phone: '',
     company: '',
+    website: '',
     message: ''
   });
 
@@ -53,7 +54,7 @@ function App() {
     // Handle form submission logic here
     console.log('Form submitted:', formData);
     setIsModalOpen(false);
-    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' });
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', message: '' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -502,6 +503,16 @@ function App() {
                   name="company"
                   placeholder="Company Name"
                   value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
+                />
+              </div>
+              <div>
+                <input
+                  type="url"
+                  name="website"
+                  placeholder="Business Website (e.g., https://example.com)"
+                  value={formData.website}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
                 />
