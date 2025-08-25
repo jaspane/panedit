@@ -434,7 +434,7 @@ function App() {
       {/* Vortex Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="w-full">
-          <div className="w-full h-[30rem] sm:h-[40rem] overflow-hidden">
+          <div className="w-full h-[50rem] sm:h-[55rem] overflow-hidden">
             <Vortex
               backgroundColor="black"
               rangeY={800}
