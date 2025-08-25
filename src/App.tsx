@@ -60,7 +60,9 @@ function App() {
         console.log('Form submission started...');
         console.log('Environment check:', {
           supabaseUrl: import.meta.env.VITE_SUPABASE_URL ? 'Present' : 'Missing',
-          supabaseKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Present' : 'Missing'
+          supabaseKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Present' : 'Missing',
+          actualUrl: import.meta.env.VITE_SUPABASE_URL,
+          actualKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Key exists' : 'No key'
         });
         
         // Prepare data for Supabase
