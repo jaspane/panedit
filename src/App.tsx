@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { SplashCursor } from '@/components/ui/splash-cursor';
 import { Vortex } from '@/components/ui/vortex';
+import Footer from '@/components/ui/demo';
 import { 
   Bot, 
   TrendingUp, 
@@ -467,53 +468,8 @@ function App() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 sm:py-12 px-4 sm:px-6 border-t border-gray-800 relative z-10">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            <div>
-              <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-                Panèdit
-              </div>
-              <p className="text-sm sm:text-base text-gray-400">
-                Transforming businesses with intelligent AI automation solutions.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm sm:text-base font-bold mb-4">Services</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-blue-400 transition-colors">AI Chat Agents</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Lead Generation</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">CRM Integration</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm sm:text-base font-bold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li><a href="#" className="hover:text-blue-400 transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Case Studies</a></li>
-                <li><a href="#" className="hover:text-blue-400 transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm sm:text-base font-bold mb-4">Contact</h4>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
-                  hello@panedit.com
-                </li>
-                <li className="flex items-center gap-2">
-                  <Phone className="w-4 h-4" />
-                  +1 (555) 123-4567
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2025 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><a href="https://panedit.com/"><u>Panèdit</u></a></span>. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      {/* New Footer Component */}
+      <Footer />
 
       {/* Modal */}
       {isModalOpen && (
