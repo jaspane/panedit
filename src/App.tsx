@@ -69,6 +69,8 @@ function App() {
           message: formData.message || undefined,
         };
 
+        console.log('Attempting to submit form with data:', submissionData);
+
         await submitContactForm(submissionData);
         
         // Success - close modal and reset form
@@ -79,8 +81,18 @@ function App() {
         alert('Thank you! Your consultation request has been submitted successfully.');
         
       } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('There was an error submitting your request. Please try again.');
+        console.error('Form submission error:', error);
+        
+        // More specific error messages
+        if (error instanceof Error) {
+          if (error.message.includes('Supabase is not connected')) {
+            alert('Please connect to Supabase first by clicking the "Connect to Supabase" button in the top right corner.');
+          } else {
+            alert(`Error: ${error.message}`);
+          }
+        } else {
+          alert('There was an error submitting your request. Please check the console for details and try again.');
+        }
       }
     };
 

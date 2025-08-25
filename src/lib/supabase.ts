@@ -3,11 +3,16 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
-}
+console.log('Supabase URL:', supabaseUrl ? 'Present' : 'Missing')
+console.log('Supabase Anon Key:', supabaseAnonKey ? 'Present' : 'Missing')
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('Missing Supabase environment variables. Please connect to Supabase first.')
+  // Create a dummy client to prevent crashes
+  export const supabase = createClient('https://dummy.supabase.co', 'dummy-key')
+} else {
+  export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+}
 
 // Types for our contact form
 export interface ContactSubmission {
@@ -27,6 +32,13 @@ export interface ContactSubmission {
 
 // Function to submit contact form
 export async function submitContactForm(data: Omit<ContactSubmission, 'id' | 'created_at' | 'updated_at' | 'status'>) {
+  // Check if Supabase is properly configured
+  if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+    throw new Error('Supabase is not connected. Please click "Connect to Supabase" button in the top right corner.')
+  }
+
+  console.log('Submitting contact form data:', data)
+
   const { data: submission, error } = await supabase
     .from('contact_submissions')
     .insert([data])
@@ -34,9 +46,10 @@ export async function submitContactForm(data: Omit<ContactSubmission, 'id' | 'cr
     .single()
 
   if (error) {
-    console.error('Error submitting contact form:', error)
+    console.error('Supabase error details:', error)
     throw error
   }
 
+  console.log('Form submitted successfully:', submission)
   return submission
 }
