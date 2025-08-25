@@ -488,7 +488,7 @@ function App() {
       </section>
 
                   {/* YouTube Video 2 */}
-          <section id="about" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+          <section id="about" className="py-8 sm:py-12 px-4 sm:px-6 relative z-10">
             <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
@@ -504,7 +504,7 @@ function App() {
           </section>
       
       {/* CTA Section */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
           <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 sm:p-12 rounded-3xl border border-gray-700">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
