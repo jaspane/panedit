@@ -53,10 +53,37 @@ function App() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    setIsModalOpen(false);
-    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
+    
+    const submitForm = async () => {
+      try {
+        // Prepare data for Supabase
+        const submissionData = {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone || undefined,
+          company: formData.company || undefined,
+          website: formData.website || undefined,
+          monthly_revenue: formData.monthlyRevenue || undefined,
+          message: formData.message || undefined,
+        };
+
+        await submitContactForm(submissionData);
+        
+        // Success - close modal and reset form
+        setIsModalOpen(false);
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
+        
+        // You could add a success toast notification here
+        alert('Thank you! Your consultation request has been submitted successfully.');
+        
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        alert('There was an error submitting your request. Please try again.');
+      }
+    };
+
+    submitForm();
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
