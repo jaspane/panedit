@@ -428,7 +428,7 @@ function App() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2025 href="https://www.example.com">Click here</a>Panèdit. All rights reserved.</p>
+            <p>&copy; 2025 Panèdit. All rights reserved.</p>
           </div>
         </div>
       </footer>
