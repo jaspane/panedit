@@ -91,9 +91,9 @@ function App() {
 
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 pt-16 sm:pt-20">
-        <div className="max-w-6xl mx-auto text-center w-full">
+        <div className="max-w-1xl mx-auto text-center w-full">
           <div className="animate-on-scroll">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-5">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
               Automate Your Business with
               <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                 AI-Powered Solutions
