@@ -293,56 +293,62 @@ function App() {
         </div>
       </section>
 
-You are given a task to integrate an existing React component in the codebase
-
-The codebase should support:
-- shadcn project structure  
-- Tailwind CSS
-- Typescript
-
-If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
-
-Determine the default path for components and styles. 
-If default path for components is not /components/ui, provide instructions on why it's important to create this folder
-Copy-paste this component to /components/ui folder:
-```tsx
-vortex.tsx
-import { cn } from "@/lib/utils";
-import React, { useEffect, useRef } from "react";
-import { createNoise3D } from "simplex-noise";
-import { motion } from "framer-motion";
-
-
-demo.tsx
-import React from "react";
-import { Vortex } from "@/components/ui/vortex";
-
-function Section() {
-              }
-  )
-  return (
-    <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-[30rem] overflow-hidden">
-      <Vortex
-        backgroundColor="black"
-        className="flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full"
-      >
-        <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
-          The hell is this?
-        </h2>
-        <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
-          This is chemical burn. It&apos;ll hurt more than you&apos;ve ever been
-          burned and you&apos;ll have a scar.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
-            Order now
-          </button>
-          <button className="px-4 py-2  text-white ">Watch trailer</button>
+      {/* Vortex Section */}
+      <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="w-full mx-auto rounded-3xl h-[40rem] overflow-hidden border border-gray-700">
+            <Vortex
+              backgroundColor="black"
+              rangeY={800}
+              particleCount={500}
+              baseHue={220}
+              className="flex items-center flex-col justify-center px-4 md:px-10 py-8 w-full h-full"
+            >
+              <div className="text-center animate-on-scroll">
+                <h2 className="text-white text-3xl md:text-6xl font-bold text-center mb-6">
+                  Experience the Future of
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-2">
+                    AI Automation
+                  </span>
+                </h2>
+                <p className="text-white text-lg md:text-2xl max-w-3xl mt-6 text-center mb-8 opacity-90">
+                  Watch as intelligent particles dance around your content, just like our AI solutions seamlessly integrate into your business processes.
+                </p>
+                
+                {/* Stats in Vortex */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 mb-8">
+                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
+                    <div className="text-3xl font-bold text-blue-400 mb-2">500+</div>
+                    <div className="text-white/80">Businesses Automated</div>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
+                    <div className="text-3xl font-bold text-purple-400 mb-2">95%</div>
+                    <div className="text-white/80">Client Satisfaction</div>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
+                    <div className="text-3xl font-bold text-pink-400 mb-2">$2M+</div>
+                    <div className="text-white/80">Cost Savings Generated</div>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2"
+                  >
+                    <Calendar className="w-5 h-5" />
+                    Start Your AI Journey
+                  </button>
+                  <button className="px-8 py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300">
+                    Watch Demo
+                  </button>
+                </div>
+              </div>
+            </Vortex>
+          </div>
         </div>
-      </Vortex>
-    </div>
-  );
-}
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
@@ -433,5 +439,56 @@ function Section() {
                 <input
                   type="text"
                   name="name"
-export default App;
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
+                  required
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="company"
+                  placeholder="Company Name"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
+                />
+              </div>
+              <div>
+                <textarea
+                  name="message"
+                  placeholder="Tell us about your automation needs..."
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={4}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 resize-none"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              >
+                Schedule My Free Consultation
+              </button>
+            </form>
+          </div>
+        </div>
       )}
+    </div>
+  );
+}
+
+export default App;
