@@ -105,7 +105,7 @@ function App() {
               and seamless CRM integrations. Scale faster, work smarter.
             </p>
             
-            {/* YouTube Video */}
+            {/* YouTube Video 1 */}
             <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
@@ -349,6 +349,20 @@ function App() {
         </div>
       </section>
 
+                  {/* YouTube Video 2 */}
+            <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
+              <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/4PZYb86j4wg"
+                  title="Panèdit AI Automation Demo"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+      
       {/* CTA Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
