@@ -318,6 +318,8 @@ import React from "react";
 import { Vortex } from "@/components/ui/vortex";
 
 function Section() {
+              }
+  )
   return (
     <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-[30rem] overflow-hidden">
       <Vortex
@@ -413,6 +415,8 @@ function Section() {
 
       {/* Modal */}
       {isModalOpen && (
+            )
+            }
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
           <div className="bg-gradient-to-br from-gray-900 to-black p-6 sm:p-8 rounded-2xl border border-gray-700 max-w-md w-full relative my-8">
             <button
