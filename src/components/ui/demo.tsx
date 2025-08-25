@@ -121,7 +121,7 @@ const Footer: React.FC = () => {
 
         <div className="mt-24 pt-8 border-t border-gray-800 text-center">
           <p className="text-gray-400 text-sm font-medium">
-            © {new Date().getFullYear()} <a href="https://panedit.com/" className="hover:text-white transition-colors"><u>Panèdit</u></a>. All rights reserved.
+         <p>&copy; 2025 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><a href="https://panedit.com/"><u>Panèdit</u></a></span>. All rights reserved.</p>
           </p>
         </div>
       </div>
