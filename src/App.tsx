@@ -341,61 +341,6 @@ function Section() {
     </div>
   );
 }
-
-function FullPage() {
-  return (
-    <div className="w-[calc(100%-4rem)] mx-auto rounded-md  h-screen overflow-hidden">
-      <Vortex
-        backgroundColor="black"
-        rangeY={800}
-        particleCount={500}
-        baseHue={120}
-        className="flex items-center flex-col justify-center px-2 md:px-10  py-4 w-full h-full"
-      >
-        <h2 className="text-white text-2xl md:text-6xl font-bold text-center">
-          The hell is this?
-        </h2>
-        <p className="text-white text-sm md:text-2xl max-w-xl mt-6 text-center">
-          This is chemical burn. It&apos;ll hurt more than you&apos;ve ever been
-          burned and you&apos;ll have a scar.
-        </p>
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
-            Order now
-          </button>
-          <button className="px-4 py-2  text-white ">Watch trailer</button>
-        </div>
-      </Vortex>
-    </div>
-  );
-}
-
-export { Section, FullPage };
-```
-
-Install NPM dependencies:
-```bash
-framer-motion, simplex-noise
-```
-
-Implementation Guidelines
- 1. Analyze the component structure and identify all required dependencies
- 2. Review the component's argumens and state
- 3. Identify any required context providers or hooks and install them
- 4. Questions to Ask
- - What data/props will be passed to this component?
- - Are there any specific state management requirements?
- - Are there any required assets (images, icons, etc.)?
- - What is the expected responsive behavior?
- - What is the best place to use this component in the app?
-
-Steps to integrate
- 0. Copy paste all the code above in the correct directories
- 1. Install external dependencies
- 2. Fill image assets with Unsplash stock images you know exist
- 3. Use lucide-react icons for svgs or logos if component requires them
-
-
       {/* CTA Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
