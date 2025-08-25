@@ -57,6 +57,12 @@ function App() {
     
     const submitForm = async () => {
       try {
+        console.log('Form submission started...');
+        console.log('Environment check:', {
+          supabaseUrl: import.meta.env.VITE_SUPABASE_URL ? 'Present' : 'Missing',
+          supabaseKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Present' : 'Missing'
+        });
+        
         // Prepare data for Supabase
         const submissionData = {
           first_name: formData.firstName,
@@ -73,6 +79,8 @@ function App() {
 
         await submitContactForm(submissionData);
         
+        console.log('Form submitted successfully!');
+        
         // Success - close modal and reset form
         setIsModalOpen(false);
         setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
@@ -82,6 +90,11 @@ function App() {
         
       } catch (error) {
         console.error('Form submission error:', error);
+        console.error('Error details:', {
+          message: error instanceof Error ? error.message : 'Unknown error',
+          stack: error instanceof Error ? error.stack : undefined,
+          type: typeof error
+        });
         
         // More specific error messages
         if (error instanceof Error) {
@@ -91,7 +104,7 @@ function App() {
             alert(`Error: ${error.message}`);
           }
         } else {
-          alert('There was an error submitting your request. Please check the console for details and try again.');
+          alert(`There was an error submitting your request. Error: ${JSON.stringify(error)}. Please check the console for details and try again.`);
         }
       }
     };
