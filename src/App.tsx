@@ -23,6 +23,7 @@ function App() {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     company: '',
     message: ''
   });
@@ -52,7 +53,7 @@ function App() {
     // Handle form submission logic here
     console.log('Form submitted:', formData);
     setIsModalOpen(false);
-    setFormData({ firstName: '', lastName: '', email: '', company: '', message: '' });
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -483,6 +484,16 @@ function App() {
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
                   required
+                />
+              </div>
+              <div>
+                <input
+                  type="tel"
+                  name="phone"
+                  placeholder="Phone Number (e.g., +1 555 123 4567)"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
                 />
               </div>
               <div>
