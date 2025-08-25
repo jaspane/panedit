@@ -292,52 +292,7 @@ function App() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              What Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Clients Say</span>
-            </h2>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {[
-              {
-                name: "Sarah Johnson",
-                role: "CEO, TechStart Inc.",
-                content: "Panèdit transformed our lead generation process. We're now generating 5x more qualified leads with half the effort.",
-                rating: 5
-              },
-              {
-                name: "Mike Chen",
-                role: "VP Sales, GrowthCorp",
-                content: "The AI chat agents handle 80% of our customer inquiries automatically. Our team can focus on high-value activities.",
-                rating: 5
-              },
-              {
-                name: "Emily Davis",
-                role: "CMO, ScaleUp Solutions",
-                content: "ROI was immediate. Within 30 days, we saw a 200% increase in conversion rates. Absolutely game-changing.",
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <div key={index} className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-4 sm:p-6 rounded-2xl border border-gray-700">
-                <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-sm sm:text-base text-gray-300 mb-4 italic">"{testimonial.content}"</p>
-                <div>
-                  <div className="text-sm sm:text-base font-bold text-white">{testimonial.name}</div>
-                  <div className="text-gray-400 text-sm">{testimonial.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
