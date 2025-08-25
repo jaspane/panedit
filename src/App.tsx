@@ -177,7 +177,7 @@ function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 group">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                 <Bot className="w-8 h-8 text-white" />
@@ -246,6 +246,78 @@ function App() {
                 <li className="flex items-center gap-2 text-sm text-gray-400">
                   <CheckCircle className="w-4 h-4 text-green-400" />
                   Workflow Automation
+                </li>
+              </ul>
+            </div>
+
+            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/10 group">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Target className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-green-400">Project Management</h3>
+              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+                Streamline project workflows with AI-powered task automation, resource allocation, and intelligent progress tracking for maximum efficiency.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Automated Task Assignment
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Resource Optimization
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Progress Analytics
+                </li>
+              </ul>
+            </div>
+
+            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-orange-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 group">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-orange-400">Hiring Systems</h3>
+              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+                Transform your recruitment process with AI-driven candidate screening, automated interviews, and intelligent talent matching systems.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Resume Screening & Ranking
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Automated Interview Scheduling
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Skills Assessment & Matching
+                </li>
+              </ul>
+            </div>
+
+            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 group">
+              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <TrendingUp className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-cyan-400">Sales Administration</h3>
+              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+                Optimize your sales operations with AI-powered pipeline management, automated follow-ups, and intelligent sales forecasting tools.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Pipeline Automation
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Smart Follow-up Sequences
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Sales Forecasting & Analytics
                 </li>
               </ul>
             </div>
