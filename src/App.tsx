@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SplashCursor } from '@/components/ui/splash-cursor';
 import { Vortex } from '@/components/ui/vortex';
 import Footer from '@/components/ui/demo';
+import { submitContactForm } from '@/lib/supabase';
 import { 
   Bot, 
   TrendingUp, 
