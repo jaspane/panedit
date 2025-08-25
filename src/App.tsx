@@ -531,7 +531,7 @@ function App() {
                   onChange={handleSelectChange}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white"
                 >
-                  <option value="" className="text-gray-400">Select Monthly Revenue</option>
+                  <option value="" className="text-gray-400">Select Company Monthly Revenue (USD)</option>
                   <option value="5K - 50K">$5K - $50K</option>
                   <option value="50K - 100K">$50K - $100K</option>
                   <option value="100K - 500K">$100K - $500K</option>
@@ -541,7 +541,7 @@ function App() {
               <div>
                 <textarea
                   name="message"
-                  placeholder="Tell us about your automation needs..."
+                  placeholder="Tell us about your automation needs... For Instance: Help with Social Media Engagement, Facilitate On-Boarding, Assist Collections, Etc..."
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={4}
