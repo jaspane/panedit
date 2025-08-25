@@ -6,13 +6,19 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 console.log('Supabase URL:', supabaseUrl ? 'Present' : 'Missing')
 console.log('Supabase Anon Key:', supabaseAnonKey ? 'Present' : 'Missing')
 
+// Declare supabase at top level for proper export
+let supabase: ReturnType<typeof createClient>
+
 if (!supabaseUrl || !supabaseAnonKey) {
   console.error('Missing Supabase environment variables. Please connect to Supabase first.')
   // Create a dummy client to prevent crashes
-  export const supabase = createClient('https://dummy.supabase.co', 'dummy-key')
+  supabase = createClient('https://dummy.supabase.co', 'dummy-key')
 } else {
-  export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+  supabase = createClient(supabaseUrl, supabaseAnonKey)
 }
+
+// Export the supabase client
+export { supabase }
 
 // Types for our contact form
 export interface ContactSubmission {
