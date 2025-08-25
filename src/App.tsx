@@ -415,8 +415,6 @@ function Section() {
 
       {/* Modal */}
       {isModalOpen && (
-            )
-            }
         <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
           <div className="bg-gradient-to-br from-gray-900 to-black p-6 sm:p-8 rounded-2xl border border-gray-700 max-w-md w-full relative my-8">
             <button
@@ -436,3 +434,4 @@ function Section() {
                   type="text"
                   name="name"
 export default App;
+      )}
