@@ -222,7 +222,7 @@ function App() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+      <section id="services" className="py-4 sm:py-5 px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
