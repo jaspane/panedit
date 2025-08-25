@@ -162,7 +162,7 @@ function App() {
               Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Solutions</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
-              Comprehensive automation solutions designed to streamline your operations and accelerate growth
+              Comprehensive automation solutions designed to streamline your operations and accelerate growth. Improve ALL your business processes with AI: Social Media, Legal, Project Management, and More...
             </p>
           </div>
 
