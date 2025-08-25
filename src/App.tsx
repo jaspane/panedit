@@ -434,50 +434,50 @@ function App() {
       {/* Vortex Section */}
       <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="w-full">
-          <div className="w-full h-[40rem] overflow-hidden">
+          <div className="w-full h-[30rem] sm:h-[40rem] overflow-hidden">
             <Vortex
               backgroundColor="black"
               rangeY={800}
               particleCount={500}
               baseHue={220}
-              className="flex items-center flex-col justify-center px-4 md:px-10 py-8 w-full h-full"
+              className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
             >
               <div className="text-center animate-on-scroll">
-                <h2 className="text-white text-3xl md:text-6xl font-bold text-center mb-6">
+                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
                   Experience the Future of
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-2">
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                     AI Automation
                   </span>
                 </h2>
-                <p className="text-white text-lg md:text-2xl max-w-3xl mt-6 text-center mb-8 opacity-90">
+                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
                   Watch as intelligent particles dance around your content, just like our AI solutions seamlessly integrate into your business processes.
                 </p>
                 
                 {/* Stats in Vortex */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 mb-8">
-                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                    <div className="text-3xl font-bold text-blue-400 mb-2">500+</div>
-                    <div className="text-white/80">Businesses Automated</div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 mb-6 sm:mb-8 px-2">
+                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                    <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">500+</div>
+                    <div className="text-white/80 text-sm sm:text-base">Businesses Automated</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                    <div className="text-3xl font-bold text-purple-400 mb-2">95%</div>
-                    <div className="text-white/80">Client Satisfaction</div>
+                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                    <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">95%</div>
+                    <div className="text-white/80 text-sm sm:text-base">Client Satisfaction</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20">
-                    <div className="text-3xl font-bold text-pink-400 mb-2">$2M+</div>
-                    <div className="text-white/80">Cost Savings Generated</div>
+                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">$2M+</div>
+                    <div className="text-white/80 text-sm sm:text-base">Cost Savings Generated</div>
                   </div>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2"
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
                   >
                     <Calendar className="w-5 h-5" />
                     Start Your AI Journey
                   </button>
-                  <button className="px-8 py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300">
+                  <button className="px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300 text-sm sm:text-base w-full sm:w-auto">
                     Watch Demo
                   </button>
                 </div>
