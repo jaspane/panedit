@@ -139,8 +139,8 @@ function App() {
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 animate-on-scroll px-4">
             <div className="text-center p-4">
-              <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">500+</div>
-              <div className="text-sm sm:text-base text-gray-400">Businesses Automated</div>
+              <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">77%</div>
+              <div className="text-sm sm:text-base text-gray-400">AI Global Adoption</div>
             </div>
             <div className="text-center p-4">
               <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">85%</div>
