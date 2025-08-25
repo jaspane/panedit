@@ -438,7 +438,7 @@ function App() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2025 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><a href="https://panedit.com/">Panèdit</a></span>. All rights reserved.</p>
+            <p>&copy; 2025 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><a href="https://panedit.com/"><u></>Panèdit</u>></></a></span>. All rights reserved.</p>
           </div>
         </div>
       </footer>
