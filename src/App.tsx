@@ -23,7 +23,7 @@ function App() {
     firstName: '',
     lastName: '',
     email: '',
-    phone: '+1 ',
+    phone: '',
     company: '',
     message: ''
   });
@@ -53,32 +53,13 @@ function App() {
     // Handle form submission logic here
     console.log('Form submitted:', formData);
     setIsModalOpen(false);
-    setFormData({ firstName: '', lastName: '', email: '', phone: '+1 ', company: '', message: '' });
+    setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', message: '' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    
-    // Handle phone number formatting
-    if (name === 'phone') {
-      // Ensure it always starts with +1
-      let formattedValue = value;
-      if (!formattedValue.startsWith('+1')) {
-        formattedValue = '+1 ' + formattedValue.replace(/^\+?1?\s*/, '');
-      }
-      // Remove any non-digit characters except + and spaces
-      formattedValue = formattedValue.replace(/[^\d+\s]/g, '');
-      
-      setFormData({
-        ...formData,
-        [name]: formattedValue
-      });
-      return;
-    }
-    
     setFormData({
       ...formData,
-      [name]: value
+      [e.target.name]: e.target.value
     });
   };
 
@@ -509,7 +490,7 @@ function App() {
                 <input
                   type="tel"
                   name="phone"
-                 placeholder="+1 555 123 4567"
+                  placeholder="Phone Number (e.g., +1 555 123 4567)"
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
