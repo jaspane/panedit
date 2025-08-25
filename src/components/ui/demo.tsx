@@ -101,7 +101,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="text-gray-400 flex items-center">
                 <MapPin className="w-5 h-5 mr-2 text-gray-400" />
-                San Francisco, CA
+                Las Vegas, NV - USA
               </li>
               <li>
                 <a href="mailto:hello@panedit.com" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
