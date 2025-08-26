@@ -388,6 +388,23 @@ function App() {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
               Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Panèdit</span>
             </h2>
+            
+            {/* Profile Section */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
+                <img 
+                  src="/Profile Picture.png" 
+                  alt="Jasper Panè" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                  Jasper Panè
+                </h3>
+                <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
