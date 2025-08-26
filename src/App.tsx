@@ -422,7 +422,7 @@ function App() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 text-blue-400">Lightning Fast Implementation</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Get your AI systems up and running in days, not months. Our proven methodology ensures rapid deployment with minimal disruption.</p>
+                  <p className="text-sm sm:text-base text-gray-300">Get your AI systems up and running in days, not months. Our proven methodology ensures rapid deployment with minimal disruption. Most Implementation done within 72 Hours after onboarding!</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
