@@ -431,7 +431,7 @@ function App() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 text-purple-400">Precision Targeting</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Our AI algorithms learn from your data to deliver highly targeted results, improving conversion rates by up to 300%. Offline private AI implementation is also available.</p>
+                  <p className="text-sm sm:text-base text-gray-300">Our AI algorithms learn from your data to deliver highly targeted results, improving conversion rates by up to 300%. Offline private AI implementation available.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -440,7 +440,7 @@ function App() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 text-pink-400">Enterprise-Grade Security</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Bank-level encryption and compliance with GDPR, CCPA, and SOC 2 standards ensure your data is always protected. HIPPA Complient is also available for the Medical Sector.</p>
+                  <p className="text-sm sm:text-base text-gray-300">Bank-level encryption and compliance with GDPR, CCPA, and SOC 2 standards ensure your data is always protected. HIPPA Compliant available for Medical Sector.</p>
                 </div>
               </div>
             </div>
