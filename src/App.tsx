@@ -689,15 +689,32 @@ function App() {
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-4">
                   <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                    Success!
+                    Success, {formData.firstName}!
                   </span>
                 </h3>
                 <p className="text-gray-300 text-lg mb-2">
                   Thank you for your consultation request!
                 </p>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  We've received your information and will get back to you within 24 hours to schedule your free AI strategy session.
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  We've received your information and will contact you within 24 hours to schedule your free AI strategy session.
                 </p>
+                
+                {/* Contact Information Display */}
+                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 mb-4">
+                  <p className="text-gray-300 text-sm mb-3 font-medium">We'll reach out to you via:</p>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-center gap-2 text-blue-400">
+                      <Mail className="w-4 h-4" />
+                      <span className="text-sm">{formData.email}</span>
+                    </div>
+                    {formData.phone && (
+                      <div className="flex items-center justify-center gap-2 text-purple-400">
+                        <Phone className="w-4 h-4" />
+                        <span className="text-sm">{formData.phone}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
               
               {/* Action Buttons */}
