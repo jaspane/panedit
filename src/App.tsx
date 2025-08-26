@@ -22,6 +22,11 @@ import {
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [submittedData, setSubmittedData] = useState({
+    firstName: '',
+    email: '',
+    phone: ''
+  });
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -83,6 +88,13 @@ function App() {
         await submitContactForm(submissionData);
         
         console.log('Form submitted successfully!');
+        
+        // Store submitted data for success dialog
+        setSubmittedData({
+          firstName: formData.firstName,
+          email: formData.email,
+          phone: formData.phone
+        });
         
         // Success - close modal and reset form
         setIsModalOpen(false);
@@ -689,7 +701,7 @@ function App() {
               <div className="text-center mb-8">
                 <h3 className="text-2xl font-bold mb-4">
                   <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                    Success, {formData.firstName}!
+                    Success, {submittedData.firstName}!
                   </span>
                 </h3>
                 <p className="text-gray-300 text-lg mb-2">
@@ -705,12 +717,12 @@ function App() {
                   <div className="space-y-2">
                     <div className="flex items-center justify-center gap-2 text-blue-400">
                       <Mail className="w-4 h-4" />
-                      <span className="text-sm">{formData.email}</span>
+                      <span className="text-sm">{submittedData.email}</span>
                     </div>
-                    {formData.phone && (
+                    {submittedData.phone && (
                       <div className="flex items-center justify-center gap-2 text-purple-400">
                         <Phone className="w-4 h-4" />
-                        <span className="text-sm">{formData.phone}</span>
+                        <span className="text-sm">{submittedData.phone}</span>
                       </div>
                     )}
                   </div>
