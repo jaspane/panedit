@@ -399,9 +399,9 @@ function App() {
                 />
               </div>
               <div className="text-center sm:text-left">
-                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
                   Jasper Panè
-                </h3>
+                </h2>
                 <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
               </div>
             </div>
