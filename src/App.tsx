@@ -21,6 +21,7 @@ import {
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -87,8 +88,8 @@ function App() {
         setIsModalOpen(false);
         setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
         
-        // You could add a success toast notification here
-        alert('Thank you! Your consultation request has been submitted successfully.');
+        // Show custom success dialog
+        setShowSuccessDialog(true);
         
       } catch (error) {
         console.error('Form submission error:', error);
@@ -661,6 +662,75 @@ function App() {
         </div>
       )}
     </div>
+      {/* Success Dialog */}
+      {showSuccessDialog && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 p-8 rounded-3xl border border-gray-700 max-w-md w-full relative overflow-hidden">
+            {/* Background glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl"></div>
+            <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+            
+            <div className="relative z-10">
+              <button
+                onClick={() => setShowSuccessDialog(false)}
+                className="absolute -top-2 -right-2 text-gray-400 hover:text-white transition-colors p-2"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              
+              {/* Success Icon */}
+              <div className="flex justify-center mb-6">
+                </div>
+              </div>
+              
+              {/* Success Message */}
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold mb-4">
+                  <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                    Success!
+                  </span>
+                </h3>
+                <p className="text-gray-300 text-lg mb-2">
+                  Thank you for your consultation request!
+                </p>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  We've received your information and will get back to you within 24 hours to schedule your free AI strategy session.
+                </p>
+              </div>
+              
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => setShowSuccessDialog(false)}
+                  className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                >
+                  <CheckCircle className="w-5 h-5" />
+                  Got it!
+                </button>
+                <button
+                  onClick={() => {
+                    setShowSuccessDialog(false);
+                    setIsModalOpen(true);
+                  }}
+                  className="flex-1 border border-gray-600 px-6 py-3 rounded-full font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <Calendar className="w-5 h-5" />
+                  Book Another
+                </button>
+              </div>
+              
+              {/* Additional Info */}
+              <div className="mt-6 pt-6 border-t border-gray-700">
+                <div className="flex items-center justify-center gap-2 text-gray-400 text-sm">
+                  <Star className="w-4 h-4 text-yellow-400" />
+                  <span>We typically respond within 2-4 hours</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
   );
 }
 
