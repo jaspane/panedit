@@ -391,7 +391,7 @@ function App() {
             
             {/* Profile Section */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12">
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
+              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
                 <img 
                   src="/Profile Picture.png" 
                   alt="Jasper Panè" 
@@ -399,7 +399,7 @@ function App() {
                 />
               </div>
               <div className="text-center sm:text-left">
-                <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                <h3 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
                   Jasper Panè
                 </h3>
                 <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
