@@ -661,7 +661,7 @@ function App() {
           </div>
         </div>
       )}
-    </div>
+
       {/* Success Dialog */}
       {showSuccessDialog && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
@@ -680,6 +680,8 @@ function App() {
               
               {/* Success Icon */}
               <div className="flex justify-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+                  <CheckCircle className="w-10 h-10 text-white" />
                 </div>
               </div>
               
@@ -730,7 +732,7 @@ function App() {
           </div>
         </div>
       )}
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
+    </div>
   );
 }
 
