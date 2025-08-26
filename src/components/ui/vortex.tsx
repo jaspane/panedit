@@ -98,6 +98,12 @@ export const Vortex = (props: VortexProps) => {
   };
 
   const draw = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    // Prevent drawing on canvas with zero dimensions
+    if (canvas.width <= 0 || canvas.height <= 0) {
+      window.requestAnimationFrame(() => draw(canvas, ctx));
+      return;
+    }
+
     tick++;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -189,10 +195,13 @@ export const Vortex = (props: VortexProps) => {
     canvas: HTMLCanvasElement,
     ctx?: CanvasRenderingContext2D
   ) => {
-    const { innerWidth, innerHeight } = window;
+    const container = containerRef.current;
+    if (!container) return;
+    
+    const { clientWidth, clientHeight } = container as HTMLElement;
 
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    canvas.width = clientWidth;
+    canvas.height = clientHeight;
 
     center[0] = 0.5 * canvas.width;
     center[1] = 0.5 * canvas.height;
@@ -244,7 +253,7 @@ export const Vortex = (props: VortexProps) => {
         ref={containerRef}
         className="absolute h-full w-full inset-0 z-0 bg-transparent flex items-center justify-center"
       >
-        <canvas ref={canvasRef}></canvas>
+        <canvas ref={canvasRef} className="w-full h-full"></canvas>
       </motion.div>
 
       <div className={cn("relative z-10", props.className)}>
