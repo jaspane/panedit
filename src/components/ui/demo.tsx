@@ -116,6 +116,20 @@ const Footer: React.FC = () => {
                 </a>
               </li>
             </ul>
+            
+            {/* Profile Picture and Thank You Message */}
+            <div className="mt-8 text-center">
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
+                <img 
+                  src="/Profile Picture.png" 
+                  alt="Jasper Panè" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <p className="text-lg font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Thank You for your Time!
+              </p>
+            </div>
           </div>
         </div>
 
