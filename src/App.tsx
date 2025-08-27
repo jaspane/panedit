@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SplashCursor } from '@/components/ui/splash-cursor';
-import { Vortex } from '@/components/ui/vortex';
-import Footer from '@/components/ui/demo';
+import { lazy, Suspense } from 'react';
 import { submitContactForm } from '@/lib/supabase';
 import { 
   Bot, 
@@ -18,6 +16,18 @@ import {
   Award,
   Target
 } from 'lucide-react';
+
+// Lazy load heavy components
+const SplashCursor = lazy(() => import('@/components/ui/splash-cursor').then(module => ({ default: module.SplashCursor })));
+const Vortex = lazy(() => import('@/components/ui/vortex').then(module => ({ default: module.Vortex })));
+const Footer = lazy(() => import('@/components/ui/demo'));
+
+// Loading fallback component
+const ComponentLoader = () => (
+  <div className="flex items-center justify-center p-4">
+    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -142,7 +152,9 @@ function App() {
   };
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
-      <SplashCursor />
+      <Suspense fallback={null}>
+        <SplashCursor />
+      </Suspense>
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -540,56 +552,58 @@ function App() {
       <section className="py-4 sm:py-6 px-4 sm:px-6 relative z-10">
         <div className="w-full">
           <div className="w-full h-[50rem] sm:h-[55rem] overflow-hidden">
-            <Vortex
-              backgroundColor="black"
-              rangeY={800}
-              particleCount={500}
-              baseHue={220}
-              className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
-            >
-              <div className="text-center animate-on-scroll">
-                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
-                  Experience the Future of
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
-                    AI Automation
-                  </span>
-                </h2>
-                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
-                  Watch as intelligent particles dance around your content, just like our AI solutions seamlessly integrate into your business processes.
-                </p>
-                
-                {/* Stats in Vortex */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 mb-6 sm:mb-8 px-2">
-                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">500+</div>
-                    <div className="text-white/80 text-sm sm:text-base">Processes Automated</div>
+            <Suspense fallback={<ComponentLoader />}>
+              <Vortex
+                backgroundColor="black"
+                rangeY={800}
+                particleCount={300}
+                baseHue={220}
+                className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
+              >
+                <div className="text-center animate-on-scroll">
+                  <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
+                    Experience the Future of
+                    <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+                      AI Automation
+                    </span>
+                  </h2>
+                  <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
+                    Watch as intelligent particles dance around your content, just like our AI solutions seamlessly integrate into your business processes.
+                  </p>
+                  
+                  {/* Stats in Vortex */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 mb-6 sm:mb-8 px-2">
+                    <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">500+</div>
+                      <div className="text-white/80 text-sm sm:text-base">Processes Automated</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                      <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">95%</div>
+                      <div className="text-white/80 text-sm sm:text-base">Client Satisfaction</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                      <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">$2M+</div>
+                      <div className="text-white/80 text-sm sm:text-base">Cost Savings Generated</div>
+                    </div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">95%</div>
-                    <div className="text-white/80 text-sm sm:text-base">Client Satisfaction</div>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">$2M+</div>
-                    <div className="text-white/80 text-sm sm:text-base">Cost Savings Generated</div>
+                  
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
+                    >
+                      <Calendar className="w-5 h-5" />
+                      Start Your AI Journey
+                    </button>
+                    <button 
+                      onClick={() => setIsModalOpen(true)}
+                      className="px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300 text-sm sm:text-base w-full sm:w-auto">
+                      Watch Demo
+                    </button>
                   </div>
                 </div>
-                
-                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
-                  >
-                    <Calendar className="w-5 h-5" />
-                    Start Your AI Journey
-                  </button>
-                  <button 
-                    onClick={() => setIsModalOpen(true)}
-                    className="px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300 text-sm sm:text-base w-full sm:w-auto">
-                    Watch Demo
-                  </button>
-                </div>
-              </div>
-            </Vortex>
+              </Vortex>
+            </Suspense>
           </div>
         </div>
       </section>
@@ -633,7 +647,9 @@ function App() {
       </section>
 
       {/* New Footer Component */}
-      <Footer />
+      <Suspense fallback={<ComponentLoader />}>
+        <Footer />
+      </Suspense>
 
       {/* Modal */}
       {isModalOpen && (
