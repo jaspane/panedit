@@ -391,6 +391,77 @@ function App() {
               </ul>
             </div>
           </div>
+            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 group">
+              <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-indigo-400">Proposal Automation</h3>
+              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+                Generate professional proposals automatically with AI-powered content creation, dynamic pricing, and customized templates for faster deal closure.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Dynamic Proposal Generation
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Smart Pricing Optimization
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Template Customization
+                </li>
+              </ul>
+            </div>
+
+            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/10 group">
+              <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Bot className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-yellow-400">Content Creation</h3>
+              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+                Scale your content marketing with AI-powered blog posts, social media content, and marketing materials that maintain your brand voice.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Blog Post Generation
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Social Media Automation
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Brand Voice Consistency
+                </li>
+              </ul>
+            </div>
+
+            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-teal-500/10 group">
+              <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400">Onboarding Automation</h3>
+              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+                Streamline client and employee onboarding with automated workflows, document collection, and personalized welcome sequences.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Automated Welcome Sequences
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Document Collection & Processing
+                </li>
+                <li className="flex items-center gap-2 text-sm text-gray-400">
+                  <CheckCircle className="w-4 h-4 text-green-400" />
+                  Progress Tracking & Reminders
+                </li>
+              </ul>
+            </div>
         </div>
       </section>
 
