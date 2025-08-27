@@ -490,6 +490,7 @@ function App() {
                   Jasper Panè
                 </h3>
                 <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
+                <p className="text-gray-300 text-sm sm:text-base">Las Vegas, NV - USA</p>
               </div>
             </div>
           </div>
