@@ -17,6 +17,13 @@ import {
   Target
 } from 'lucide-react';
 
+// Extend Window interface for YouTube API
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
+  }
+}
 // Lazy load heavy components
 const SplashCursor = lazy(() => 
   import('@/components/ui/splash-cursor').then(module => ({ 
@@ -103,6 +110,45 @@ const App = memo(() => {
       observer.observe(el);
     });
 
+    // YouTube API setup for 1.5x speed
+    const setupYouTubeSpeed = () => {
+      if (window.YT && window.YT.Player) {
+        const video1 = document.getElementById('youtube-video-1');
+        const video2 = document.getElementById('youtube-video-2');
+        
+        if (video1) {
+          const player1 = new window.YT.Player('youtube-video-1', {
+            events: {
+              onReady: (event: any) => {
+                event.target.setPlaybackRate(1.5);
+              }
+            }
+          });
+        }
+        
+        if (video2) {
+          const player2 = new window.YT.Player('youtube-video-2', {
+            events: {
+              onReady: (event: any) => {
+                event.target.setPlaybackRate(1.5);
+              }
+            }
+          });
+        }
+      }
+    };
+
+    // Load YouTube API if not already loaded
+    if (!window.YT) {
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.async = true;
+      document.head.appendChild(script);
+      
+      window.onYouTubeIframeAPIReady = setupYouTubeSpeed;
+    } else {
+      setupYouTubeSpeed();
+    }
     return () => observer.disconnect();
   }, []);
 
@@ -316,11 +362,12 @@ const App = memo(() => {
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/gNZ1gSSluAw"
+                  src="https://www.youtube.com/embed/gNZ1gSSluAw?playsinline=1&enablejsapi=1"
                   title="Panèdit AI Automation Demo"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  id="youtube-video-1"
                 ></iframe>
               </div>
             </div>
@@ -521,12 +568,13 @@ const App = memo(() => {
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/s4QXrW4BAIw"
+                  src="https://www.youtube.com/embed/s4QXrW4BAIw?playsinline=1&enablejsapi=1"
                   title="Panèdit AI Automation Demo"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                   loading="lazy"
+                  id="youtube-video-2"
                 ></iframe>
               </div>
             </div>
