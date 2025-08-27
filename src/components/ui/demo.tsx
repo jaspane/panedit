@@ -104,9 +104,9 @@ const Footer: React.FC = () => {
                 Las Vegas, NV - USA
               </li>
               <li>
-                <a href="mailto:hello@panedit.com" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
+                <a href="mailto:ai@panedit.com" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
                   <Mail className="w-5 h-5 mr-2 text-gray-400" />
-                  hello@panedit.com
+                  ai@panedit.com
                 </a>
               </li>
               <li>
