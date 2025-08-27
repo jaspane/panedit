@@ -100,8 +100,10 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-bold tracking-tight mb-6 text-white">Contact</h4>
             <ul className="space-y-4">
               <li className="text-gray-400 flex items-center">
+                <a href="mailto:ai@panedit.com" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">                
                 <MapPin className="w-5 h-5 mr-2 text-gray-400" />
                 Las Vegas, NV - USA
+                </a>                 
               </li>
               <li>
                 <a href="mailto:ai@panedit.com" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
