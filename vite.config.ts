@@ -10,12 +10,20 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom'],
-          ui: ['framer-motion', 'lucide-react'],
-          utils: ['clsx', 'tailwind-merge']
+          ui: ['framer-motion', 'lucide-react', 'simplex-noise'],
+          utils: ['clsx', 'tailwind-merge'],
+          supabase: ['@supabase/supabase-js']
         }
       }
     },
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   },
   resolve: {
     alias: {
@@ -23,7 +31,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    exclude: ['lucide-react'],
-    include: ['react', 'react-dom', 'framer-motion']
+    include: ['react', 'react-dom', 'framer-motion', 'simplex-noise', '@supabase/supabase-js']
   },
 });

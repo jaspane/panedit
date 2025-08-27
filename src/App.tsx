@@ -1,5 +1,5 @@
 import React, { useState, useEffect, lazy } from 'react';
-import { Suspense } from 'react';
+import { Suspense, memo } from 'react';
 import { submitContactForm } from '@/lib/supabase';
 import { 
   Bot, 
@@ -18,18 +18,56 @@ import {
 } from 'lucide-react';
 
 // Lazy load heavy components
-const SplashCursor = lazy(() => import('@/components/ui/splash-cursor').then(module => ({ default: module.SplashCursor })));
+const SplashCursor = lazy(() => 
+  import('@/components/ui/splash-cursor').then(module => ({ 
+    default: module.SplashCursor 
+  }))
+);
 import { Vortex } from '@/components/ui/vortex';
-const Footer = lazy(() => import('@/components/ui/demo'));
+const Footer = lazy(() => 
+  import('@/components/ui/demo').then(module => ({ 
+    default: module.default 
+  }))
+);
 
 // Loading fallback component
-const ComponentLoader = () => (
+const ComponentLoader = memo(() => (
   <div className="flex items-center justify-center p-4">
     <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
   </div>
-);
+));
+ComponentLoader.displayName = 'ComponentLoader';
 
-function App() {
+// Memoized service card component
+const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hoverColor }: {
+  icon: any;
+  title: string;
+  description: string;
+  items: string[];
+  gradient: string;
+  hoverColor: string;
+}) => (
+  <div className={`animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:${hoverColor} transition-all duration-300 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group`}>
+    <div className={`w-16 h-16 ${gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+      <Icon className="w-8 h-8 text-white" />
+    </div>
+    <h3 className={`text-xl sm:text-2xl font-bold mb-4 text-${hoverColor.split('-')[1]}-400`}>{title}</h3>
+    <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+      {description}
+    </p>
+    <ul className="space-y-2">
+      {items.map((item, idx) => (
+        <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
+          <CheckCircle className="w-4 h-4 text-green-400" />
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+));
+ServiceCard.displayName = 'ServiceCard';
+
+const App = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [submittedData, setSubmittedData] = useState({
@@ -150,6 +188,83 @@ function App() {
       [e.target.name]: e.target.value
     });
   };
+
+  // Service data for rendering
+  const services = [
+    {
+      icon: Bot,
+      title: "AI Chat Agents",
+      description: "Deploy intelligent conversational AI that handles customer inquiries, qualifies leads, and provides 24/7 support with human-like interactions.",
+      items: ["Natural Language Processing", "Multi-platform Integration", "Contextual Conversations"],
+      gradient: "bg-gradient-to-r from-blue-500 to-blue-600",
+      hoverColor: "border-blue-500/50"
+    },
+    {
+      icon: TrendingUp,
+      title: "Lead Generation",
+      description: "Automate your lead generation process with AI-powered prospecting, qualification, and nurturing systems that work around the clock.",
+      items: ["Automated Prospecting", "Lead Scoring & Qualification", "Personalized Outreach"],
+      gradient: "bg-gradient-to-r from-purple-500 to-purple-600",
+      hoverColor: "border-purple-500/50"
+    },
+    {
+      icon: Users,
+      title: "CRM Integration",
+      description: "Seamlessly connect your existing CRM systems with our AI solutions for unified customer data management and automated workflows.",
+      items: ["Salesforce, HubSpot, Pipedrive", "Data Synchronization", "Workflow Automation"],
+      gradient: "bg-gradient-to-r from-pink-500 to-pink-600",
+      hoverColor: "border-pink-500/50"
+    },
+    {
+      icon: Target,
+      title: "Project Management",
+      description: "Streamline project workflows with AI-powered task automation, resource allocation, and intelligent progress tracking for maximum efficiency.",
+      items: ["Automated Task Assignment", "Resource Optimization", "Progress Analytics"],
+      gradient: "bg-gradient-to-r from-green-500 to-green-600",
+      hoverColor: "border-green-500/50"
+    },
+    {
+      icon: Users,
+      title: "Hiring Systems",
+      description: "Transform your recruitment process with AI-driven candidate screening, automated interviews, and intelligent talent matching systems.",
+      items: ["Resume Screening & Ranking", "Automated Interview Scheduling", "Skills Assessment & Matching"],
+      gradient: "bg-gradient-to-r from-orange-500 to-orange-600",
+      hoverColor: "border-orange-500/50"
+    },
+    {
+      icon: TrendingUp,
+      title: "Sales Administration",
+      description: "Optimize your sales operations with AI-powered pipeline management, automated follow-ups, and intelligent sales forecasting tools.",
+      items: ["Pipeline Automation", "Smart Follow-up Sequences", "Sales Forecasting & Analytics"],
+      gradient: "bg-gradient-to-r from-cyan-500 to-cyan-600",
+      hoverColor: "border-cyan-500/50"
+    },
+    {
+      icon: Zap,
+      title: "Proposal Automation",
+      description: "Generate professional proposals automatically with AI-powered content creation, dynamic pricing, and customized templates for faster deal closure.",
+      items: ["Dynamic Proposal Generation", "Smart Pricing Optimization", "Template Customization"],
+      gradient: "bg-gradient-to-r from-indigo-500 to-indigo-600",
+      hoverColor: "border-indigo-500/50"
+    },
+    {
+      icon: Bot,
+      title: "Content Creation",
+      description: "Scale your content marketing with AI-powered blog posts, social media content, and marketing materials that maintain your brand voice.",
+      items: ["Blog Post Generation", "Social Media Automation", "Brand Voice Consistency"],
+      gradient: "bg-gradient-to-r from-yellow-500 to-yellow-600",
+      hoverColor: "border-yellow-500/50"
+    },
+    {
+      icon: Users,
+      title: "Onboarding Automation",
+      description: "Streamline client and employee onboarding with automated workflows, document collection, and personalized welcome sequences.",
+      items: ["Automated Welcome Sequences", "Document Collection & Processing", "Progress Tracking & Reminders"],
+      gradient: "bg-gradient-to-r from-teal-500 to-teal-600",
+      hoverColor: "border-teal-500/50"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
       <Suspense fallback={null}>
@@ -259,223 +374,15 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-blue-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Bot className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-blue-400">AI Chat Agents</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Deploy intelligent conversational AI that handles customer inquiries, qualifies leads, and provides 24/7 support with human-like interactions.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Natural Language Processing
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Multi-platform Integration
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Contextual Conversations
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <TrendingUp className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-purple-400">Lead Generation</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Automate your lead generation process with AI-powered prospecting, qualification, and nurturing systems that work around the clock.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Automated Prospecting
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Lead Scoring & Qualification
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Personalized Outreach
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-pink-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-pink-400">CRM Integration</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Seamlessly connect your existing CRM systems with our AI solutions for unified customer data management and automated workflows.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Salesforce, HubSpot, Pipedrive
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Data Synchronization
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Workflow Automation
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-green-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Target className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-green-400">Project Management</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Streamline project workflows with AI-powered task automation, resource allocation, and intelligent progress tracking for maximum efficiency.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Automated Task Assignment
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Resource Optimization
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Progress Analytics
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-orange-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-orange-400">Hiring Systems</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Transform your recruitment process with AI-driven candidate screening, automated interviews, and intelligent talent matching systems.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Resume Screening & Ranking
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Automated Interview Scheduling
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Skills Assessment & Matching
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <TrendingUp className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-cyan-400">Sales Administration</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Optimize your sales operations with AI-powered pipeline management, automated follow-ups, and intelligent sales forecasting tools.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Pipeline Automation
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Smart Follow-up Sequences
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Sales Forecasting & Analytics
-                </li>
-              </ul>
-            </div>
+            {services.slice(0, 6).map((service, index) => (
+              <ServiceCard key={index} {...service} />
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-8">
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-indigo-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Zap className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-indigo-400">Proposal Automation</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Generate professional proposals automatically with AI-powered content creation, dynamic pricing, and customized templates for faster deal closure.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Dynamic Proposal Generation
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Smart Pricing Optimization
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Template Customization
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-yellow-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Bot className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-yellow-400">Content Creation</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Scale your content marketing with AI-powered blog posts, social media content, and marketing materials that maintain your brand voice.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Blog Post Generation
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Social Media Automation
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Brand Voice Consistency
-                </li>
-              </ul>
-            </div>
-
-            <div className="animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:border-teal-500/50 transition-all duration-300 hover:shadow-xl hover:shadow-teal-500/10 group">
-              <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-teal-400">Onboarding Automation</h3>
-              <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-                Streamline client and employee onboarding with automated workflows, document collection, and personalized welcome sequences.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Automated Welcome Sequences
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Document Collection & Processing
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <CheckCircle className="w-4 h-4 text-green-400" />
-                  Progress Tracking & Reminders
-                </li>
-              </ul>
-            </div>
+            {services.slice(6).map((service, index) => (
+              <ServiceCard key={index + 6} {...service} />
+            ))}
           </div>
         </div>
       </section>
@@ -495,6 +402,7 @@ function App() {
                   src="/Profile Picture.png" 
                   alt="Jasper Panè" 
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
               <div className="text-center sm:text-left">
@@ -513,6 +421,7 @@ function App() {
                 src="https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=800" 
                 alt="AI Technology" 
                 className="rounded-2xl shadow-2xl w-full h-auto"
+                loading="lazy"
               />
             </div>
             <div className="animate-on-scroll space-y-6 sm:space-y-8">
@@ -617,6 +526,7 @@ function App() {
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  loading="lazy"
                 ></iframe>
               </div>
             </div>
@@ -854,6 +764,7 @@ function App() {
       )}
     </div>
   );
-}
+});
+App.displayName = 'App';
 
 export default App;
