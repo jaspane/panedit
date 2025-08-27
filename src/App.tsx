@@ -193,7 +193,7 @@ function App() {
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
               Transform business operations with intelligent AI chat agents, automated lead generation, 
-              and seamless CRM integrations. Scale faster, work smarter.
+               seamless CRM integrations and More... Scale faster, work smarter.
             </p>
             
             {/* YouTube Video 1 */}
