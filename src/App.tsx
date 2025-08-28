@@ -130,7 +130,7 @@ const App = memo(() => {
           const player2 = new window.YT.Player('youtube-video-2', {
             events: {
               onReady: (event: any) => {
-                event.target.setPlaybackRate(1.5);
+                event.target.setPlaybackRate(1);
               }
             }
           });
