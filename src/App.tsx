@@ -110,7 +110,7 @@ const App = memo(() => {
       observer.observe(el);
     });
 
-    // YouTube API setup for 1.5x speed
+    // YouTube API setup for 1x speed
     const setupYouTubeSpeed = () => {
       if (window.YT && window.YT.Player) {
         const video1 = document.getElementById('youtube-video-1');
@@ -120,7 +120,7 @@ const App = memo(() => {
           const player1 = new window.YT.Player('youtube-video-1', {
             events: {
               onReady: (event: any) => {
-                event.target.setPlaybackRate(1.5);
+                event.target.setPlaybackRate(1);
               }
             }
           });
