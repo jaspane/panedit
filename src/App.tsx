@@ -526,8 +526,11 @@ const App = memo(() => {
                   Watch as intelligent particles dance around your content, just like our AI solutions seamlessly integrate into your business processes.
                 </p>
                 <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
-                  Now with 1-Month, 30-Days, Money Back Guarantee!
+                  Now with 1-Month, 30-Days, 
                 </h2>
+                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+                    Money Back Guarantee!
+                  </span>
                 
                 {/* Stats in Vortex */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 mb-6 sm:mb-8 px-2">
