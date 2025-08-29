@@ -588,7 +588,7 @@ const App = memo(() => {
               Ready to <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 px-2">
-              Join hundreds of companies already using AI to scale their operations and accelerate growth.
+              Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 1 Month, 30-Day, Money Back Guarantee!
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
