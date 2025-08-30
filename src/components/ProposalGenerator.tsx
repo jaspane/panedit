@@ -1019,6 +1019,7 @@ const ProposalGenerator: React.FC = () => {
                                <p className="text-xs text-gray-400 line-through">+ {tier.deliverables.length - 2} more key deliverables...</p>
                              </div>
                             </div>
+                            </div>
                           ))}
                         </div>
                     ))}
