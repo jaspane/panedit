@@ -667,12 +667,17 @@ const ProposalGenerator: React.FC = () => {
                     )}
                     
                     <div className="space-y-2 mb-6">
-                      {tier.features.map((feature, idx) => (
+                      {tier.features.slice(0, 4).map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <CheckCircle className="w-4 h-4 text-green-400" />
                           {feature}
                         </div>
                       ))}
+                      {tier.features.length > 4 && (
+                        <div className="text-sm text-gray-500">
+                          +{tier.features.length - 4} more features
+                        </div>
+                      )}
                     </div>
 
                     {/* Monthly Maintenance Option */}
