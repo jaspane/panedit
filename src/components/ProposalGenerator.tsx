@@ -21,7 +21,10 @@ import {
   Star,
   Edit3,
   Save,
-  Plus
+  Plus,
+  Lock,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
 interface ClientData {
@@ -57,6 +60,10 @@ interface ServiceTier {
 }
 
 const ProposalGenerator: React.FC = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [authError, setAuthError] = useState('');
   const [step, setStep] = useState<'form' | 'proposal'>('form');
   const [selectedTier, setSelectedTier] = useState<string>('');
   const [isEditingTiers, setIsEditingTiers] = useState(false);
@@ -178,6 +185,17 @@ const ProposalGenerator: React.FC = () => {
 
   const proposalRef = useRef<HTMLDivElement>(null);
 
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === 'panedit') {
+      setIsAuthenticated(true);
+      setAuthError('');
+    } else {
+      setAuthError('Incorrect password. Please try again.');
+      setPassword('');
+    }
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setClientData({
       ...clientData,
@@ -255,6 +273,86 @@ const ProposalGenerator: React.FC = () => {
       minimumFractionDigits: 0
     }).format(amount);
   };
+
+  // Password Protection Screen
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white flex items-center justify-center px-4">
+        <div className="max-w-md w-full">
+          <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 shadow-2xl">
+            {/* Lock Icon */}
+            <div className="flex justify-center mb-6">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                <Lock className="w-10 h-10 text-white" />
+              </div>
+            </div>
+            
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h1 className="text-2xl font-bold mb-2">
+                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  Proposal Generator
+                </span>
+              </h1>
+              <p className="text-gray-300">
+                This tool is password protected. Please enter the access code to continue.
+              </p>
+            </div>
+            
+            {/* Password Form */}
+            <form onSubmit={handlePasswordSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Access Code
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setAuthError('');
+                    }}
+                    className="w-full px-4 py-3 pr-12 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
+                    placeholder="Enter password"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  </button>
+                </div>
+                {authError && (
+                  <p className="mt-2 text-sm text-red-400 flex items-center gap-2">
+                    <X className="w-4 h-4" />
+                    {authError}
+                  </p>
+                )}
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+              >
+                <Lock className="w-5 h-5" />
+                Access Proposal Generator
+              </button>
+            </form>
+            
+            {/* Footer */}
+            <div className="mt-8 pt-6 border-t border-gray-700 text-center">
+              <p className="text-gray-400 text-sm">
+                Authorized personnel only. Contact admin for access.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (step === 'form') {
     return (
@@ -463,8 +561,8 @@ const ProposalGenerator: React.FC = () => {
                       {isSelected ? (
                         <CheckCircle className="w-8 h-8 text-green-400" />
                       ) : (
-                        <div className="w-8 h-8 border-2 border-gray-500 rounded-full flex items-center justify-center">
-                          <X className="w-5 h-5 text-gray-500" />
+                        <div className="w-8 h-8 border-2 border-gray-500 rounded-full flex items-center justify-center bg-gray-700/50">
+                          <X className="w-5 h-5 text-gray-400" />
                         </div>
                       )}
                     </div>
