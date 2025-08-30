@@ -283,7 +283,8 @@ const ProposalGenerator: React.FC = () => {
             {/* Exit Button */}
             <button
               onClick={() => {
-                window.location.href = 'https://panedit.com';
+                window.location.hash = '';
+                window.location.reload();
               }}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-lg"
             >
@@ -355,7 +356,8 @@ const ProposalGenerator: React.FC = () => {
             {/* Exit to Homepage Button */}
             <button
               onClick={() => {
-                window.location.href = 'https://panedit.com';
+                window.location.hash = '';
+                window.location.reload();
               }}
               className="w-full mt-4 border border-gray-600 py-3 rounded-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2"
             >
