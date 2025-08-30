@@ -85,7 +85,7 @@ const ProposalGenerator: React.FC = () => {
     {
       id: 'foundations',
       name: 'AI Foundations',
-      price: 2500,
+      price: 3750, // 50% of AI Transformations (7500 * 0.5)
       duration: '2-4 weeks',
       description: 'Perfect for businesses starting their AI journey with essential automation tools.',
       features: [
@@ -150,7 +150,7 @@ const ProposalGenerator: React.FC = () => {
     {
       id: 'enterprise',
       name: 'AI Enterprise',
-      price: 15000,
+      price: 30000, // 4X AI Transformations (7500 * 4)
       duration: '8-12 weeks',
       description: 'Enterprise-grade AI ecosystem with custom solutions and dedicated support.',
       features: [
