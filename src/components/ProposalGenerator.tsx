@@ -675,7 +675,7 @@ const ProposalGenerator: React.FC = () => {
                         </div>
                       ))}
                       
-                      <h5 className="font-semibold text-gray-200 text-sm mb-3 mt-4">Extra Features:</h5>
+                      <h5 className="font-semibold text-gray-200 text-sm mb-3 mt-4">Included Features:</h5>
                       {tier.deliverables.map((deliverable, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <Award className="w-4 h-4 text-blue-400" />
