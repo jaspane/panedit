@@ -280,6 +280,16 @@ const ProposalGenerator: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white flex items-center justify-center px-4">
         <div className="max-w-md w-full">
           <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 shadow-2xl">
+            {/* Exit Button */}
+            <button
+              onClick={() => {
+                window.location.href = 'https://panedit.com';
+              }}
+              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-lg"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
             {/* Lock Icon */}
             <div className="flex justify-center mb-6">
               <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
@@ -341,6 +351,17 @@ const ProposalGenerator: React.FC = () => {
                 Access Proposal Generator
               </button>
             </form>
+            
+            {/* Exit to Homepage Button */}
+            <button
+              onClick={() => {
+                window.location.href = 'https://panedit.com';
+              }}
+              className="w-full mt-4 border border-gray-600 py-3 rounded-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <ArrowLeft className="w-5 h-5" />
+              Return to Homepage
+            </button>
             
             {/* Footer */}
             <div className="mt-8 pt-6 border-t border-gray-700 text-center">
