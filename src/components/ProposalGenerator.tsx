@@ -1228,6 +1228,7 @@ const ProposalGenerator: React.FC = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
