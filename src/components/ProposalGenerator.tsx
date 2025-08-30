@@ -243,6 +243,26 @@ const ProposalGenerator: React.FC = () => {
     ));
   };
 
+  const calculateTierPrices = () => {
+    setServiceTiers(prev => {
+      const transformationsPrice = prev.find(t => t.id === 'transformations')?.price || 7500;
+      
+      return prev.map(tier => {
+        if (tier.id === 'foundations') {
+          return { ...tier, price: Math.round(transformationsPrice * 0.5) };
+        } else if (tier.id === 'enterprise') {
+          return { ...tier, price: transformationsPrice * 4 };
+        }
+        return tier;
+      });
+    });
+  };
+
+  const handleSaveChanges = () => {
+    calculateTierPrices();
+    setIsEditingTiers(false);
+  };
+
   const generateProposal = () => {
     if (!selectedTier) {
       alert('Please select a service tier to generate a proposal.');
@@ -535,7 +555,7 @@ const ProposalGenerator: React.FC = () => {
                 Select Service Tier
               </h2>
               <button
-                onClick={() => setIsEditingTiers(!isEditingTiers)}
+                onClick={() => isEditingTiers ? handleSaveChanges() : setIsEditingTiers(true)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
                   isEditingTiers 
                     ? 'bg-green-600 hover:bg-green-700' 
