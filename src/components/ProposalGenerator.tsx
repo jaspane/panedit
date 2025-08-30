@@ -667,17 +667,12 @@ const ProposalGenerator: React.FC = () => {
                     )}
                     
                     <div className="space-y-2 mb-6">
-                      {tier.features.slice(0, 4).map((feature, idx) => (
+                      {tier.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <CheckCircle className="w-4 h-4 text-green-400" />
                           {feature}
                         </div>
                       ))}
-                      {tier.features.length > 4 && (
-                        <div className="text-sm text-gray-500">
-                          +{tier.features.length - 4} more features
-                        </div>
-                      )}
                     </div>
 
                     {/* Monthly Maintenance Option */}
@@ -937,11 +932,6 @@ const ProposalGenerator: React.FC = () => {
                   <div className="space-y-3">
                     {selectedTierData.features.map((feature, idx) => (
                       <div key={idx} className="flex items-center gap-3 text-gray-600">
-                        <CheckCircle className="w-5 h-5 text-green-500" />
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
                 </div>
                 
                 <div>
@@ -1009,17 +999,12 @@ const ProposalGenerator: React.FC = () => {
                     <p className="text-gray-500 text-sm mb-4 line-through">{tier.description}</p>
                     
                     <div className="space-y-2">
-                      {tier.features.slice(0, 3).map((feature, idx) => (
+                      {tier.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
                           <X className="w-4 h-4 text-red-400" />
                           <span className="line-through">{feature}</span>
                         </div>
                       ))}
-                      {tier.features.length > 3 && (
-                        <div className="text-sm text-gray-400 line-through">
-                          +{tier.features.length - 3} more features
-                        </div>
-                      )}
                     </div>
                   </div>
                 </div>
