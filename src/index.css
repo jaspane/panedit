@@ -117,3 +117,47 @@ button, a, input, textarea {
 .pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
+/* Print styles for proposal generator */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .print\\:hidden {
+    display: none !important;
+  }
+  
+  .print\\:pt-8 {
+    padding-top: 2rem !important;
+  }
+  
+  /* Ensure proper page breaks */
+  .page-break {
+    page-break-before: always;
+  }
+  
+  /* Hide interactive elements */
+  button:not(.print-visible),
+  .fixed,
+  .sticky {
+    display: none !important;
+  }
+  
+  /* Optimize colors for print */
+  .bg-gradient-to-r,
+  .bg-gradient-to-br {
+    background: white !important;
+    color: black !important;
+  }
+  
+  /* Ensure text is readable */
+  .text-white {
+    color: black !important;
+  }
+  
+  .text-gray-300,
+  .text-gray-400 {
+    color: #374151 !important;
+  }
+}

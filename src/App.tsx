@@ -1,6 +1,7 @@
 import React, { useState, useEffect, lazy } from 'react';
 import { Suspense, memo } from 'react';
 import { submitContactForm } from '@/lib/supabase';
+import ProposalGenerator from '@/components/ProposalGenerator';
 import { 
   Bot, 
   TrendingUp, 
@@ -75,6 +76,7 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
 ServiceCard.displayName = 'ServiceCard';
 
 const App = memo(() => {
+  const [currentPage, setCurrentPage] = useState<'home' | 'proposal'>('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [submittedData, setSubmittedData] = useState({
@@ -94,6 +96,21 @@ const App = memo(() => {
   });
 
   useEffect(() => {
+    // Handle hash navigation for proposal page
+    const handleHashChange = () => {
+      if (window.location.hash === '#proposal') {
+        setCurrentPage('proposal');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    // Check initial hash
+    handleHashChange();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+
     // Add smooth scrolling animation observer
     const observer = new IntersectionObserver(
       (entries) => {
@@ -149,7 +166,11 @@ const App = memo(() => {
     } else {
       setupYouTubeSpeed();
     }
-    return () => observer.disconnect();
+    
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('hashchange', handleHashChange);
+    };
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -235,6 +256,50 @@ const App = memo(() => {
     });
   };
 
+  // Show proposal generator if on proposal page
+  if (currentPage === 'proposal') {
+    return (
+      <div>
+        <nav className="relative z-50 px-6 py-4 bg-black/20 backdrop-blur-md border-b border-gray-800">
+          <div className="max-w-7xl mx-auto flex justify-between items-center">
+            <button
+              onClick={() => {
+                setCurrentPage('home');
+                window.location.hash = '';
+              }}
+              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
+            >
+              Panèdit
+            </button>
+            <div className="hidden md:flex space-x-8">
+              <button 
+                onClick={() => {
+                  setCurrentPage('home');
+                  window.location.hash = '';
+                }}
+                className="hover:text-blue-400 transition-colors"
+              >
+                Home
+              </button>
+              <button 
+                onClick={() => setCurrentPage('proposal')}
+                className="text-blue-400"
+              >
+                Proposal
+              </button>
+            </div>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+            >
+              Book a Call
+            </button>
+          </div>
+        </nav>
+        <ProposalGenerator />
+      </div>
+    );
+  }
   // Service data for rendering
   const services = [
     {
@@ -332,6 +397,15 @@ const App = memo(() => {
             <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
             <a href="#features" className="hover:text-blue-400 transition-colors">Features</a>
             <a href="#about" className="hover:text-blue-400 transition-colors">About</a>
+            <button 
+              onClick={() => {
+                setCurrentPage('proposal');
+                window.location.hash = 'proposal';
+              }}
+              className="hover:text-blue-400 transition-colors"
+            >
+              Proposal
+            </button>
           </div>
           <button
             onClick={() => setIsModalOpen(true)}

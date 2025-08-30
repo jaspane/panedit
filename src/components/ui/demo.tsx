@@ -84,10 +84,19 @@ const Footer: React.FC = () => {
                 "Case Studies",
                 "Blog",
                 "Careers",
-                "Contact"
+                "Contact",
+                "Proposal"
               ].map((item, idx) => (
                 <li key={idx}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group">
+                  <a 
+                    href={item === "Proposal" ? "#" : "#"} 
+                    onClick={item === "Proposal" ? (e) => {
+                      e.preventDefault();
+                      // This will need to be handled by the parent component
+                      window.location.hash = 'proposal';
+                    } : undefined}
+                    className="text-gray-400 hover:text-white transition-colors duration-300 flex items-center group"
+                  >
                     <span className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 mr-2 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                     {item}
                   </a>
