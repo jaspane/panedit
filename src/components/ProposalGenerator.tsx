@@ -18,7 +18,10 @@ import {
   Bot,
   Shield,
   Clock,
-  Star
+  Star,
+  Edit3,
+  Save,
+  Plus
 } from 'lucide-react';
 
 interface ClientData {
@@ -38,7 +41,7 @@ interface ClientData {
 interface ServiceTier {
   id: string;
   name: string;
-  price: string;
+  price: number;
   duration: string;
   description: string;
   features: string[];
@@ -46,11 +49,17 @@ interface ServiceTier {
   icon: any;
   gradient: string;
   popular?: boolean;
+  monthlyMaintenance?: {
+    enabled: boolean;
+    price: number;
+    description: string;
+  };
 }
 
 const ProposalGenerator: React.FC = () => {
   const [step, setStep] = useState<'form' | 'proposal'>('form');
-  const [selectedTiers, setSelectedTiers] = useState<string[]>([]);
+  const [selectedTier, setSelectedTier] = useState<string>('');
+  const [isEditingTiers, setIsEditingTiers] = useState(false);
   const [clientData, setClientData] = useState<ClientData>({
     companyName: '',
     contactName: '',
@@ -65,13 +74,11 @@ const ProposalGenerator: React.FC = () => {
     budget: ''
   });
 
-  const proposalRef = useRef<HTMLDivElement>(null);
-
-  const serviceTiers: ServiceTier[] = [
+  const [serviceTiers, setServiceTiers] = useState<ServiceTier[]>([
     {
       id: 'foundations',
       name: 'AI Foundations',
-      price: '$2,500',
+      price: 2500,
       duration: '2-4 weeks',
       description: 'Perfect for businesses starting their AI journey with essential automation tools.',
       features: [
@@ -91,12 +98,17 @@ const ProposalGenerator: React.FC = () => {
         'Training documentation'
       ],
       icon: Bot,
-      gradient: 'from-blue-500 to-blue-600'
+      gradient: 'from-blue-500 to-blue-600',
+      monthlyMaintenance: {
+        enabled: false,
+        price: 299,
+        description: 'Ongoing system monitoring, updates, and basic support'
+      }
     },
     {
       id: 'transformations',
       name: 'AI Transformations',
-      price: '$7,500',
+      price: 7500,
       duration: '4-8 weeks',
       description: 'Comprehensive AI automation suite for growing businesses ready to scale operations.',
       features: [
@@ -121,12 +133,17 @@ const ProposalGenerator: React.FC = () => {
       ],
       icon: TrendingUp,
       gradient: 'from-purple-500 to-purple-600',
-      popular: true
+      popular: true,
+      monthlyMaintenance: {
+        enabled: false,
+        price: 599,
+        description: 'Advanced monitoring, optimization, and priority support'
+      }
     },
     {
       id: 'enterprise',
       name: 'AI Enterprise',
-      price: '$15,000',
+      price: 15000,
       duration: '8-12 weeks',
       description: 'Enterprise-grade AI ecosystem with custom solutions and dedicated support.',
       features: [
@@ -150,9 +167,16 @@ const ProposalGenerator: React.FC = () => {
         'Quarterly optimization reviews'
       ],
       icon: Award,
-      gradient: 'from-pink-500 to-pink-600'
+      gradient: 'from-pink-500 to-pink-600',
+      monthlyMaintenance: {
+        enabled: false,
+        price: 1299,
+        description: 'White-glove service with dedicated account management'
+      }
     }
-  ];
+  ]);
+
+  const proposalRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setClientData({
@@ -161,17 +185,49 @@ const ProposalGenerator: React.FC = () => {
     });
   };
 
-  const toggleTier = (tierId: string) => {
-    setSelectedTiers(prev => 
-      prev.includes(tierId) 
-        ? prev.filter(id => id !== tierId)
-        : [...prev, tierId]
-    );
+  const selectTier = (tierId: string) => {
+    setSelectedTier(selectedTier === tierId ? '' : tierId);
+  };
+
+  const toggleMaintenance = (tierId: string) => {
+    setServiceTiers(prev => prev.map(tier => 
+      tier.id === tierId 
+        ? {
+            ...tier,
+            monthlyMaintenance: {
+              ...tier.monthlyMaintenance!,
+              enabled: !tier.monthlyMaintenance!.enabled
+            }
+          }
+        : tier
+    ));
+  };
+
+  const updateTierField = (tierId: string, field: string, value: any) => {
+    setServiceTiers(prev => prev.map(tier => 
+      tier.id === tierId 
+        ? { ...tier, [field]: value }
+        : tier
+    ));
+  };
+
+  const updateMaintenanceField = (tierId: string, field: string, value: any) => {
+    setServiceTiers(prev => prev.map(tier => 
+      tier.id === tierId 
+        ? {
+            ...tier,
+            monthlyMaintenance: {
+              ...tier.monthlyMaintenance!,
+              [field]: value
+            }
+          }
+        : tier
+    ));
   };
 
   const generateProposal = () => {
-    if (selectedTiers.length === 0) {
-      alert('Please select at least one service tier to generate a proposal.');
+    if (!selectedTier) {
+      alert('Please select a service tier to generate a proposal.');
       return;
     }
     setStep('proposal');
@@ -182,14 +238,14 @@ const ProposalGenerator: React.FC = () => {
   };
 
   const calculateTotal = () => {
-    return selectedTiers.reduce((total, tierId) => {
-      const tier = serviceTiers.find(t => t.id === tierId);
-      if (tier) {
-        const price = parseInt(tier.price.replace(/[$,]/g, ''));
-        return total + price;
-      }
-      return total;
-    }, 0);
+    const selectedTierData = serviceTiers.find(t => t.id === selectedTier);
+    if (!selectedTierData) return 0;
+    
+    let total = selectedTierData.price;
+    if (selectedTierData.monthlyMaintenance?.enabled) {
+      total += selectedTierData.monthlyMaintenance.price;
+    }
+    return total;
   };
 
   const formatCurrency = (amount: number) => {
@@ -203,7 +259,7 @@ const ProposalGenerator: React.FC = () => {
   if (step === 'form') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-8 px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -352,25 +408,47 @@ const ProposalGenerator: React.FC = () => {
 
           {/* Service Tier Selection */}
           <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 mb-8">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <Target className="w-6 h-6 text-purple-400" />
-              Select Service Tiers
-            </h2>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Target className="w-6 h-6 text-purple-400" />
+                Select Service Tier
+              </h2>
+              <button
+                onClick={() => setIsEditingTiers(!isEditingTiers)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                  isEditingTiers 
+                    ? 'bg-green-600 hover:bg-green-700' 
+                    : 'bg-blue-600 hover:bg-blue-700'
+                }`}
+              >
+                {isEditingTiers ? (
+                  <>
+                    <Save className="w-4 h-4" />
+                    Save Changes
+                  </>
+                ) : (
+                  <>
+                    <Edit3 className="w-4 h-4" />
+                    Edit Tiers
+                  </>
+                )}
+              </button>
+            </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {serviceTiers.map((tier) => {
-                const isSelected = selectedTiers.includes(tier.id);
+                const isSelected = selectedTier === tier.id;
                 const Icon = tier.icon;
                 
                 return (
                   <div
                     key={tier.id}
-                    onClick={() => toggleTier(tier.id)}
-                    className={`relative cursor-pointer p-6 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 ${
+                    className={`relative p-6 rounded-2xl border-2 transition-all duration-300 ${
                       isSelected 
-                        ? `border-${tier.gradient.split('-')[1]}-500 bg-gradient-to-br ${tier.gradient}/10` 
+                        ? `border-${tier.gradient.split('-')[1]}-500 bg-gradient-to-br ${tier.gradient}/10 shadow-lg` 
                         : 'border-gray-600 bg-gray-800/30 hover:border-gray-500'
-                    }`}
+                    } ${!isEditingTiers ? 'cursor-pointer hover:scale-105' : ''}`}
+                    onClick={!isEditingTiers ? () => selectTier(tier.id) : undefined}
                   >
                     {tier.popular && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
@@ -395,12 +473,57 @@ const ProposalGenerator: React.FC = () => {
                       <Icon className="w-8 h-8 text-white" />
                     </div>
                     
-                    <h3 className="text-xl font-bold mb-2">{tier.name}</h3>
-                    <div className="text-3xl font-bold text-blue-400 mb-2">{tier.price}</div>
-                    <div className="text-sm text-gray-400 mb-4">{tier.duration}</div>
-                    <p className="text-gray-300 mb-4 text-sm">{tier.description}</p>
+                    {/* Editable Tier Name */}
+                    {isEditingTiers ? (
+                      <input
+                        type="text"
+                        value={tier.name}
+                        onChange={(e) => updateTierField(tier.id, 'name', e.target.value)}
+                        className="w-full text-xl font-bold mb-2 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-white"
+                      />
+                    ) : (
+                      <h3 className="text-xl font-bold mb-2">{tier.name}</h3>
+                    )}
                     
-                    <div className="space-y-2">
+                    {/* Editable Price */}
+                    {isEditingTiers ? (
+                      <div className="mb-2">
+                        <input
+                          type="number"
+                          value={tier.price}
+                          onChange={(e) => updateTierField(tier.id, 'price', parseInt(e.target.value) || 0)}
+                          className="w-full text-3xl font-bold text-blue-400 bg-gray-700 border border-gray-600 rounded px-2 py-1"
+                        />
+                      </div>
+                    ) : (
+                      <div className="text-3xl font-bold text-blue-400 mb-2">{formatCurrency(tier.price)}</div>
+                    )}
+                    
+                    {/* Editable Duration */}
+                    {isEditingTiers ? (
+                      <input
+                        type="text"
+                        value={tier.duration}
+                        onChange={(e) => updateTierField(tier.id, 'duration', e.target.value)}
+                        className="w-full text-sm text-gray-400 mb-4 bg-gray-700 border border-gray-600 rounded px-2 py-1"
+                      />
+                    ) : (
+                      <div className="text-sm text-gray-400 mb-4">{tier.duration}</div>
+                    )}
+                    
+                    {/* Editable Description */}
+                    {isEditingTiers ? (
+                      <textarea
+                        value={tier.description}
+                        onChange={(e) => updateTierField(tier.id, 'description', e.target.value)}
+                        className="w-full text-gray-300 mb-4 text-sm bg-gray-700 border border-gray-600 rounded px-2 py-1 resize-none"
+                        rows={3}
+                      />
+                    ) : (
+                      <p className="text-gray-300 mb-4 text-sm">{tier.description}</p>
+                    )}
+                    
+                    <div className="space-y-2 mb-6">
                       {tier.features.slice(0, 4).map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <CheckCircle className="w-4 h-4 text-green-400" />
@@ -413,25 +536,89 @@ const ProposalGenerator: React.FC = () => {
                         </div>
                       )}
                     </div>
+
+                    {/* Monthly Maintenance Option */}
+                    <div className="border-t border-gray-600 pt-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-sm font-medium text-gray-300">Monthly Maintenance</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleMaintenance(tier.id);
+                          }}
+                          className={`w-12 h-6 rounded-full transition-all duration-300 ${
+                            tier.monthlyMaintenance?.enabled 
+                              ? 'bg-green-500' 
+                              : 'bg-gray-600'
+                          }`}
+                        >
+                          <div className={`w-5 h-5 bg-white rounded-full transition-all duration-300 ${
+                            tier.monthlyMaintenance?.enabled 
+                              ? 'translate-x-6' 
+                              : 'translate-x-0.5'
+                          }`}></div>
+                        </button>
+                      </div>
+                      
+                      {tier.monthlyMaintenance?.enabled && (
+                        <div className="space-y-2">
+                          {isEditingTiers ? (
+                            <>
+                              <input
+                                type="number"
+                                value={tier.monthlyMaintenance.price}
+                                onChange={(e) => updateMaintenanceField(tier.id, 'price', parseInt(e.target.value) || 0)}
+                                className="w-full text-lg font-bold text-green-400 bg-gray-700 border border-gray-600 rounded px-2 py-1"
+                                onClick={(e) => e.stopPropagation()}
+                              />
+                              <textarea
+                                value={tier.monthlyMaintenance.description}
+                                onChange={(e) => updateMaintenanceField(tier.id, 'description', e.target.value)}
+                                className="w-full text-xs text-gray-400 bg-gray-700 border border-gray-600 rounded px-2 py-1 resize-none"
+                                rows={2}
+                                onClick={(e) => e.stopPropagation()}
+                              />
+                            </>
+                          ) : (
+                            <>
+                              <div className="text-lg font-bold text-green-400">
+                                {formatCurrency(tier.monthlyMaintenance.price)}/month
+                              </div>
+                              <p className="text-xs text-gray-400">
+                                {tier.monthlyMaintenance.description}
+                              </p>
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 );
               })}
             </div>
 
-            {selectedTiers.length > 0 && (
+            {selectedTier && (
               <div className="mt-8 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
                 <div className="flex justify-between items-center">
                   <div>
-                    <h3 className="text-lg font-semibold text-white">Selected Services</h3>
+                    <h3 className="text-lg font-semibold text-white">Selected Service</h3>
                     <p className="text-gray-300">
-                      {selectedTiers.length} tier{selectedTiers.length > 1 ? 's' : ''} selected
+                      {serviceTiers.find(t => t.id === selectedTier)?.name}
+                      {serviceTiers.find(t => t.id === selectedTier)?.monthlyMaintenance?.enabled && 
+                        ' + Monthly Maintenance'
+                      }
                     </p>
                   </div>
                   <div className="text-right">
                     <div className="text-2xl font-bold text-blue-400">
                       {formatCurrency(calculateTotal())}
                     </div>
-                    <div className="text-sm text-gray-400">Total Investment</div>
+                    <div className="text-sm text-gray-400">
+                      {serviceTiers.find(t => t.id === selectedTier)?.monthlyMaintenance?.enabled 
+                        ? 'Setup + First Month' 
+                        : 'Total Investment'
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
@@ -442,7 +629,7 @@ const ProposalGenerator: React.FC = () => {
           <div className="text-center">
             <button
               onClick={generateProposal}
-              disabled={!clientData.companyName || !clientData.contactName || !clientData.email || selectedTiers.length === 0}
+              disabled={!clientData.companyName || !clientData.contactName || !clientData.email || !selectedTier}
               className="bg-gradient-to-r from-blue-500 to-purple-500 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 mx-auto"
             >
               <Target className="w-6 h-6" />
@@ -453,6 +640,8 @@ const ProposalGenerator: React.FC = () => {
       </div>
     );
   }
+
+  const selectedTierData = serviceTiers.find(t => t.id === selectedTier);
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -575,56 +764,76 @@ const ProposalGenerator: React.FC = () => {
           </div>
         </div>
 
-        {/* Selected Services */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-            <Star className="w-6 h-6 text-purple-600" />
-            Recommended Solutions
-          </h3>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {serviceTiers
-              .filter(tier => selectedTiers.includes(tier.id))
-              .map((tier) => {
-                const Icon = tier.icon;
-                return (
-                  <div key={tier.id} className="bg-white border-2 border-gray-200 rounded-2xl p-6 shadow-lg">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${tier.gradient} rounded-xl flex items-center justify-center`}>
-                        <Icon className="w-6 h-6 text-white" />
+        {/* Selected Service */}
+        {selectedTierData && (
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+              <Star className="w-6 h-6 text-purple-600" />
+              Recommended Solution
+            </h3>
+            
+            <div className="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${selectedTierData.gradient} rounded-xl flex items-center justify-center`}>
+                    <selectedTierData.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-2xl font-bold text-gray-800">{selectedTierData.name}</h4>
+                    <div className="text-sm text-gray-500">{selectedTierData.duration}</div>
+                  </div>
+                </div>
+                <CheckCircle className="w-12 h-12 text-green-500" />
+              </div>
+              
+              <p className="text-gray-700 mb-6">{selectedTierData.description}</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h5 className="font-semibold text-gray-800 text-lg mb-4">Key Features:</h5>
+                  <div className="space-y-3">
+                    {selectedTierData.features.map((feature, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-gray-600">
+                        <CheckCircle className="w-5 h-5 text-green-500" />
+                        {feature}
                       </div>
-                      <CheckCircle className="w-8 h-8 text-green-500" />
-                    </div>
-                    
-                    <h4 className="text-xl font-bold text-gray-800 mb-2">{tier.name}</h4>
-                    <div className="text-2xl font-bold text-blue-600 mb-2">{tier.price}</div>
-                    <div className="text-sm text-gray-500 mb-4">{tier.duration}</div>
-                    <p className="text-gray-700 mb-4 text-sm">{tier.description}</p>
-                    
-                    <div className="space-y-2">
-                      <h5 className="font-semibold text-gray-800 text-sm">Key Features:</h5>
-                      {tier.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
-                          <CheckCircle className="w-3 h-3 text-green-500" />
-                          {feature}
-                        </div>
-                      ))}
-                    </div>
-                    
-                    <div className="mt-4 space-y-2">
-                      <h5 className="font-semibold text-gray-800 text-sm">Deliverables:</h5>
-                      {tier.deliverables.map((deliverable, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
-                          <Award className="w-3 h-3 text-blue-500" />
-                          {deliverable}
-                        </div>
-                      ))}
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h5 className="font-semibold text-gray-800 text-lg mb-4">Deliverables:</h5>
+                  <div className="space-y-3">
+                    {selectedTierData.deliverables.map((deliverable, idx) => (
+                      <div key={idx} className="flex items-center gap-3 text-gray-600">
+                        <Award className="w-5 h-5 text-blue-500" />
+                        {deliverable}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Monthly Maintenance Display */}
+              {selectedTierData.monthlyMaintenance?.enabled && (
+                <div className="mt-8 p-6 bg-green-50 rounded-xl border border-green-200">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Shield className="w-6 h-6 text-green-600" />
+                    <h5 className="font-semibold text-green-800 text-lg">Monthly Maintenance Included</h5>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-green-700 text-sm">
+                      {selectedTierData.monthlyMaintenance.description}
+                    </p>
+                    <div className="text-xl font-bold text-green-600">
+                      {formatCurrency(selectedTierData.monthlyMaintenance.price)}/month
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Investment Summary */}
         <div className="mb-12">
@@ -635,17 +844,29 @@ const ProposalGenerator: React.FC = () => {
           
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-2xl border border-blue-200">
             <div className="space-y-4">
-              {serviceTiers
-                .filter(tier => selectedTiers.includes(tier.id))
-                .map((tier) => (
-                  <div key={tier.id} className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0">
+              {selectedTierData && (
+                <>
+                  <div className="flex justify-between items-center py-3 border-b border-gray-200">
                     <div>
-                      <span className="font-semibold text-gray-800">{tier.name}</span>
-                      <span className="text-gray-600 ml-2">({tier.duration})</span>
+                      <span className="font-semibold text-gray-800">{selectedTierData.name}</span>
+                      <span className="text-gray-600 ml-2">({selectedTierData.duration})</span>
                     </div>
-                    <span className="font-bold text-blue-600">{tier.price}</span>
+                    <span className="font-bold text-blue-600">{formatCurrency(selectedTierData.price)}</span>
                   </div>
-                ))}
+                  
+                  {selectedTierData.monthlyMaintenance?.enabled && (
+                    <div className="flex justify-between items-center py-3 border-b border-gray-200">
+                      <div>
+                        <span className="font-semibold text-gray-800">Monthly Maintenance</span>
+                        <span className="text-gray-600 ml-2">(First Month)</span>
+                      </div>
+                      <span className="font-bold text-green-600">
+                        {formatCurrency(selectedTierData.monthlyMaintenance.price)}
+                      </span>
+                    </div>
+                  )}
+                </>
+              )}
               
               <div className="flex justify-between items-center pt-4 border-t-2 border-blue-200">
                 <span className="text-xl font-bold text-gray-800">Total Investment</span>
@@ -653,6 +874,12 @@ const ProposalGenerator: React.FC = () => {
                   {formatCurrency(calculateTotal())}
                 </span>
               </div>
+              
+              {selectedTierData?.monthlyMaintenance?.enabled && (
+                <div className="text-sm text-gray-600 text-center pt-2">
+                  Ongoing maintenance: {formatCurrency(selectedTierData.monthlyMaintenance.price)}/month after first month
+                </div>
+              )}
             </div>
             
             <div className="mt-6 p-4 bg-green-50 rounded-xl border border-green-200">
@@ -680,28 +907,28 @@ const ProposalGenerator: React.FC = () => {
               <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold">1</div>
               <div>
                 <h4 className="font-semibold text-gray-800">Discovery & Planning (Week 1)</h4>
-                <p className="text-gray-600 text-sm">Requirements analysis, system audit, and implementation roadmap</p>
+                <p className="text-gray-600">Requirements analysis, system audit, and implementation roadmap</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
               <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
               <div>
                 <h4 className="font-semibold text-gray-800">Development & Integration (Weeks 2-6)</h4>
-                <p className="text-gray-600 text-sm">AI system development, testing, and integration with existing tools</p>
+                <p className="text-gray-600">AI system development, testing, and integration with existing tools</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
               <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold">3</div>
               <div>
                 <h4 className="font-semibold text-gray-800">Training & Launch (Weeks 7-8)</h4>
-                <p className="text-gray-600 text-sm">Team training, system optimization, and full deployment</p>
+                <p className="text-gray-600">Team training, system optimization, and full deployment</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
               <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">4</div>
               <div>
                 <h4 className="font-semibold text-gray-800">Ongoing Support</h4>
-                <p className="text-gray-600 text-sm">Continuous monitoring, optimization, and dedicated support</p>
+                <p className="text-gray-600">Continuous monitoring, optimization, and dedicated support</p>
               </div>
             </div>
           </div>
