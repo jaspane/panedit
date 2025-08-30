@@ -976,6 +976,54 @@ const ProposalGenerator: React.FC = () => {
           </div>
         )}
 
+        {/* Non-Selected Services */}
+        <div className="mb-12">
+          <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+            <X className="w-6 h-6 text-red-600" />
+            Alternative Solutions (Not Selected)
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {serviceTiers
+              .filter(tier => tier.id !== selectedTier)
+              .map((tier) => (
+                <div key={tier.id} className="relative bg-gray-50 p-6 rounded-xl border border-gray-200 opacity-60">
+                  {/* Large X Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <X className="w-32 h-32 text-red-500 opacity-30" strokeWidth={3} />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`w-12 h-12 bg-gradient-to-r ${tier.gradient} rounded-xl flex items-center justify-center opacity-50`}>
+                        <tier.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-bold text-gray-600 line-through">{tier.name}</h4>
+                        <div className="text-2xl font-bold text-gray-500 line-through">{formatCurrency(tier.price)}</div>
+                      </div>
+                    </div>
+                    
+                    <p className="text-gray-500 text-sm mb-4 line-through">{tier.description}</p>
+                    
+                    <div className="space-y-2">
+                      {tier.features.slice(0, 3).map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
+                          <X className="w-4 h-4 text-red-400" />
+                          <span className="line-through">{feature}</span>
+                        </div>
+                      ))}
+                      {tier.features.length > 3 && (
+                        <div className="text-sm text-gray-400 line-through">
+                          +{tier.features.length - 3} more features
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
         {/* Investment Summary */}
         <div className="mb-12">
           <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
