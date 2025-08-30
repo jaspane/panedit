@@ -998,14 +998,26 @@ const ProposalGenerator: React.FC = () => {
                     {selectedTierData.deliverables.map((deliverable, idx) => (
                       <div key={idx} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
                         <div className="flex items-center gap-3 mb-2">
-                          <Award className="w-5 h-5 text-blue-500" />
-                          <span className="font-semibold text-gray-800">{deliverable.keyDeliverable}</span>
-                        </div>
-                        <div className="ml-8 space-y-1">
-                          {deliverable.includedFeatures.map((feature, featureIdx) => (
-                            <div key={featureIdx} className="flex items-center gap-2 text-sm text-gray-600">
-                              <CheckCircle className="w-3 h-3 text-green-500" />
-                              {feature}
+                             <div className="space-y-4">
+                               {tier.deliverables.slice(0, 2).map((deliverable, deliverableIdx) => (
+                                 <div key={deliverableIdx} className="border-l-4 border-gray-300 pl-4">
+                                   <h5 className="font-semibold text-gray-600 mb-1 flex items-center gap-2 line-through">
+                                     <X className="w-4 h-4 text-red-400" />
+                                     {deliverable.title}
+                                   </h5>
+                                   <p className="text-sm text-gray-500 mb-2 line-through">{deliverable.description}</p>
+                                   <ul className="space-y-1 ml-4">
+                                     {deliverable.features.slice(0, 2).map((feature, featureIdx) => (
+                                       <li key={featureIdx} className="flex items-start gap-2 text-xs text-gray-400 line-through">
+                                         <X className="w-3 h-3 text-red-300 mt-1 flex-shrink-0" />
+                                         <span>{feature}</span>
+                                       </li>
+                                     ))}
+                                   </ul>
+                                 </div>
+                               ))}
+                               <p className="text-xs text-gray-400 line-through">+ {tier.deliverables.length - 2} more key deliverables...</p>
+                             </div>
                             </div>
                           ))}
                         </div>
