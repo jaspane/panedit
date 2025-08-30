@@ -264,9 +264,9 @@ const App = memo(() => {
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <button
               onClick={() => {
-                setCurrentPage('home');
                 window.location.hash = '';
-              }}
+                window.location.reload();
+              }} 
               className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
               Panèdit
