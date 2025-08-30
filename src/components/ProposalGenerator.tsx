@@ -1048,7 +1048,6 @@ const ProposalGenerator: React.FC = () => {
           </div>
         )}
 
-        {/* Non-Selected Services */}
         <div className="mb-12">
           <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
             <X className="w-6 h-6 text-red-600" />
