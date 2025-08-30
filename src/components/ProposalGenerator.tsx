@@ -47,8 +47,8 @@ interface ServiceTier {
   price: number;
   duration: string;
   description: string;
-  features: string[];
   deliverables: string[];
+  features: string[];
   icon: any;
   gradient: string;
   popular?: boolean;
@@ -88,14 +88,6 @@ const ProposalGenerator: React.FC = () => {
       price: 3750, // 50% of AI Transformations (7500 * 0.5)
       duration: '2-4 weeks',
       description: 'Perfect for businesses starting their AI journey with essential automation tools.',
-      features: [
-        'AI Chat Agent Setup',
-        'Basic Lead Qualification',
-        'Email Automation',
-        'CRM Integration (1 platform)',
-        'Performance Analytics',
-        '30-day support'
-      ],
       deliverables: [
         'Configured AI chat agent',
         'Lead qualification system',
@@ -104,6 +96,15 @@ const ProposalGenerator: React.FC = () => {
         'Analytics dashboard',
         'Training documentation'
       ],
+      features: [
+        'AI Chat Agent Setup',
+        'Basic Lead Qualification',
+        'Email Automation',
+        'CRM Integration (1 platform)',
+        'Performance Analytics',
+        '30-day support'
+      ],
+
       icon: Bot,
       gradient: 'from-blue-500 to-blue-600',
       monthlyMaintenance: {
@@ -118,16 +119,6 @@ const ProposalGenerator: React.FC = () => {
       price: 7500,
       duration: '4-8 weeks',
       description: 'Comprehensive AI automation suite for growing businesses ready to scale operations.',
-      features: [
-        'Advanced AI Chat Agents',
-        'Multi-channel Lead Generation',
-        'Automated Proposal Creation',
-        'Advanced CRM Workflows',
-        'Sales Pipeline Automation',
-        'Content Generation System',
-        'Performance Optimization',
-        '90-day support'
-      ],
       deliverables: [
         'Multi-platform AI agents',
         'Lead generation system',
@@ -137,6 +128,16 @@ const ProposalGenerator: React.FC = () => {
         'Content creation tools',
         'Optimization reports',
         'Staff training program'
+      ],
+      features: [
+        'Advanced AI Chat Agents',
+        'Multi-channel Lead Generation',
+        'Automated Proposal Creation',
+        'Advanced CRM Workflows',
+        'Sales Pipeline Automation',
+        'Content Generation System',
+        'Performance Optimization',
+        '90-day support'
       ],
       icon: TrendingUp,
       gradient: 'from-purple-500 to-purple-600',
