@@ -671,7 +671,7 @@ const ProposalGenerator: React.FC = () => {
                       {tier.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <CheckCircle className="w-4 h-4 text-green-400" />
-                          {deliverable}
+                          {feature}
                         </div>
                       ))}
                       
@@ -679,7 +679,7 @@ const ProposalGenerator: React.FC = () => {
                       {tier.deliverables.map((deliverable, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <Award className="w-4 h-4 text-blue-400" />
-                          {feature}
+                          {deliverable}
                         </div>
                       ))}
                     </div>
