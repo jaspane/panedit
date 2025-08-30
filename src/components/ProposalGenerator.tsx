@@ -667,19 +667,19 @@ const ProposalGenerator: React.FC = () => {
                     )}
                     
                     <div className="space-y-2 mb-6 flex-grow">
-                      <h5 className="font-semibold text-gray-200 text-sm mb-3">KeyFeatures:</h5>
+                      <h5 className="font-semibold text-gray-200 text-sm mb-3">Key Deliverables:</h5>
                       {tier.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <CheckCircle className="w-4 h-4 text-green-400" />
-                          {feature}
+                          {deliverable}
                         </div>
                       ))}
                       
-                      <h5 className="font-semibold text-gray-200 text-sm mb-3 mt-4">Deliverables:</h5>
+                      <h5 className="font-semibold text-gray-200 text-sm mb-3 mt-4">Extra Features:</h5>
                       {tier.deliverables.map((deliverable, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <Award className="w-4 h-4 text-blue-400" />
-                          {deliverable}
+                          {feature}
                         </div>
                       ))}
                     </div>
