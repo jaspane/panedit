@@ -910,7 +910,7 @@ const ProposalGenerator: React.FC = () => {
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
               <Star className="w-6 h-6 text-purple-600" />
-              Recommended Solution
+              Your Selected Solution
             </h3>
             
             <div className="bg-white border-2 border-gray-200 rounded-2xl p-8 shadow-lg">
