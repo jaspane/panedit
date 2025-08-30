@@ -153,16 +153,6 @@ const ProposalGenerator: React.FC = () => {
       price: 30000, // 4X AI Transformations (7500 * 4)
       duration: '8-12 weeks',
       description: 'Enterprise-grade AI ecosystem with custom solutions and dedicated support.',
-      features: [
-        'Custom AI Solutions',
-        'Enterprise CRM Integration',
-        'Advanced Analytics & BI',
-        'Multi-department Automation',
-        'Custom API Development',
-        'Security & Compliance',
-        'Dedicated Account Manager',
-        '1-year premium support'
-      ],
       deliverables: [
         'Custom AI ecosystem',
         'Enterprise integrations',
@@ -173,6 +163,17 @@ const ProposalGenerator: React.FC = () => {
         'Dedicated support team',
         'Quarterly optimization reviews'
       ],
+      features: [
+        'Custom AI Solutions',
+        'Enterprise CRM Integration',
+        'Advanced Analytics & BI',
+        'Multi-department Automation',
+        'Custom API Development',
+        'Security & Compliance',
+        'Dedicated Account Manager',
+        '1-year premium support'
+      ],
+
       icon: Award,
       gradient: 'from-pink-500 to-pink-600',
       monthlyMaintenance: {
