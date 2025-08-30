@@ -590,7 +590,7 @@ const ProposalGenerator: React.FC = () => {
                       isSelected 
                         ? `border-${tier.gradient.split('-')[1]}-500 bg-gradient-to-br ${tier.gradient}/10 shadow-lg` 
                         : 'border-gray-600 bg-gray-800/30 hover:border-gray-500'
-                    } ${!isEditingTiers ? 'cursor-pointer hover:scale-105' : ''}`}
+                    } ${!isEditingTiers ? 'cursor-pointer hover:scale-105' : ''} min-h-[600px] flex flex-col`}
                     onClick={!isEditingTiers ? () => selectTier(tier.id) : undefined}
                   >
                     {tier.popular && (
@@ -666,22 +666,26 @@ const ProposalGenerator: React.FC = () => {
                       <p className="text-gray-300 mb-4 text-sm">{tier.description}</p>
                     )}
                     
-                    <div className="space-y-2 mb-6">
-                      {tier.features.slice(0, 4).map((feature, idx) => (
+                    <div className="space-y-2 mb-6 flex-grow">
+                      <h5 className="font-semibold text-gray-200 text-sm mb-3">Features:</h5>
+                      {tier.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                           <CheckCircle className="w-4 h-4 text-green-400" />
                           {feature}
                         </div>
                       ))}
-                      {tier.features.length > 4 && (
-                        <div className="text-sm text-gray-500">
-                          +{tier.features.length - 4} more features
+                      
+                      <h5 className="font-semibold text-gray-200 text-sm mb-3 mt-4">Deliverables:</h5>
+                      {tier.deliverables.map((deliverable, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-gray-400">
+                          <Award className="w-4 h-4 text-blue-400" />
+                          {deliverable}
                         </div>
-                      )}
+                      ))}
                     </div>
 
                     {/* Monthly Maintenance Option */}
-                    <div className="border-t border-gray-600 pt-4">
+                    <div className="border-t border-gray-600 pt-4 mt-auto">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-sm font-medium text-gray-300">Monthly Maintenance</span>
                         <button
