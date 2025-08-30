@@ -97,12 +97,22 @@ const ProposalGenerator: React.FC = () => {
         '30-day support'
       ],
       deliverables: [
-        'Configured AI chat agent',
-        'Lead qualification system',
-        'Email automation workflows',
-        'CRM integration',
-        'Analytics dashboard',
-        'Training documentation'
+        {
+          keyDeliverable: 'AI Chat Agent System',
+          includedFeatures: ['24/7 customer support bot', 'Lead qualification workflows', 'Multi-platform integration']
+        },
+        {
+          keyDeliverable: 'Lead Management System',
+          includedFeatures: ['Automated lead scoring', 'Email nurture sequences', 'CRM data sync']
+        },
+        {
+          keyDeliverable: 'Analytics & Reporting',
+          includedFeatures: ['Performance dashboard', 'Conversion tracking', 'Monthly reports']
+        },
+        {
+          keyDeliverable: 'Training & Documentation',
+          includedFeatures: ['Staff training sessions', 'User manuals', 'Video tutorials']
+        }
       ],
       icon: Bot,
       gradient: 'from-blue-500 to-blue-600',
@@ -129,14 +139,30 @@ const ProposalGenerator: React.FC = () => {
         '90-day support'
       ],
       deliverables: [
-        'Multi-platform AI agents',
-        'Lead generation system',
-        'Proposal automation',
-        'Advanced CRM workflows',
-        'Sales pipeline automation',
-        'Content creation tools',
-        'Optimization reports',
-        'Staff training program'
+        {
+          keyDeliverable: 'Advanced AI Agent Network',
+          includedFeatures: ['Multi-channel deployment', 'Advanced NLP capabilities', 'Custom conversation flows']
+        },
+        {
+          keyDeliverable: 'Automated Lead Generation',
+          includedFeatures: ['Prospect identification', 'Outreach automation', 'Lead scoring algorithms']
+        },
+        {
+          keyDeliverable: 'Proposal & Sales Automation',
+          includedFeatures: ['Dynamic proposal generation', 'Sales pipeline automation', 'Follow-up sequences']
+        },
+        {
+          keyDeliverable: 'Content Creation System',
+          includedFeatures: ['Blog post automation', 'Social media content', 'Email templates']
+        },
+        {
+          keyDeliverable: 'Advanced Analytics Platform',
+          includedFeatures: ['Real-time dashboards', 'Performance optimization', 'ROI tracking']
+        },
+        {
+          keyDeliverable: 'Comprehensive Training Program',
+          includedFeatures: ['Team workshops', 'Documentation suite', 'Ongoing support']
+        }
       ],
       icon: TrendingUp,
       gradient: 'from-purple-500 to-purple-600',
@@ -164,14 +190,38 @@ const ProposalGenerator: React.FC = () => {
         '1-year premium support'
       ],
       deliverables: [
-        'Custom AI ecosystem',
-        'Enterprise integrations',
-        'Advanced analytics platform',
-        'Multi-department workflows',
-        'Custom APIs',
-        'Security implementation',
-        'Dedicated support team',
-        'Quarterly optimization reviews'
+        {
+          keyDeliverable: 'Custom AI Ecosystem',
+          includedFeatures: ['Tailored AI solutions', 'Enterprise architecture', 'Scalable infrastructure']
+        },
+        {
+          keyDeliverable: 'Enterprise Integration Suite',
+          includedFeatures: ['Multi-CRM connectivity', 'ERP integration', 'Legacy system bridges']
+        },
+        {
+          keyDeliverable: 'Advanced Analytics & BI Platform',
+          includedFeatures: ['Executive dashboards', 'Predictive analytics', 'Custom reporting']
+        },
+        {
+          keyDeliverable: 'Multi-Department Automation',
+          includedFeatures: ['Cross-functional workflows', 'Department-specific tools', 'Process optimization']
+        },
+        {
+          keyDeliverable: 'Custom API Development',
+          includedFeatures: ['Bespoke integrations', 'Third-party connectors', 'API documentation']
+        },
+        {
+          keyDeliverable: 'Enterprise Security & Compliance',
+          includedFeatures: ['Security audits', 'Compliance frameworks', 'Data protection protocols']
+        },
+        {
+          keyDeliverable: 'Dedicated Support Team',
+          includedFeatures: ['Account manager', 'Technical specialists', 'Priority support']
+        },
+        {
+          keyDeliverable: 'Quarterly Business Reviews',
+          includedFeatures: ['Performance analysis', 'Optimization recommendations', 'Strategic planning']
+        }
       ],
       icon: Award,
       gradient: 'from-pink-500 to-pink-600',
@@ -946,9 +996,19 @@ const ProposalGenerator: React.FC = () => {
                   <h5 className="font-semibold text-gray-800 text-lg mb-4">Deliverables:</h5>
                   <div className="space-y-3">
                     {selectedTierData.deliverables.map((deliverable, idx) => (
-                      <div key={idx} className="flex items-center gap-3 text-gray-600">
-                        <Award className="w-5 h-5 text-blue-500" />
-                        {deliverable}
+                      <div key={idx} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                        <div className="flex items-center gap-3 mb-2">
+                          <Award className="w-5 h-5 text-blue-500" />
+                          <span className="font-semibold text-gray-800">{deliverable.keyDeliverable}</span>
+                        </div>
+                        <div className="ml-8 space-y-1">
+                          {deliverable.includedFeatures.map((feature, featureIdx) => (
+                            <div key={featureIdx} className="flex items-center gap-2 text-sm text-gray-600">
+                              <CheckCircle className="w-3 h-3 text-green-500" />
+                              {feature}
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     ))}
                   </div>
