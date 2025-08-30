@@ -283,8 +283,8 @@ const ProposalGenerator: React.FC = () => {
             {/* Exit Button */}
             <button
               onClick={() => {
-                window.location.hash = '';
-                window.location.reload();
+               window.history.pushState({}, '', '/');
+               window.location.reload();
               }}
               className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 hover:bg-gray-700 rounded-lg"
             >
