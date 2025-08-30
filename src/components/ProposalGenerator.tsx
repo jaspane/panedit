@@ -97,22 +97,12 @@ const ProposalGenerator: React.FC = () => {
         '30-day support'
       ],
       deliverables: [
-        {
-          keyDeliverable: 'AI Chat Agent System',
-          includedFeatures: ['24/7 customer support bot', 'Lead qualification workflows', 'Multi-platform integration']
-        },
-        {
-          keyDeliverable: 'Lead Management System',
-          includedFeatures: ['Automated lead scoring', 'Email nurture sequences', 'CRM data sync']
-        },
-        {
-          keyDeliverable: 'Analytics & Reporting',
-          includedFeatures: ['Performance dashboard', 'Conversion tracking', 'Monthly reports']
-        },
-        {
-          keyDeliverable: 'Training & Documentation',
-          includedFeatures: ['Staff training sessions', 'User manuals', 'Video tutorials']
-        }
+        'Configured AI chat agent',
+        'Lead qualification system',
+        'Email automation workflows',
+        'CRM integration',
+        'Analytics dashboard',
+        'Training documentation'
       ],
       icon: Bot,
       gradient: 'from-blue-500 to-blue-600',
@@ -139,30 +129,14 @@ const ProposalGenerator: React.FC = () => {
         '90-day support'
       ],
       deliverables: [
-        {
-          keyDeliverable: 'Advanced AI Agent Network',
-          includedFeatures: ['Multi-channel deployment', 'Advanced NLP capabilities', 'Custom conversation flows']
-        },
-        {
-          keyDeliverable: 'Automated Lead Generation',
-          includedFeatures: ['Prospect identification', 'Outreach automation', 'Lead scoring algorithms']
-        },
-        {
-          keyDeliverable: 'Proposal & Sales Automation',
-          includedFeatures: ['Dynamic proposal generation', 'Sales pipeline automation', 'Follow-up sequences']
-        },
-        {
-          keyDeliverable: 'Content Creation System',
-          includedFeatures: ['Blog post automation', 'Social media content', 'Email templates']
-        },
-        {
-          keyDeliverable: 'Advanced Analytics Platform',
-          includedFeatures: ['Real-time dashboards', 'Performance optimization', 'ROI tracking']
-        },
-        {
-          keyDeliverable: 'Comprehensive Training Program',
-          includedFeatures: ['Team workshops', 'Documentation suite', 'Ongoing support']
-        }
+        'Multi-platform AI agents',
+        'Lead generation system',
+        'Proposal automation',
+        'Advanced CRM workflows',
+        'Sales pipeline automation',
+        'Content creation tools',
+        'Optimization reports',
+        'Staff training program'
       ],
       icon: TrendingUp,
       gradient: 'from-purple-500 to-purple-600',
@@ -190,38 +164,14 @@ const ProposalGenerator: React.FC = () => {
         '1-year premium support'
       ],
       deliverables: [
-        {
-          keyDeliverable: 'Custom AI Ecosystem',
-          includedFeatures: ['Tailored AI solutions', 'Enterprise architecture', 'Scalable infrastructure']
-        },
-        {
-          keyDeliverable: 'Enterprise Integration Suite',
-          includedFeatures: ['Multi-CRM connectivity', 'ERP integration', 'Legacy system bridges']
-        },
-        {
-          keyDeliverable: 'Advanced Analytics & BI Platform',
-          includedFeatures: ['Executive dashboards', 'Predictive analytics', 'Custom reporting']
-        },
-        {
-          keyDeliverable: 'Multi-Department Automation',
-          includedFeatures: ['Cross-functional workflows', 'Department-specific tools', 'Process optimization']
-        },
-        {
-          keyDeliverable: 'Custom API Development',
-          includedFeatures: ['Bespoke integrations', 'Third-party connectors', 'API documentation']
-        },
-        {
-          keyDeliverable: 'Enterprise Security & Compliance',
-          includedFeatures: ['Security audits', 'Compliance frameworks', 'Data protection protocols']
-        },
-        {
-          keyDeliverable: 'Dedicated Support Team',
-          includedFeatures: ['Account manager', 'Technical specialists', 'Priority support']
-        },
-        {
-          keyDeliverable: 'Quarterly Business Reviews',
-          includedFeatures: ['Performance analysis', 'Optimization recommendations', 'Strategic planning']
-        }
+        'Custom AI ecosystem',
+        'Enterprise integrations',
+        'Advanced analytics platform',
+        'Multi-department workflows',
+        'Custom APIs',
+        'Security implementation',
+        'Dedicated support team',
+        'Quarterly optimization reviews'
       ],
       icon: Award,
       gradient: 'from-pink-500 to-pink-600',
@@ -996,32 +946,10 @@ const ProposalGenerator: React.FC = () => {
                   <h5 className="font-semibold text-gray-800 text-lg mb-4">Deliverables:</h5>
                   <div className="space-y-3">
                     {selectedTierData.deliverables.map((deliverable, idx) => (
-                      <div key={idx} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                        <div className="flex items-center gap-3 mb-2">
-                             <div className="space-y-4">
-                               {tier.deliverables.slice(0, 2).map((deliverable, deliverableIdx) => (
-                                 <div key={deliverableIdx} className="border-l-4 border-gray-300 pl-4">
-                                   <h5 className="font-semibold text-gray-600 mb-1 flex items-center gap-2 line-through">
-                                     <X className="w-4 h-4 text-red-400" />
-                                     {deliverable.title}
-                                   </h5>
-                                   <p className="text-sm text-gray-500 mb-2 line-through">{deliverable.description}</p>
-                                   <ul className="space-y-1 ml-4">
-                                     {deliverable.features.slice(0, 2).map((feature, featureIdx) => (
-                                       <li key={featureIdx} className="flex items-start gap-2 text-xs text-gray-400 line-through">
-                                         <X className="w-3 h-3 text-red-300 mt-1 flex-shrink-0" />
-                                         <span>{feature}</span>
-                                       </li>
-                                     ))}
-                                   </ul>
-                                 </div>
-                               ))}
-                               <p className="text-xs text-gray-400 line-through">+ {tier.deliverables.length - 2} more key deliverables...</p>
-                             </div>
-                            </div>
-                            </div>
-                          ))}
-                        </div>
+                      <div key={idx} className="flex items-center gap-3 text-gray-600">
+                        <Award className="w-5 h-5 text-blue-500" />
+                        {deliverable}
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1048,6 +976,7 @@ const ProposalGenerator: React.FC = () => {
           </div>
         )}
 
+        {/* Non-Selected Services */}
         <div className="mb-12">
           <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
             <X className="w-6 h-6 text-red-600" />
@@ -1227,7 +1156,6 @@ const ProposalGenerator: React.FC = () => {
         </div>
       </div>
     </div>
-    </>
   );
 };
 
