@@ -441,6 +441,7 @@ const App = memo(() => {
             <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
             <a href="#features" className="hover:text-blue-400 transition-colors">Features</a>
             <a href="#about" className="hover:text-blue-400 transition-colors">About</a>
+            <a href="#faq" className="hover:text-blue-400 transition-colors">FAQ</a>
             <button 
               onClick={() => {
                 setCurrentPage('proposal');
@@ -733,7 +734,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+      <section id="faq" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
