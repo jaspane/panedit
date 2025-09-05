@@ -18,7 +18,9 @@ import {
   Target,
   ChevronDown,
   ChevronUp,
-  HelpCircle
+  HelpCircle,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 // Extend Window interface for YouTube API
@@ -83,6 +85,7 @@ const App = memo(() => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [submittedData, setSubmittedData] = useState({
     firstName: '',
     email: '',
@@ -100,6 +103,12 @@ const App = memo(() => {
   });
 
   useEffect(() => {
+    // Load theme preference from localStorage
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === 'dark');
+    }
+
     // Handle hash navigation for proposal page
     const handleHashChange = () => {
       if (window.location.hash === '#proposal') {
@@ -176,6 +185,13 @@ const App = memo(() => {
       window.removeEventListener('hashchange', handleHashChange);
     };
   }, []);
+
+  // Toggle theme function
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -421,33 +437,55 @@ const App = memo(() => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white">
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDarkMode 
+        ? 'bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white' 
+        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
+    }`}>
       <Suspense fallback={null}>
         <SplashCursor />
       </Suspense>
       {/* Animated Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse ${
+          isDarkMode ? 'bg-blue-500/10' : 'bg-blue-500/5'
+        }`}></div>
+        <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000 ${
+          isDarkMode ? 'bg-purple-500/10' : 'bg-purple-500/5'
+        }`}></div>
       </div>
 
       {/* Navigation */}
-      <nav className="relative z-50 px-6 py-4 bg-black/20 backdrop-blur-md border-b border-gray-800">
+      <nav className={`relative z-50 px-6 py-4 backdrop-blur-md border-b transition-colors duration-300 ${
+        isDarkMode 
+          ? 'bg-black/20 border-gray-800' 
+          : 'bg-white/20 border-gray-200'
+      }`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
             Panèdit
           </div>
           <div className="hidden md:flex space-x-8">
-            <a href="#services" className="hover:text-blue-400 transition-colors">Services</a>
-            <a href="#features" className="hover:text-blue-400 transition-colors">Features</a>
-            <a href="#about" className="hover:text-blue-400 transition-colors">About</a>
-            <a href="#faq" className="hover:text-blue-400 transition-colors">FAQ</a>
+            <a href="#services" className={`hover:text-blue-400 transition-colors ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>Services</a>
+            <a href="#features" className={`hover:text-blue-400 transition-colors ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>Features</a>
+            <a href="#about" className={`hover:text-blue-400 transition-colors ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>About</a>
+            <a href="#faq" className={`hover:text-blue-400 transition-colors ${
+              isDarkMode ? 'text-white' : 'text-gray-900'
+            }`}>FAQ</a>
             <button 
               onClick={() => {
                 setCurrentPage('proposal');
                 window.location.hash = 'proposal';
               }}
-              className="hover:text-blue-400 transition-colors"
+              className={`hover:text-blue-400 transition-colors ${
+                isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}
             >
               Proposal
             </button>
@@ -478,7 +516,9 @@ const App = memo(() => {
             
             {/* YouTube Video 1 */}
             <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
-              <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
+              <div className={`relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border transition-colors duration-300 ${
+                isDarkMode ? 'border-gray-700' : 'border-gray-300'
+              }`}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
                   src="https://www.youtube.com/embed/RGproKPJ_Dg?playsinline=1&enablejsapi=1&cc_load_policy=1"
@@ -501,7 +541,9 @@ const App = memo(() => {
               </button>
               <a
                 href="#features"
-                className="border border-gray-600 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center gap-2 w-full sm:w-auto justify-center"
+                className={`border px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center gap-2 w-full sm:w-auto justify-center ${
+                  isDarkMode ? 'border-gray-600 text-white' : 'border-gray-400 text-gray-900'
+                }`}
               >
                 Learn More
                 <ArrowRight className="w-5 h-5" />
@@ -513,15 +555,15 @@ const App = memo(() => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 animate-on-scroll px-4">
             <div className="text-center p-4">
               <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">77%</div>
-              <div className="text-sm sm:text-base text-gray-400">AI Global Adoption</div>
+              <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>AI Global Adoption</div>
             </div>
             <div className="text-center p-4">
               <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">85%</div>
-              <div className="text-sm sm:text-base text-gray-400">Average Cost Reduction</div>
+              <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Average Cost Reduction</div>
             </div>
             <div className="text-center p-4">
               <div className="text-3xl sm:text-4xl font-bold text-pink-400 mb-2">24/7</div>
-              <div className="text-sm sm:text-base text-gray-400">AI-Powered Support</div>
+              <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>AI-Powered Support</div>
             </div>
           </div>
         </div>
@@ -810,7 +852,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
 
       {/* New Footer Component */}
       <Suspense fallback={<ComponentLoader />}>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
       </Suspense>
 
       {/* Modal */}
