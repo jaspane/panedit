@@ -648,7 +648,7 @@ const App = memo(() => {
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/UPfZnpBJdB4?playsinline=1&enablejsapi=1"
+                  src="https://www.youtube.com/embed/UPfZnpBJdB4?playsinline=1&enablejsapi=1?cc_load_policy=1"
                   title="Panèdit AI Automation Demo"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
