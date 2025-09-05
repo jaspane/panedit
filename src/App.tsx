@@ -598,8 +598,13 @@ const App = memo(() => {
                 </h2>
                 <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
                   Unlike other companies who just waste your time and money on products you don't want or need,
-Panèdit focuses on perfecting your systems first, then we supercharge it with AI. We Consult and Improve Your Business Process Before Adding Onto It. Our goal is singular: Increase Your Profits!
+Panèdit focuses on perfecting your systems first, then we supercharge it with AI. 
                 </p>
+                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
+                We Consult and Improve Your Business Process Before Adding Onto It. Our goal is singular: Increase Your Profits!
+                </p>
+
+
                 <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
                   Now with 1-Month, 30-Days, 
                 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
