@@ -15,7 +15,10 @@ import {
   X,
   Star,
   Award,
-  Target
+  Target,
+  ChevronDown,
+  ChevronUp,
+  HelpCircle
 } from 'lucide-react';
 
 // Extend Window interface for YouTube API
@@ -79,6 +82,7 @@ const App = memo(() => {
   const [currentPage, setCurrentPage] = useState<'home' | 'proposal'>('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [submittedData, setSubmittedData] = useState({
     firstName: '',
     email: '',
@@ -255,6 +259,46 @@ const App = memo(() => {
       [e.target.name]: e.target.value
     });
   };
+
+  const toggleFaq = (index: number) => {
+    setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  // FAQ data
+  const faqs = [
+    {
+      question: "How quickly can AI automation be implemented in my business?",
+      answer: "Most AI automation systems can be implemented within 2-8 weeks, depending on complexity. Our AI Foundations package typically takes 2-4 weeks, while comprehensive AI Transformations require 4-8 weeks. We provide a detailed timeline during our initial consultation and keep you updated throughout the process."
+    },
+    {
+      question: "What if my team isn't tech-savvy? Will they be able to use the AI systems?",
+      answer: "Absolutely! Our AI solutions are designed with user-friendliness in mind. We provide comprehensive training for your team and create intuitive interfaces that require minimal technical knowledge. Most users can start benefiting from the systems within hours of training, not days or weeks."
+    },
+    {
+      question: "How much can I expect to save with AI automation?",
+      answer: "Our clients typically see 60-85% reduction in manual tasks and 40-70% cost savings within the first 6 months. The exact savings depend on your current processes, but most businesses see ROI within 3-4 months. We provide detailed ROI projections during our consultation."
+    },
+    {
+      question: "Will AI automation integrate with my existing software and CRM?",
+      answer: "Yes! We specialize in seamless integrations with popular platforms like Salesforce, HubSpot, Pipedrive, Monday.com, and many others. Our team conducts a thorough audit of your current systems to ensure smooth integration without disrupting your existing workflows."
+    },
+    {
+      question: "What happens if the AI makes mistakes or doesn't work as expected?",
+      answer: "We include a 30-day money-back guarantee and provide ongoing monitoring and optimization. Our AI systems are designed with safeguards and human oversight options. We also provide 24/7 support and can quickly adjust or fine-tune the systems based on your feedback and performance data."
+    },
+    {
+      question: "Is my business data secure with AI automation?",
+      answer: "Security is our top priority. We use bank-level encryption, comply with GDPR, CCPA, and SOC 2 standards, and offer HIPAA-compliant solutions for medical sectors. Your data never leaves your control, and we can implement offline/private AI solutions for maximum security if needed."
+    },
+    {
+      question: "Do you provide ongoing support after implementation?",
+      answer: "Yes! All our packages include post-implementation support ranging from 30 days to 1 year depending on the tier. We also offer optional monthly maintenance plans that include system monitoring, updates, optimization, and priority support to ensure your AI systems continue performing at peak efficiency."
+    },
+    {
+      question: "Can AI automation work for small businesses, or is it only for large enterprises?",
+      answer: "AI automation is perfect for businesses of all sizes! Our AI Foundations package is specifically designed for small to medium businesses starting their automation journey. Many small businesses see even greater relative benefits because AI can help them compete with larger companies by automating tasks that would otherwise require additional staff."
+    }
+  ];
 
   // Show proposal generator if on proposal page
   if (currentPage === 'proposal') {
