@@ -289,7 +289,7 @@ const App = memo(() => {
    {
       question: "How is Panèdit different from other AI tools such as ChatGPT?",
       answer: "Panèdit isn’t a one-size-fits-all tool like ChatGPT—it’s customized for your situation and focused on driving sales and marketing results specific to your uniique business."
-    }
+    },
     {
       question: "How quickly can AI automation be implemented in my business?",
       answer: "Most AI automation systems can be implemented within 1-2 weeks, depending on complexity. Our AI Foundations package typically takes 1-2 weeks, while comprehensive AI Transformations require 4-8 weeks. We provide a detailed timeline during our initial consultation and keep you updated throughout the process. Often, we can deploy your first AI automation within 72 Hours after Onboarding!!"
@@ -321,7 +321,7 @@ const App = memo(() => {
     {
       question: "Can AI automation work for small businesses, or is it only for large enterprises?",
       answer: "AI automation is perfect for businesses of all sizes! Our AI Foundations package is specifically designed for small to medium businesses starting their automation journey. Many small businesses see even greater relative benefits because AI can help them compete with larger companies by automating tasks that would otherwise require additional staff."
-    }
+    },
     {
       question: "Why not just bring on a full-time AI expert instead??",
       answer: "The truth is, a single AI expert wouldn’t be enough to fully automate your sales process the way Panèdit does. To match our capabilities, you’d need not only an AI expert, but also a programmer, sales strategist, graphic designer, and more—a team that could easily cost over $280,000 a year. Panèdit acts as your outsourced sales division, always on task and delivering results without the overhead."
