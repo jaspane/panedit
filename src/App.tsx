@@ -88,6 +88,7 @@ const App = memo(() => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [submittedData, setSubmittedData] = useState({
     firstName: '',
+  const [scrollY, setScrollY] = useState(0);
     email: '',
     phone: ''
   });
@@ -108,6 +109,12 @@ const App = memo(() => {
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
     }
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
 
     // Handle hash navigation for proposal page
     const handleHashChange = () => {
