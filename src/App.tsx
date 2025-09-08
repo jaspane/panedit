@@ -321,7 +321,7 @@ const App = memo(() => {
     {
       question: "Can AI automation work for small businesses, or is it only for large enterprises?",
       answer: "AI automation is perfect for businesses of all sizes! Our AI Foundations package is specifically designed for small to medium businesses starting their automation journey. Many small businesses see even greater relative benefits because AI can help them compete with larger companies by automating tasks that would otherwise require additional staff."
-    }
+    },
    {
       question: "Why not just bring on a full-time AI expert instead?",
       answer: "The truth is, a single AI expert wouldn’t be enough to fully automate your sales process the way Agentic Brain does. To match our capabilities, you’d need not only an AI expert, but also a programmer, sales strategist, graphic designer, and more—a team that could easily cost over $200,000 a year. Agentic Brain acts as your outsourced sales division, always on task and delivering results without the overhead."
