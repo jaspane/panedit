@@ -283,8 +283,16 @@ const App = memo(() => {
   // FAQ data
   const faqs = [
     {
+      question: "So, what exactly does Panèdit do?",
+      answer: "We analyze your sales process to eliminate inefficiencies and strengthen what already works. After refining your workflow, we layer in proven sales techniques to maximize lead flow. Once your system runs like a well-oiled machine, we enhance it with AI—integrating seamlessly with your existing tools while adding cutting-edge technology."
+    },
+    {
+      question: "So, what exactly does Panèdit do?",
+      answer: "Panèdit isn’t a one-size-fits-all tool like ChatGPT—it’s customized for your situation and focused on driving sales and marketing results."
+    },
+    {
       question: "How quickly can AI automation be implemented in my business?",
-      answer: "Most AI automation systems can be implemented within 2-8 weeks, depending on complexity. Our AI Foundations package typically takes 2-4 weeks, while comprehensive AI Transformations require 4-8 weeks. We provide a detailed timeline during our initial consultation and keep you updated throughout the process."
+      answer: "Most AI automation systems can be implemented within 1-2 weeks, depending on complexity. Our AI Foundations package typically takes 2-4 weeks, while comprehensive AI Transformations require 4-8 weeks. We provide a detailed timeline during our initial consultation and keep you updated throughout the process. In most cases the first AI Automation can be implemented within 72 hours after onboarding."
     },
     {
       question: "What if my team isn't tech-savvy? Will they be able to use the AI systems?",
@@ -296,7 +304,7 @@ const App = memo(() => {
     },
     {
       question: "Will AI automation integrate with my existing software and CRM?",
-      answer: "Yes! We specialize in seamless integrations with popular platforms like Salesforce, HubSpot, Pipedrive, Monday.com, and many others. Our team conducts a thorough audit of your current systems to ensure smooth integration without disrupting your existing workflows."
+      answer: "Yes! We specialize in seamless integrations with popular platforms like Salesforce, HubSpot, Pipedrive, Monday.com, Follow Up Boss and many others. Our team conducts a thorough audit of your current systems to ensure smooth integration without disrupting your existing workflows. Our API Capabilities ensure that your company data is stored and transmitted seamlessly between systems."
     },
     {
       question: "What happens if the AI makes mistakes or doesn't work as expected?",
@@ -304,7 +312,7 @@ const App = memo(() => {
     },
     {
       question: "Is my business data secure with AI automation?",
-      answer: "Security is our top priority. We use bank-level encryption, comply with GDPR, CCPA, and SOC 2 standards, and offer HIPAA-compliant solutions for medical sectors. Your data never leaves your control, and we can implement offline/private AI solutions for maximum security if needed."
+      answer: "Security is our top priority. We use bank-level encryption, comply with GDPR, CCPA, and SOC 2 standards, and offer HIPAA-compliant solutions for medical sectors. Your data never leaves your control, and we can implement offline/private AI solutions for maximum security for proprietary AI Adoption."
     },
     {
       question: "Do you provide ongoing support after implementation?",
@@ -314,6 +322,10 @@ const App = memo(() => {
       question: "Can AI automation work for small businesses, or is it only for large enterprises?",
       answer: "AI automation is perfect for businesses of all sizes! Our AI Foundations package is specifically designed for small to medium businesses starting their automation journey. Many small businesses see even greater relative benefits because AI can help them compete with larger companies by automating tasks that would otherwise require additional staff."
     }
+   {
+      question: "Why not just bring on a full-time AI expert instead?",
+      answer: "The truth is, a single AI expert wouldn’t be enough to fully automate your sales process the way Agentic Brain does. To match our capabilities, you’d need not only an AI expert, but also a programmer, sales strategist, graphic designer, and more—a team that could easily cost over $200,000 a year. Agentic Brain acts as your outsourced sales division, always on task and delivering results without the overhead."
+    },
   ];
 
   // Show proposal generator if on proposal page
