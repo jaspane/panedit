@@ -499,10 +499,19 @@ const App = memo(() => {
             }`}>FAQ</a>
             <button 
               onClick={() => {
-                setCurrentPage('proposal');
-                window.location.hash = 'proposal';
+        <section id="faq" className={`py-20 relative overflow-hidden ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+          <div 
+            className="absolute inset-0 opacity-5"
+            style={{
+              transform: `translateY(${scrollY * -0.2}px)`
+            }}
+          >
+            <div className="w-full h-full bg-gradient-to-t from-purple-500 to-blue-500"></div>
+          </div>
+          <div className="max-w-4xl mx-auto px-4 md:px-6 relative z-10">
               }}
-              className={`hover:text-blue-400 transition-colors ${
+              <h2 
+                className={`text-4xl md:text-5xl font-bold mb-6 ${
                 isDarkMode ? 'text-white' : 'text-gray-900'
               }`}
             >
@@ -537,7 +546,11 @@ const App = memo(() => {
             <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
               <div className={`relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border transition-colors duration-300 ${
                 isDarkMode ? 'border-gray-700' : 'border-gray-300'
-              }`}>
+                }`}
+                style={{
+                  transform: `translateY(${scrollY * 0.03}px)`
+                }}
+              >
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
                   src="https://www.youtube.com/embed/RGproKPJ_Dg?playsinline=1&enablejsapi=1&cc_load_policy=1"
@@ -861,7 +874,9 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                 onClick={() => setIsModalOpen(true)}
                 className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 sm:px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
               >
-                <Phone className="w-5 h-5" />
+                <div 
+                  key={index} 
+                  className={`border rounded-2xl overflow-hidden transition-all duration-300 ${
                 Get Your Questions Answered
               </button>
             </div>
@@ -1022,7 +1037,11 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                 </h3>
                 <p className="text-gray-300 text-lg mb-2">
                   Thank you for your consultation request!
-                </p>
+                  } ${expandedFAQ === index ? 'shadow-lg' : 'hover:shadow-md'}`}
+                  style={{
+                    transform: `translateX(${Math.sin((scrollY + index * 50) * 0.003) * 5}px)`
+                  }}
+                >
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">
                   We've received your information and will contact you within 24 hours to schedule your free AI strategy session.
                 </p>
