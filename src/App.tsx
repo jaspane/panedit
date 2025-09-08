@@ -285,7 +285,7 @@ const App = memo(() => {
     {
       question: "So, what exactly does Panèdit do?",
       answer: "We analyze your sales process to eliminate inefficiencies and strengthen what already works. After refining your workflow, we layer in proven sales techniques to maximize lead flow. Once your system runs like a well-oiled machine, we enhance it with AI—integrating seamlessly with your existing tools while adding cutting-edge technology."
-    }
+    },
    {
       question: "How is Panèdit different from other AI tools such as ChatGPT?",
       answer: "Panèdit isn’t a one-size-fits-all tool like ChatGPT—it’s customized for your situation and focused on driving sales and marketing results specific to your uniique business."
