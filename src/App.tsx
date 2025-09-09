@@ -629,7 +629,7 @@ const App = memo(() => {
                 <h3 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
                   Jasper Panè
                 </h3>
-                <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
+                <p className="text-gray-300 text-sm sm:text-base">AI Strategy Consultant</p>
                 <p className="text-gray-300 text-sm sm:text-base">Las Vegas, NV - USA</p>
               </div>
             </div>
