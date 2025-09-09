@@ -523,7 +523,7 @@ const App = memo(() => {
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
               Transform business operations with intelligent AI chat agents, automated lead generation, 
-               seamless CRM integrations and More... Scale faster, work smarter. Your one stop for all AI Strategic solutions.
+               seamless CRM integrations and More... Your one stop for all AI Strategic solutions.
             </p>
             
             {/* YouTube Video 1 */}
