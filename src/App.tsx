@@ -610,6 +610,31 @@ const App = memo(() => {
               Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Panèdit</span>
             </h2>
             
+            {/* Third Video Card */}
+            <div className="relative bg-gradient-to-br from-gray-900 to-black rounded-2xl overflow-hidden shadow-2xl mb-6 group hover:scale-105 transition-all duration-300">
+              <div className="aspect-video bg-gradient-to-br from-red-500/20 to-pink-500/20 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-r from-red-500 to-pink-500 rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:scale-110 transition-transform">
+                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">Featured Content</h3>
+                  <a
+                    href="https://www.youtube.com/watch?v=RGproKPJ_Dg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-500 px-6 py-3 rounded-full text-white font-semibold hover:shadow-lg hover:shadow-red-500/25 transition-all duration-300 transform hover:scale-105"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    Watch Video
+                  </a>
+                </div>
+              </div>
+            </div>
+
             {/* Profile Section */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12">
               <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
