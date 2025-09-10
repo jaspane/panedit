@@ -27,7 +27,8 @@ import {
 declare global {
   interface Window {
     YT: any;
-    onYouTubeIframeAPIReady: () => void;
+  EyeOff,
+  Play
   }
 }
 // Lazy load heavy components
@@ -826,14 +827,28 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   </div>
                 </button>
                 
-                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openFaqIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="px-6 sm:px-8 pb-6">
-                    <div className="pl-14">
-                      <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                        {faq.answer}
-                      </p>
+                      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Play className="w-10 h-10 text-white ml-1" />
+                          </div>
+                          <h4 className="text-xl font-semibold text-white mb-2">AI Automation Demo</h4>
+                          <p className="text-gray-300 mb-4">Watch how our AI solutions transform businesses</p>
+                      <div className="w-full h-full bg-gray-800 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Play className="w-10 h-10 text-white ml-1" />
+                          </div>
+                          <h4 className="text-xl font-semibold text-white mb-2">Client Success Story</h4>
+                          <p className="text-gray-300 mb-4">See how we helped increase revenue by 300%</p>
+                          <button 
+                            onClick={() => window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')}
+                            className="bg-gradient-to-r from-green-500 to-blue-500 px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                          >
+                            Watch Success Story
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
