@@ -1,96 +1,50 @@
-import React, { useState, useEffect, lazy } from 'react';
-import { Suspense, memo } from 'react';
-import { submitContactForm } from '@/lib/supabase';
-import ProposalGenerator from '@/components/ProposalGenerator';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Bot, 
-  TrendingUp, 
-  Users, 
+  Brain, 
   Zap, 
+  Target, 
+  Users, 
+  TrendingUp, 
+  Shield, 
   CheckCircle, 
   ArrowRight, 
-  Phone,
-  Mail,
-  Calendar,
+  Star, 
+  Quote,
+  Play,
+  ExternalLink,
   X,
-  Star,
+  Menu,
+  Mail,
+  Phone,
+  MapPin,
+  Building,
+  DollarSign,
+  Clock,
   Award,
-  Target,
-  ChevronDown,
-  ChevronUp,
-  HelpCircle,
+  Bot,
+  MessageSquare,
+  BarChart3,
+  Workflow,
+  Database,
+  Globe,
+  Lightbulb,
+  Rocket,
   Sun,
   Moon
 } from 'lucide-react';
+import { Vortex } from './components/ui/vortex';
+import { SplashCursor } from './components/ui/splash-cursor';
+import Footer from './components/ui/demo';
+import ProposalGenerator from './components/ProposalGenerator';
+import { supabase, submitContactForm, type ContactSubmission } from './lib/supabase';
 
-// Extend Window interface for YouTube API
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
-}
-// Lazy load heavy components
-const SplashCursor = lazy(() => 
-  import('@/components/ui/splash-cursor').then(module => ({ 
-    default: module.SplashCursor 
-  }))
-);
-import { Vortex } from '@/components/ui/vortex';
-const Footer = lazy(() => 
-  import('@/components/ui/demo').then(module => ({ 
-    default: module.default 
-  }))
-);
-
-// Loading fallback component
-const ComponentLoader = memo(() => (
-  <div className="flex items-center justify-center p-4">
-    <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-  </div>
-));
-ComponentLoader.displayName = 'ComponentLoader';
-
-// Memoized service card component
-const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hoverColor }: {
-  icon: any;
-  title: string;
-  description: string;
-  items: string[];
-  gradient: string;
-  hoverColor: string;
-}) => (
-  <div className={`animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:${hoverColor} transition-all duration-300 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group`}>
-    <div className={`w-16 h-16 ${gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-      <Icon className="w-8 h-8 text-white" />
-    </div>
-    <h3 className={`text-xl sm:text-2xl font-bold mb-4 text-${hoverColor.split('-')[1]}-400`}>{title}</h3>
-    <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
-      {description}
-    </p>
-    <ul className="space-y-2">
-      {items.map((item, idx) => (
-        <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
-          <CheckCircle className="w-4 h-4 text-green-400" />
-          {item}
-        </li>
-      ))}
-    </ul>
-  </div>
-));
-ServiceCard.displayName = 'ServiceCard';
-
-const App = memo(() => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'proposal'>('home');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [submittedData, setSubmittedData] = useState({
-    firstName: '',
-    email: '',
-    phone: ''
-  });
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showProposal, setShowProposal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -102,965 +56,947 @@ const App = memo(() => {
     message: ''
   });
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
+  // Check for proposal hash on mount
   useEffect(() => {
-    // Load theme preference from localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      setIsDarkMode(savedTheme === 'dark');
+    if (window.location.hash === '#proposal') {
+      setShowProposal(true);
     }
-
-    // Handle hash navigation for proposal page
-    const handleHashChange = () => {
-      if (window.location.hash === '#proposal') {
-        setCurrentPage('proposal');
-      } else {
-        setCurrentPage('home');
-      }
-    };
-
-    // Check initial hash
-    handleHashChange();
-    
-    // Listen for hash changes
-    window.addEventListener('hashchange', handleHashChange);
-
-    // Add smooth scrolling animation observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-      observer.observe(el);
-    });
-
-    // YouTube API setup for 1x speed
-    const setupYouTubeSpeed = () => {
-      if (window.YT && window.YT.Player) {
-        const video1 = document.getElementById('youtube-video-1');
-        const video2 = document.getElementById('youtube-video-2');
-        
-        if (video1) {
-          const player1 = new window.YT.Player('youtube-video-1', {
-            events: {
-              onReady: (event: any) => {
-                event.target.setPlaybackRate(1);
-              }
-            }
-          });
-        }
-        
-        if (video2) {
-          const player2 = new window.YT.Player('youtube-video-2', {
-            events: {
-              onReady: (event: any) => {
-                event.target.setPlaybackRate(1);
-              }
-            }
-          });
-        }
-      }
-    };
-
-    // Load YouTube API if not already loaded
-    if (!window.YT) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      script.async = true;
-      document.head.appendChild(script);
-      
-      window.onYouTubeIframeAPIReady = setupYouTubeSpeed;
-    } else {
-      setupYouTubeSpeed();
-    }
-    
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('hashchange', handleHashChange);
-    };
   }, []);
 
-  // Toggle theme function
-  const toggleTheme = () => {
-    const newTheme = !isDarkMode;
-    setIsDarkMode(newTheme);
-    localStorage.setItem('theme', newTheme ? 'dark' : 'light');
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const submitForm = async () => {
-      try {
-        console.log('Form submission started...');
-        console.log('Environment check:', {
-          supabaseUrl: import.meta.env.VITE_SUPABASE_URL ? 'Present' : 'Missing',
-          supabaseKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Present' : 'Missing',
-          actualUrl: import.meta.env.VITE_SUPABASE_URL,
-          actualKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Key exists' : 'No key'
-        });
-        
-        // Prepare data for Supabase
-        const submissionData = {
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          email: formData.email,
-          phone: formData.phone || undefined,
-          company: formData.company || undefined,
-          website: formData.website || undefined,
-          monthly_revenue: formData.monthlyRevenue || undefined,
-          message: formData.message || undefined,
-        };
-
-        console.log('Attempting to submit form with data:', submissionData);
-
-        await submitContactForm(submissionData);
-        
-        console.log('Form submitted successfully!');
-        
-        // Store submitted data for success dialog
-        setSubmittedData({
-          firstName: formData.firstName,
-          email: formData.email,
-          phone: formData.phone
-        });
-        
-        // Success - close modal and reset form
-        setIsModalOpen(false);
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
-        
-        // Show custom success dialog
-        setShowSuccessDialog(true);
-        
-      } catch (error) {
-        console.error('Form submission error:', error);
-        console.error('Error details:', {
-          message: error instanceof Error ? error.message : 'Unknown error',
-          stack: error instanceof Error ? error.stack : undefined,
-          type: typeof error
-        });
-        
-        // More specific error messages
-        if (error instanceof Error) {
-          if (error.message.includes('Supabase is not connected')) {
-            alert('Please connect to Supabase first by clicking the "Connect to Supabase" button in the top right corner.');
-          } else {
-            alert(`Error: ${error.message}`);
-          }
-        } else {
-          alert(`There was an error submitting your request. Error: ${JSON.stringify(error)}. Please check the console for details and try again.`);
-        }
+  // Handle hash changes
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === '#proposal') {
+        setShowProposal(true);
+      } else {
+        setShowProposal(false);
       }
     };
 
-    submitForm();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
 
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+    try {
+      const submissionData: Omit<ContactSubmission, 'id' | 'created_at' | 'updated_at' | 'status'> = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        phone: formData.phone || null,
+        company: formData.company || null,
+        website: formData.website || null,
+        monthly_revenue: formData.monthlyRevenue || null,
+        message: formData.message || null
+      };
 
-  const toggleFaq = (index: number) => {
-    setOpenFaqIndex(openFaqIndex === index ? null : index);
-  };
-
-  // FAQ data
-  const faqs = [
-    {
-      question: "How quickly can AI automation be implemented in my business?",
-      answer: "Most AI automation systems can be implemented within 2-8 weeks, depending on complexity. Our AI Foundations package typically takes 2-4 weeks, while comprehensive AI Transformations require 4-8 weeks. We provide a detailed timeline during our initial consultation and keep you updated throughout the process."
-    },
-    {
-      question: "What if my team isn't tech-savvy? Will they be able to use the AI systems?",
-      answer: "Absolutely! Our AI solutions are designed with user-friendliness in mind. We provide comprehensive training for your team and create intuitive interfaces that require minimal technical knowledge. Most users can start benefiting from the systems within hours of training, not days or weeks."
-    },
-    {
-      question: "How much can I expect to save with AI automation?",
-      answer: "Our clients typically see 60-85% reduction in manual tasks and 40-70% cost savings within the first 6 months. The exact savings depend on your current processes, but most businesses see ROI within 3-4 months. We provide detailed ROI projections during our consultation."
-    },
-    {
-      question: "Will AI automation integrate with my existing software and CRM?",
-      answer: "Yes! We specialize in seamless integrations with popular platforms like Salesforce, HubSpot, Pipedrive, Monday.com, and many others. Our team conducts a thorough audit of your current systems to ensure smooth integration without disrupting your existing workflows."
-    },
-    {
-      question: "What happens if the AI makes mistakes or doesn't work as expected?",
-      answer: "We include a 30-day money-back guarantee and provide ongoing monitoring and optimization. Our AI systems are designed with safeguards and human oversight options. We also provide 24/7 support and can quickly adjust or fine-tune the systems based on your feedback and performance data."
-    },
-    {
-      question: "Is my business data secure with AI automation?",
-      answer: "Security is our top priority. We use bank-level encryption, comply with GDPR, CCPA, and SOC 2 standards, and offer HIPAA-compliant solutions for medical sectors. Your data never leaves your control, and we can implement offline/private AI solutions for maximum security if needed."
-    },
-    {
-      question: "Do you provide ongoing support after implementation?",
-      answer: "Yes! All our packages include post-implementation support ranging from 30 days to 1 year depending on the tier. We also offer optional monthly maintenance plans that include system monitoring, updates, optimization, and priority support to ensure your AI systems continue performing at peak efficiency."
-    },
-    {
-      question: "Can AI automation work for small businesses, or is it only for large enterprises?",
-      answer: "AI automation is perfect for businesses of all sizes! Our AI Foundations package is specifically designed for small to medium businesses starting their automation journey. Many small businesses see even greater relative benefits because AI can help them compete with larger companies by automating tasks that would otherwise require additional staff."
+      await submitContactForm(submissionData);
+      
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        company: '',
+        website: '',
+        monthlyRevenue: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
-  ];
+  };
 
-  // Show proposal generator if on proposal page
-  if (currentPage === 'proposal') {
-    return (
-      <div>
-        <nav className="relative z-50 px-6 py-4 bg-black/20 backdrop-blur-md border-b border-gray-800">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <button
-              onClick={() => {
-                window.location.hash = '';
-                window.location.reload();
-              }} 
-              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
-            >
-              Panèdit
-            </button>
-            <div className="hidden md:flex space-x-8">
-              <button 
-                onClick={() => {
-                  setCurrentPage('home');
-                  window.location.hash = '';
-                }}
-                className="hover:text-blue-400 transition-colors"
-              >
-                Home
-              </button>
-              <button 
-                onClick={() => setCurrentPage('proposal')}
-                className="text-blue-400"
-              >
-                Proposal
-              </button>
-            </div>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
-            >
-              Book a Call
-            </button>
-          </div>
-        </nav>
-        <ProposalGenerator />
-      </div>
-    );
+  if (showProposal) {
+    return <ProposalGenerator />;
   }
-  // Service data for rendering
-  const services = [
-    {
-      icon: Bot,
-      title: "AI Chat Agents",
-      description: "Deploy intelligent conversational AI that handles customer inquiries, qualifies leads, and provides 24/7 support with human-like interactions.",
-      items: ["Natural Language Processing", "Multi-platform Integration", "Contextual Conversations"],
-      gradient: "bg-gradient-to-r from-blue-500 to-blue-600",
-      hoverColor: "border-blue-500/50"
-    },
-    {
-      icon: TrendingUp,
-      title: "Lead Generation",
-      description: "Automate your lead generation process with AI-powered prospecting, qualification, and nurturing systems that work around the clock.",
-      items: ["Automated Prospecting", "Lead Scoring & Qualification", "Personalized Outreach"],
-      gradient: "bg-gradient-to-r from-purple-500 to-purple-600",
-      hoverColor: "border-purple-500/50"
-    },
-    {
-      icon: Users,
-      title: "CRM Integration",
-      description: "Seamlessly connect your existing CRM systems with our AI solutions for unified customer data management and automated workflows.",
-      items: ["Salesforce, HubSpot, Pipedrive", "Data Synchronization", "Workflow Automation"],
-      gradient: "bg-gradient-to-r from-pink-500 to-pink-600",
-      hoverColor: "border-pink-500/50"
-    },
-    {
-      icon: Target,
-      title: "Project Management",
-      description: "Streamline project workflows with AI-powered task automation, resource allocation, and intelligent progress tracking for maximum efficiency.",
-      items: ["Automated Task Assignment", "Resource Optimization", "Progress Analytics"],
-      gradient: "bg-gradient-to-r from-green-500 to-green-600",
-      hoverColor: "border-green-500/50"
-    },
-    {
-      icon: Users,
-      title: "Hiring Systems",
-      description: "Transform your recruitment process with AI-driven candidate screening, automated interviews, and intelligent talent matching systems.",
-      items: ["Resume Screening & Ranking", "Automated Interview Scheduling", "Skills Assessment & Matching"],
-      gradient: "bg-gradient-to-r from-orange-500 to-orange-600",
-      hoverColor: "border-orange-500/50"
-    },
-    {
-      icon: TrendingUp,
-      title: "Sales Administration",
-      description: "Optimize your sales operations with AI-powered pipeline management, automated follow-ups, and intelligent sales forecasting tools.",
-      items: ["Pipeline Automation", "Smart Follow-up Sequences", "Sales Forecasting & Analytics"],
-      gradient: "bg-gradient-to-r from-cyan-500 to-cyan-600",
-      hoverColor: "border-cyan-500/50"
-    },
-    {
-      icon: Zap,
-      title: "Proposal Automation",
-      description: "Generate professional proposals automatically with AI-powered content creation, dynamic pricing, and customized templates for faster deal closure.",
-      items: ["Dynamic Proposal Generation", "Smart Pricing Optimization", "Template Customization"],
-      gradient: "bg-gradient-to-r from-indigo-500 to-indigo-600",
-      hoverColor: "border-indigo-500/50"
-    },
-    {
-      icon: Bot,
-      title: "Content Creation",
-      description: "Scale your content marketing with AI-powered blog posts, social media content, and marketing materials that maintain your brand voice.",
-      items: ["Blog Post Generation", "Social Media Automation", "Brand Voice Consistency"],
-      gradient: "bg-gradient-to-r from-yellow-500 to-yellow-600",
-      hoverColor: "border-yellow-500/50"
-    },
-    {
-      icon: Users,
-      title: "Onboarding Automation",
-      description: "Streamline client and employee onboarding with automated workflows, document collection, and personalized welcome sequences.",
-      items: ["Automated Welcome Sequences", "Document Collection & Processing", "Progress Tracking & Reminders"],
-      gradient: "bg-gradient-to-r from-teal-500 to-teal-600",
-      hoverColor: "border-teal-500/50"
-    }
-  ];
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
       isDarkMode 
         ? 'bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white' 
-        : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
+        : 'bg-gradient-to-br from-gray-100 via-white to-gray-50 text-gray-900'
     }`}>
-      <Suspense fallback={null}>
-        <SplashCursor />
-      </Suspense>
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse ${
-          isDarkMode ? 'bg-blue-500/10' : 'bg-blue-500/5'
-        }`}></div>
-        <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000 ${
-          isDarkMode ? 'bg-purple-500/10' : 'bg-purple-500/5'
-        }`}></div>
-      </div>
-
+      <SplashCursor />
+      
       {/* Navigation */}
-      <nav className={`relative z-50 px-6 py-4 backdrop-blur-md border-b transition-colors duration-300 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isDarkMode 
-          ? 'bg-black/20 border-gray-800' 
-          : 'bg-white/20 border-gray-200'
-      }`}>
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            Panèdit
-          </div>
-          <div className="hidden md:flex space-x-8">
-            <a href="#services" className={`hover:text-blue-400 transition-colors ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>Services</a>
-            <a href="#features" className={`hover:text-blue-400 transition-colors ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>Features</a>
-            <a href="#about" className={`hover:text-blue-400 transition-colors ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>About</a>
-            <a href="#faq" className={`hover:text-blue-400 transition-colors ${
-              isDarkMode ? 'text-white' : 'text-gray-900'
-            }`}>FAQ</a>
-            <button 
-              onClick={() => {
-                setCurrentPage('proposal');
-                window.location.hash = 'proposal';
-              }}
-              className={`hover:text-blue-400 transition-colors ${
-                isDarkMode ? 'text-white' : 'text-gray-900'
-              }`}
+          ? 'bg-black/80 backdrop-blur-md border-gray-800' 
+          : 'bg-white/80 backdrop-blur-md border-gray-200'
+      } border-b`}>
+        <div className="max-w-7xl mx-auto px-4 md:px-6">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white shadow-lg">
+                <Brain className="h-5 w-5" />
+              </div>
+              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Panèdit
+              </span>
+            </div>
+            
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#services" className={`hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Services</a>
+              <a href="#about" className={`hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>About</a>
+              <a href="#testimonials" className={`hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Testimonials</a>
+              <a href="#contact" className={`hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Contact</a>
+              <button
+                onClick={() => {
+                  window.location.hash = 'proposal';
+                  setShowProposal(true);
+                }}
+                className="bg-gradient-to-r from-blue-500 to-purple-500 px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              >
+                Get Proposal
+              </button>
+            </div>
+            
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-700 transition-colors"
             >
-              Proposal
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
-          >
-            Book a Call
-          </button>
         </div>
+        
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className={`md:hidden border-t ${isDarkMode ? 'border-gray-800 bg-black/90' : 'border-gray-200 bg-white/90'} backdrop-blur-md`}
+            >
+              <div className="px-4 py-4 space-y-4">
+                <a href="#services" className={`block hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Services</a>
+                <a href="#about" className={`block hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>About</a>
+                <a href="#testimonials" className={`block hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Testimonials</a>
+                <a href="#contact" className={`block hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Contact</a>
+                <button
+                  onClick={() => {
+                    window.location.hash = 'proposal';
+                    setShowProposal(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full text-left bg-gradient-to-r from-blue-500 to-purple-500 px-4 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+                >
+                  Get Proposal
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 pt-1 sm:pt-1">
-        <div className="max-w-6xl mx-auto text-center w-full">
-          <div className="animate-on-scroll">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
-              Automate Your Business with
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
-                AI-Powered Solutions
-              </span>
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-              Transform business operations with intelligent AI chat agents, automated lead generation, 
-               seamless CRM integrations and More... Scale faster, work smarter.
-            </p>
-            
-            {/* YouTube Video 1 */}
-            <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
-              <div className={`relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border transition-colors duration-300 ${
-                isDarkMode ? 'border-gray-700' : 'border-gray-300'
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <Vortex
+          backgroundColor={isDarkMode ? "#000000" : "#ffffff"}
+          rangeY={800}
+          particleCount={500}
+          baseHue={220}
+          className="w-full h-full"
+        >
+          <div className="relative z-10 text-center px-4 md:px-6 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="mb-8"
+            >
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                Transform Your Business with{' '}
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                  AI Automation
+                </span>
+              </h1>
+              <p className={`text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/RGproKPJ_Dg?playsinline=1&enablejsapi=1&cc_load_policy=1"
-                  title="Panèdit AI Automation Demo"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  id="youtube-video-1"
-                ></iframe>
-              </div>
-            </div>
+                Scale faster, work smarter with our cutting-edge AI solutions for chat agents, 
+                lead generation, CRM integrations, and more.
+              </p>
+            </motion.div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12 px-4">
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center"
-              >
-                <Calendar className="w-5 h-5" />
-                Book Your Free Consultation
-              </button>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+            >
               <a
-                href="#features"
-                className={`border px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center gap-2 w-full sm:w-auto justify-center ${
-                  isDarkMode ? 'border-gray-600 text-white' : 'border-gray-400 text-gray-900'
+                href="#contact"
+                className="bg-gradient-to-r from-blue-500 to-purple-500 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2"
+              >
+                Get Started Today
+                <ArrowRight className="h-5 w-5" />
+              </a>
+              <button
+                onClick={() => {
+                  window.location.hash = 'proposal';
+                  setShowProposal(true);
+                }}
+                className={`px-8 py-4 rounded-full text-lg font-semibold border-2 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 ${
+                  isDarkMode 
+                    ? 'border-gray-600 hover:border-blue-400 hover:text-blue-400' 
+                    : 'border-gray-300 hover:border-purple-400 hover:text-purple-400'
                 }`}
               >
-                Learn More
-                <ArrowRight className="w-5 h-5" />
-              </a>
-            </div>
+                View Proposal Generator
+                <Target className="h-5 w-5" />
+              </button>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
+            >
+              {[
+                { icon: Zap, title: "Lightning Fast", desc: "Deploy AI solutions in weeks, not months" },
+                { icon: Shield, title: "Enterprise Ready", desc: "Secure, scalable, and compliant solutions" },
+                { icon: TrendingUp, title: "Proven Results", desc: "Average 300% ROI within 6 months" }
+              ].map((feature, idx) => (
+                <div key={idx} className={`p-6 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 ${
+                  isDarkMode 
+                    ? 'bg-white/5 border-white/10 hover:bg-white/10' 
+                    : 'bg-black/5 border-black/10 hover:bg-black/10'
+                }`}>
+                  <feature.icon className="h-8 w-8 text-blue-400 mb-4 mx-auto" />
+                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{feature.desc}</p>
+                </div>
+              ))}
+            </motion.div>
           </div>
-          
-          {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 animate-on-scroll px-4">
-            <div className="text-center p-4">
-              <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">77%</div>
-              <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>AI Global Adoption</div>
-            </div>
-            <div className="text-center p-4">
-              <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">85%</div>
-              <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Average Cost Reduction</div>
-            </div>
-            <div className="text-center p-4">
-              <div className="text-3xl sm:text-4xl font-bold text-pink-400 mb-2">24/7</div>
-              <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>AI-Powered Support</div>
-            </div>
-          </div>
-        </div>
+        </Vortex>
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-4 sm:py-5 px-4 sm:px-6 relative z-10">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
+      <section id="services" className={`py-24 px-4 md:px-6 ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-gray-900 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Solutions</span>
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
-              Comprehensive automation solutions designed to streamline your operations and accelerate growth. Improve ALL your business processes with AI: Social Media, Legal, Project Management, and More...
+            <p className={`text-xl max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Comprehensive AI automation services designed to transform your business operations and accelerate growth.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {services.slice(0, 6).map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-8">
-            {services.slice(6).map((service, index) => (
-              <ServiceCard key={index + 6} {...service} />
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Bot,
+                title: "AI Chat Agents",
+                description: "Intelligent conversational AI that handles customer inquiries, qualifies leads, and provides 24/7 support with human-like interactions.",
+                features: ["24/7 Customer Support", "Lead Qualification", "Multi-language Support", "CRM Integration"],
+                gradient: "from-blue-500 to-cyan-500"
+              },
+              {
+                icon: Target,
+                title: "Lead Generation",
+                description: "Automated lead generation systems that identify, qualify, and nurture prospects across multiple channels to fill your sales pipeline.",
+                features: ["Multi-channel Outreach", "Lead Scoring", "Automated Follow-ups", "Analytics Dashboard"],
+                gradient: "from-purple-500 to-pink-500"
+              },
+              {
+                icon: Database,
+                title: "CRM Integration",
+                description: "Seamless integration with your existing CRM systems to automate data entry, lead tracking, and customer relationship management.",
+                features: ["Data Synchronization", "Automated Workflows", "Custom Fields", "Real-time Updates"],
+                gradient: "from-green-500 to-teal-500"
+              },
+              {
+                icon: Workflow,
+                title: "Project Management",
+                description: "AI-powered project management tools that optimize resource allocation, predict bottlenecks, and ensure on-time delivery.",
+                features: ["Resource Optimization", "Timeline Prediction", "Risk Assessment", "Team Collaboration"],
+                gradient: "from-orange-500 to-red-500"
+              },
+              {
+                icon: Users,
+                title: "Hiring Systems",
+                description: "Intelligent recruitment automation that screens candidates, schedules interviews, and identifies the best talent for your team.",
+                features: ["Resume Screening", "Interview Scheduling", "Candidate Scoring", "Onboarding Automation"],
+                gradient: "from-indigo-500 to-purple-500"
+              },
+              {
+                icon: BarChart3,
+                title: "Sales Administration",
+                description: "Comprehensive sales automation including proposal generation, contract management, and performance analytics.",
+                features: ["Proposal Automation", "Contract Management", "Sales Analytics", "Performance Tracking"],
+                gradient: "from-pink-500 to-rose-500"
+              }
+            ].map((service, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className={`group p-8 rounded-2xl border transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                  isDarkMode 
+                    ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800/70' 
+                    : 'bg-white border-gray-200 hover:bg-gray-50'
+                }`}
+              >
+                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${service.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <service.icon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                <p className={`mb-6 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {service.description}
+                </p>
+                <ul className="space-y-2">
+                  {service.features.map((feature, featureIdx) => (
+                    <li key={featureIdx} className="flex items-center gap-3">
+                      <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0" />
+                      <span className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Panèdit</span>
+      {/* Video Section */}
+      <section className={`py-24 px-4 md:px-6 ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-black to-gray-900' 
+          : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              See Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI in Action</span>
             </h2>
-            
-            {/* Profile Section */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12">
-              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
-                <img 
-                  src="/Profile Picture.png" 
-                  alt="Jasper Panè" 
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="text-center sm:text-left">
-                <h3 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
-                  Jasper Panè
-                </h3>
-                <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
-                <p className="text-gray-300 text-sm sm:text-base">Las Vegas, NV - USA</p>
-              </div>
-            </div>
+            <p className={`text-xl max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Watch how our AI automation solutions transform businesses and deliver real results.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-            <div className="animate-on-scroll">
-              <img 
-                src="https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=800" 
-                alt="AI Technology" 
-                className="rounded-2xl shadow-2xl w-full h-auto"
-                loading="lazy"
-              />
-            </div>
-            <div className="animate-on-scroll space-y-6 sm:space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-blue-400">Lightning Fast Implementation</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Get your AI systems up and running in days, not months. Our proven methodology ensures rapid deployment with minimal disruption. Most Implementation done within 72 Hours after onboarding!</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Target className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-purple-400">Precision Targeting</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Our AI algorithms learn from your data to deliver highly targeted results, improving conversion rates by up to 300%. Offline private AI implementation available.</p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-pink-400">Enterprise-Grade Security</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Bank-level encryption and compliance with GDPR, CCPA, and SOC 2 standards ensure your data is always protected. HIPPA Compliant available for Medical Sector.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Vortex Section */}
-      <section className="py-4 sm:py-6 px-4 sm:px-6 relative z-10">
-        <div className="w-full">
-          <div className="w-full h-[50rem] sm:h-[55rem] overflow-hidden">
-            <Vortex
-              backgroundColor="black"
-              rangeY={800}
-              particleCount={300}
-              baseHue={220}
-              className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {/* Demo Video */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className={`group relative rounded-2xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                isDarkMode 
+                  ? 'bg-gray-800/50 border-gray-700 hover:border-blue-500/50' 
+                  : 'bg-white border-gray-200 hover:border-blue-500/50'
+              }`}
             >
-              <div className="text-center animate-on-scroll">
-                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
-                  Experience the Future of
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
-                    AI Automation
-                  </span>
-                </h2>
-                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
-                  Unlike other companies who just waste your time and money on products you don't want or need,
-Panèdit focuses on perfecting your systems first, then we supercharge it with AI. 
-                </p>
-                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
-                We Consult and Improve Your Business Process Before Adding Onto It. Our goal is singular: Increase Your Profits!
-                </p>
-
-
-                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
-                  Now with 1-Month, 30-Days, 
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
-                    Money Back Guarantee!
-                  </span>
-                  </h2>
-                
-                {/* Stats in Vortex */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 mb-6 sm:mb-8 px-2">
-                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">500+</div>
-                    <div className="text-white/80 text-sm sm:text-base">Processes Automated</div>
+              <div className="aspect-video bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10"></div>
+                <div className="relative z-10 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <Play className="w-8 h-8 text-white ml-1" />
                   </div>
-                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">95%</div>
-                    <div className="text-white/80 text-sm sm:text-base">Client Satisfaction</div>
-                  </div>
-                  <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">$2M+</div>
-                    <div className="text-white/80 text-sm sm:text-base">Cost Savings Generated</div>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
-                  >
-                    <Calendar className="w-5 h-5" />
-                    Start Your AI Journey
-                  </button>
-                  <button 
-                    onClick={() => setIsModalOpen(true)}
-                    className="px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300 text-sm sm:text-base w-full sm:w-auto">
-                    Watch Demo
-                  </button>
+                  <h3 className="text-xl font-bold mb-2">AI Automation Demo</h3>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    See how our AI chat agents handle customer inquiries
+                  </p>
                 </div>
               </div>
-            </Vortex>
+              <div className="p-6">
+                <a
+                  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+                >
+                  <Play className="w-5 h-5" />
+                  Watch Demo Video
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
+
+            {/* Success Story Video */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className={`group relative rounded-2xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                isDarkMode 
+                  ? 'bg-gray-800/50 border-gray-700 hover:border-green-500/50' 
+                  : 'bg-white border-gray-200 hover:border-green-500/50'
+              }`}
+            >
+              <div className="aspect-video bg-gradient-to-br from-green-500/20 to-blue-500/20 flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-blue-500/10"></div>
+                <div className="relative z-10 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mb-4 mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <Play className="w-8 h-8 text-white ml-1" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Client Success Story</h3>
+                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    How we helped a client achieve 300% ROI in 6 months
+                  </p>
+                </div>
+              </div>
+              <div className="p-6">
+                <a
+                  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-green-500 to-blue-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-green-500/25 transition-all duration-300 transform hover:scale-105"
+                >
+                  <Play className="w-5 h-5" />
+                  Watch Success Story
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-                  {/* YouTube Video 2 */}
-          <section id="about" className="py-4 sm:py-6 px-4 sm:px-6 relative z-10">
-            <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
-              <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/UPfZnpBJdB4?playsinline=1&enablejsapi=1&cc_load_policy=1"
-                  title="Panèdit AI Automation Demo"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                  id="youtube-video-2"
-                ></iframe>
+      {/* About Section */}
+      <section id="about" className={`py-24 px-4 md:px-6 ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-gray-900 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Panèdit</span>?
+              </h2>
+              <p className={`text-xl mb-8 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                We're not just another AI consultancy. We're your strategic partner in digital transformation, 
+                combining cutting-edge technology with deep business expertise to deliver measurable results.
+              </p>
+              
+              <div className="space-y-6">
+                {[
+                  {
+                    icon: Lightbulb,
+                    title: "Innovation First",
+                    description: "We stay ahead of the curve, implementing the latest AI technologies and methodologies."
+                  },
+                  {
+                    icon: Users,
+                    title: "Expert Team",
+                    description: "Our team of AI specialists, data scientists, and business strategists ensure success."
+                  },
+                  {
+                    icon: Rocket,
+                    title: "Rapid Deployment",
+                    description: "Get your AI solutions up and running in weeks, not months, with our proven methodology."
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                      <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>{item.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          </section>
-      
-      {/* CTA Section */}
-      <section className="py-3 sm:py-4 px-4 sm:px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 sm:p-12 rounded-3xl border border-gray-700">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className={`p-8 rounded-2xl border ${
+                isDarkMode 
+                  ? 'bg-gray-800/50 border-gray-700' 
+                  : 'bg-white border-gray-200'
+              } shadow-2xl`}>
+                <div className="grid grid-cols-2 gap-6">
+                  {[
+                    { number: "500+", label: "Projects Completed" },
+                    { number: "300%", label: "Average ROI" },
+                    { number: "24/7", label: "Support Available" },
+                    { number: "99.9%", label: "Uptime Guarantee" }
+                  ].map((stat, idx) => (
+                    <div key={idx} className="text-center">
+                      <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+                        {stat.number}
+                      </div>
+                      <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section id="testimonials" className={`py-24 px-4 md:px-6 ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-black to-gray-900' 
+          : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              What Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Clients Say</span>
+            </h2>
+            <p className={`text-xl max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Don't just take our word for it. Here's what our clients have to say about their AI transformation journey.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "CEO, TechStart Inc.",
+                content: "Panèdit transformed our customer service with their AI chat agents. We've seen a 400% increase in lead qualification and our team can now focus on closing deals instead of answering basic questions.",
+                rating: 5,
+                avatar: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+              },
+              {
+                name: "Michael Chen",
+                role: "Operations Director, GrowthCorp",
+                content: "The CRM integration was seamless and the automation has saved us 20+ hours per week. Our sales team's productivity has increased by 250% since implementing their solutions.",
+                rating: 5,
+                avatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+              },
+              {
+                name: "Emily Rodriguez",
+                role: "Marketing Manager, InnovateLab",
+                content: "Their lead generation system is incredible. We went from 50 qualified leads per month to over 300. The ROI has been phenomenal and the quality of leads is outstanding.",
+                rating: 5,
+                avatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+              },
+              {
+                name: "David Park",
+                role: "Founder, ScaleUp Solutions",
+                content: "The project management AI has revolutionized how we handle client projects. We're delivering faster, with better quality, and our client satisfaction scores have never been higher.",
+                rating: 5,
+                avatar: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+              },
+              {
+                name: "Lisa Thompson",
+                role: "HR Director, TalentFirst",
+                content: "Their hiring system automation has cut our recruitment time in half while improving candidate quality. We're now able to scale our team efficiently without compromising on talent.",
+                rating: 5,
+                avatar: "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+              },
+              {
+                name: "James Wilson",
+                role: "Sales Director, RevenueMax",
+                content: "The sales administration automation has streamlined our entire process. Proposal generation that used to take hours now takes minutes, and our close rate has improved by 180%.",
+                rating: 5,
+                avatar: "https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop"
+              }
+            ].map((testimonial, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className={`p-8 rounded-2xl border transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
+                  isDarkMode 
+                    ? 'bg-gray-800/50 border-gray-700' 
+                    : 'bg-white border-gray-200'
+                }`}
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <Quote className="h-8 w-8 text-blue-400 mb-4" />
+                <p className={`mb-6 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  "{testimonial.content}"
+                </p>
+                <div className="flex items-center gap-4">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <div className="font-semibold">{testimonial.name}</div>
+                    <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      {testimonial.role}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className={`py-24 px-4 md:px-6 ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-gray-900 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Ready to <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 px-2">
-              Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 1 Month, 30-Day, Money Back Guarantee!
+            <p className={`text-xl max-w-3xl mx-auto ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              Let's discuss how our AI automation solutions can accelerate your growth and streamline your operations.
             </p>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-3"
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className={`p-8 rounded-2xl border ${
+                isDarkMode 
+                  ? 'bg-gray-800/50 border-gray-700' 
+                  : 'bg-white border-gray-200'
+              } shadow-2xl`}
             >
-              <Phone className="w-6 h-6" />
-              Book Your Free Strategy Call
-            </button>
-            <p className="text-gray-400 mt-4 text-xs sm:text-sm px-2">No commitment required • 30-minute consultation • Custom AI roadmap included</p>
+              <h3 className="text-2xl font-bold mb-6">Get Your Free Consultation</h3>
+              
+              {submitStatus === 'success' && (
+                <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                  <div className="flex items-center gap-2 text-green-400">
+                    <CheckCircle className="w-5 h-5" />
+                    <span className="font-semibold">Message sent successfully!</span>
+                  </div>
+                  <p className="text-sm text-green-300 mt-1">
+                    We'll get back to you within 24 hours.
+                  </p>
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                  <div className="flex items-center gap-2 text-red-400">
+                    <X className="w-5 h-5" />
+                    <span className="font-semibold">Failed to send message</span>
+                  </div>
+                  <p className="text-sm text-red-300 mt-1">
+                    Please try again or contact us directly.
+                  </p>
+                </div>
+              )}
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      First Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleInputChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      placeholder="John"
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      Last Name *
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleInputChange}
+                      required
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      isDarkMode 
+                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                    }`}
+                    placeholder="john@company.com"
+                  />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      placeholder="+1 (555) 123-4567"
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      Company
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      placeholder="Your Company"
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      Website
+                    </label>
+                    <input
+                      type="url"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                          : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                      }`}
+                      placeholder="https://yourcompany.com"
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                      Monthly Revenue
+                    </label>
+                    <select
+                      name="monthlyRevenue"
+                      value={formData.monthlyRevenue}
+                      onChange={handleInputChange}
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                        isDarkMode 
+                          ? 'bg-gray-700 border-gray-600 text-white' 
+                          : 'bg-white border-gray-300 text-gray-900'
+                      }`}
+                    >
+                      <option value="">Select Range</option>
+                      <option value="0-10k">$0 - $10k</option>
+                      <option value="10k-50k">$10k - $50k</option>
+                      <option value="50k-100k">$50k - $100k</option>
+                      <option value="100k-500k">$100k - $500k</option>
+                      <option value="500k+">$500k+</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className={`block text-sm font-medium mb-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                    Tell us about your project
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                    className={`w-full px-4 py-3 rounded-lg border transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none ${
+                      isDarkMode 
+                        ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                        : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                    }`}
+                    placeholder="Describe your current challenges and what you'd like to achieve with AI automation..."
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-4 rounded-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <ArrowRight className="h-5 w-5" />
+                    </>
+                  )}
+                </button>
+              </form>
+            </motion.div>
+            
+            {/* Contact Information */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <div>
+                <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+                <p className={`text-lg mb-8 leading-relaxed ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Ready to transform your business with AI? We're here to help you every step of the way.
+                </p>
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                    <Mail className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold">Email Us</div>
+                    <a href="mailto:ai@panedit.com" className={`hover:text-blue-400 transition-colors ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      ai@panedit.com
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
+                    <Phone className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold">Call Us</div>
+                    <a href="tel:+13157263348" className={`hover:text-purple-400 transition-colors ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                      +1 (315) 726-3348
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-pink-500 to-red-500 flex items-center justify-center">
+                    <MapPin className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold">Location</div>
+                    <div className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+                      Las Vegas, NV - USA
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className={`p-6 rounded-2xl border ${
+                isDarkMode 
+                  ? 'bg-gray-800/30 border-gray-700' 
+                  : 'bg-gray-50 border-gray-200'
+              }`}>
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Clock className="h-5 w-5 text-blue-400" />
+                  Response Time
+                </h4>
+                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  We typically respond to all inquiries within 24 hours. For urgent matters, 
+                  please call us directly.
+                </p>
+              </div>
+              
+              <div className={`p-6 rounded-2xl border ${
+                isDarkMode 
+                  ? 'bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-blue-500/20' 
+                  : 'bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200'
+              }`}>
+                <h4 className="font-semibold mb-4 flex items-center gap-2">
+                  <Award className="h-5 w-5 text-purple-400" />
+                  Free Consultation
+                </h4>
+                <p className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+                  Schedule a free 30-minute consultation to discuss your AI automation needs 
+                  and get a custom solution roadmap.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
-        <div className="max-w-4xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              Frequently Asked <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Questions</span>
-            </h2>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
-              Get answers to common questions about AI automation and our services
-            </p>
-          </div>
-
-          <div className="space-y-4 animate-on-scroll">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl border border-gray-700 overflow-hidden transition-all duration-300 hover:border-gray-600"
-              >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full px-6 sm:px-8 py-6 text-left flex items-center justify-between hover:bg-gray-800/30 transition-colors duration-200"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <HelpCircle className="w-5 h-5 text-white" />
-                    </div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white pr-4">
-                      {faq.question}
-                    </h3>
-                  </div>
-                  <div className="flex-shrink-0 ml-4">
-                    {openFaqIndex === index ? (
-                      <ChevronUp className="w-6 h-6 text-blue-400 transition-transform duration-200" />
-                    ) : (
-                      <ChevronDown className="w-6 h-6 text-gray-400 transition-transform duration-200" />
-                    )}
-                  </div>
-                </button>
-                
-                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  openFaqIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}>
-                  <div className="px-6 sm:px-8 pb-6">
-                    <div className="pl-14">
-                      <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Still have questions CTA */}
-          <div className="text-center mt-12 animate-on-scroll">
-            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 sm:p-8 rounded-2xl border border-gray-700">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-white">
-                Still Have Questions?
-              </h3>
-              <p className="text-gray-300 mb-6">
-                Our AI automation experts are here to help. Schedule a free consultation to get personalized answers.
-              </p>
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 sm:px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
-              >
-                <Phone className="w-5 h-5" />
-                Get Your Questions Answered
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* New Footer Component */}
-      <Suspense fallback={<ComponentLoader />}>
-        <Footer isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-      </Suspense>
-
-      {/* Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4 z-50 overflow-y-auto">
-          <div className="bg-gradient-to-br from-gray-900 to-black p-6 sm:p-8 rounded-2xl border border-gray-700 max-w-md w-full relative my-8">
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            
-            <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
-              Book Your <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Free Consultation</span>
-            </h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <input
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number (e.g., +1 555 123 4567)"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="company"
-                  placeholder="Company Name"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                />
-              </div>
-              <div>
-                <input
-                  type="url"
-                  name="website"
-                  placeholder="Business Website (e.g., https://example.com)"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                />
-              </div>
-              <div>
-                <select
-                  name="monthlyRevenue"
-                  value={formData.monthlyRevenue}
-                  onChange={handleSelectChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white"
-                >
-                  <option value="" className="text-gray-400">Select Company Monthly Revenue (USD)</option>
-                  <option value="5K - 50K">$5K - $50K</option>
-                  <option value="50K - 100K">$50K - $100K</option>
-                  <option value="100K - 500K">$100K - $500K</option>
-                  <option value="500K - 5M">$500K - $5M</option>
-                </select>
-              </div>
-              <div>
-                <textarea
-                  name="message"
-                  placeholder="Tell us about your automation needs... For Instance: Help with Social Media Engagement, Facilitate On-Boarding, Assist Collections, Etc..."
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 resize-none"
-                ></textarea>
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
-              >
-                Schedule My Free Consultation
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* Success Dialog */}
-      {showSuccessDialog && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 p-8 rounded-3xl border border-gray-700 max-w-md w-full relative overflow-hidden">
-            {/* Background glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl"></div>
-            <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
-            
-            <div className="relative z-10">
-              <button
-                onClick={() => setShowSuccessDialog(false)}
-                className="absolute -top-2 -right-2 text-gray-400 hover:text-white transition-colors p-2"
-              >
-                <X className="w-5 h-5" />
-              </button>
-              
-              {/* Success Icon */}
-              <div className="flex justify-center mb-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center shadow-lg">
-                  <CheckCircle className="w-10 h-10 text-white" />
-                </div>
-              </div>
-              
-              {/* Success Message */}
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold mb-4">
-                  <span className="bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                    Success, {submittedData.firstName}!
-                  </span>
-                </h3>
-                <p className="text-gray-300 text-lg mb-2">
-                  Thank you for your consultation request!
-                </p>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  We've received your information and will contact you within 24 hours to schedule your free AI strategy session.
-                </p>
-                
-                {/* Contact Information Display */}
-                <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700 mb-4">
-                  <p className="text-gray-300 text-sm mb-3 font-medium">We'll reach out to you via:</p>
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-center gap-2 text-blue-400">
-                      <Mail className="w-4 h-4" />
-                      <span className="text-sm">{submittedData.email}</span>
-                    </div>
-                    {submittedData.phone && (
-                      <div className="flex items-center justify-center gap-2 text-purple-400">
-                        <Phone className="w-4 h-4" />
-                        <span className="text-sm">{submittedData.phone}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => setShowSuccessDialog(false)}
-                  className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
-                >
-                  <CheckCircle className="w-5 h-5" />
-                  Got it!
-                </button>
-                <button
-                  onClick={() => {
-                    setShowSuccessDialog(false);
-                    setIsModalOpen(true);
-                  }}
-                  className="flex-1 border border-gray-600 px-6 py-3 rounded-full font-semibold hover:border-blue-400 hover:text-blue-400 transition-all duration-300 flex items-center justify-center gap-2"
-                >
-                  <Calendar className="w-5 h-5" />
-                  Book Another
-                </button>
-              </div>
-              
-              {/* Additional Info */}
-              <div className="mt-6 pt-6 border-t border-gray-700">
-                <div className="flex items-center justify-center gap-2 text-gray-400 text-sm">
-                  <Star className="w-4 h-4 text-yellow-400" />
-                  <span>We typically respond within 2-4 hours</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Footer */}
+      <Footer isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
     </div>
   );
-});
-App.displayName = 'App';
+};
 
 export default App;

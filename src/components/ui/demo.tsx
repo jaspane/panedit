@@ -204,7 +204,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
             </button>
           </div>
           
-          <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Made With Love ❤️ 
             &copy; 2025 <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><a href="https://panedit.com/"><u>Panèdit</u></a></span>. All rights reserved.
           </p>
         </div>
