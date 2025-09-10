@@ -24,12 +24,7 @@ import {
 } from 'lucide-react';
 
 // Extend Window interface for YouTube API
-declare global {
-  interface Window {
-    YT: any;
-    onYouTubeIframeAPIReady: () => void;
-  }
-}
+
 // Lazy load heavy components
 const SplashCursor = lazy(() => 
   import('@/components/ui/splash-cursor').then(module => ({ 
