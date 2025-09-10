@@ -169,22 +169,7 @@ const App = memo(() => {
     };
 
     // Load YouTube API if not already loaded
-    if (!window.YT) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      script.async = true;
-      document.head.appendChild(script);
-      
-      window.onYouTubeIframeAPIReady = setupYouTubeSpeed;
-    } else {
-      setupYouTubeSpeed();
-    }
-    
-    return () => {
-      observer.disconnect();
-      window.removeEventListener('hashchange', handleHashChange);
-    };
-  }, []);
+
 
   // Toggle theme function
   const toggleTheme = () => {
