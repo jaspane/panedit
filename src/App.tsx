@@ -86,6 +86,7 @@ const App = memo(() => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
   const [submittedData, setSubmittedData] = useState({
     firstName: '',
     email: '',
@@ -120,9 +121,15 @@ const App = memo(() => {
 
     // Check initial hash
     handleHashChange();
-    
+
     // Listen for hash changes
     window.addEventListener('hashchange', handleHashChange);
+
+    // Handle scroll for navbar opacity
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
 
     // Add smooth scrolling animation observer
     const observer = new IntersectionObserver(
@@ -183,6 +190,7 @@ const App = memo(() => {
     return () => {
       observer.disconnect();
       window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -320,7 +328,11 @@ const App = memo(() => {
   if (currentPage === 'proposal') {
     return (
       <div>
-        <nav className="relative z-50 px-6 py-4 bg-black/20 backdrop-blur-md border-b border-gray-800">
+        <nav className={`fixed top-4 left-4 right-4 z-50 px-6 py-4 rounded-2xl backdrop-blur-md border transition-all duration-300 ${
+          scrolled
+            ? 'bg-black/60 border-gray-700/50 shadow-xl'
+            : 'bg-black/20 border-gray-800/30'
+        }`}>
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             <button
               onClick={() => {
@@ -456,10 +468,14 @@ const App = memo(() => {
       </div>
 
       {/* Navigation */}
-      <nav className={`relative z-50 px-6 py-4 backdrop-blur-md border-b transition-colors duration-300 ${
-        isDarkMode 
-          ? 'bg-black/20 border-gray-800' 
-          : 'bg-white/20 border-gray-200'
+      <nav className={`fixed top-4 left-4 right-4 z-50 px-6 py-4 rounded-2xl backdrop-blur-md border transition-all duration-300 ${
+        scrolled
+          ? isDarkMode
+            ? 'bg-black/60 border-gray-700/50 shadow-xl'
+            : 'bg-white/60 border-gray-300/50 shadow-xl'
+          : isDarkMode
+            ? 'bg-black/20 border-gray-800/30'
+            : 'bg-white/20 border-gray-200/30'
       }`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
@@ -500,7 +516,7 @@ const App = memo(() => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 pt-1 sm:pt-1">
+      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 sm:pt-28">
         <div className="max-w-6xl mx-auto text-center w-full">
           <div className="animate-on-scroll">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
