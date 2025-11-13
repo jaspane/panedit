@@ -20,7 +20,7 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
   return (
-    <footer className={`relative pt-4 pb-12 overflow-hidden transition-colors duration-300 ${
+    <footer className={`relative pt-4 pb-2 overflow-hidden transition-colors duration-300 ${
       isDarkMode
         ? 'bg-gradient-to-br from-gray-900 via-black to-gray-900'
         : 'bg-gradient-to-br from-gray-100 via-white to-gray-50'
@@ -177,7 +177,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
           </div>
         </div>
 
-        <div className={`mt-24 pt-2 border-t text-center ${
+        <div className={`mt-24 pt-4 border-t text-center ${
           isDarkMode ? 'border-gray-800' : 'border-gray-300'
         }`}>
           {/* Theme Toggle */}
