@@ -177,7 +177,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
           </div>
         </div>
 
-        <div className={`mt-24 pt-8 border-t text-center ${
+        <div className={`mt-24 pt-2 border-t text-center ${
           isDarkMode ? 'border-gray-800' : 'border-gray-300'
         }`}>
           {/* Theme Toggle */}
