@@ -18,10 +18,10 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // Export the supabase client
-export { supabase }
+
 
 // Types for our contact form
-export interface ContactSubmission {
+interface ContactSubmission {
   id?: string
   first_name: string
   last_name: string
