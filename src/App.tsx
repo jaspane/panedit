@@ -736,7 +736,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
 
 
                 <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
-                  Now with 1-Month, 30-Days, 
+                  Now with 60 Day 
                 <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                     Money Back Guarantee!
                   </span>
