@@ -806,7 +806,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
               Ready to <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
             <p className={`text-lg sm:text-xl mb-6 sm:mb-8 px-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-              Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 1 Month, 30-Day, Money Back Guarantee!
+              Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 60-Day Guarantee!
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
