@@ -61,15 +61,15 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
   hoverColor: string;
   titleColor: string;
 }) => (
-  <div className={`animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:${hoverColor} transition-all duration-300 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group`}>
-    <div className={`w-16 h-16 ${gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+  <div className={`animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:${hoverColor} transition-all duration-500 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group overflow-hidden`}>
+    <div className={`w-16 h-16 ${gradient} rounded-2xl flex items-center justify-center mb-6 opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500`}>
       <Icon className="w-8 h-8 text-white" />
     </div>
-    <h3 className={`text-xl sm:text-2xl font-bold mb-4 ${titleColor}`}>{title}</h3>
-    <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
+    <h3 className={`text-xl sm:text-2xl font-bold mb-4 ${titleColor} transition-all duration-300`}>{title}</h3>
+    <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
       {description}
     </p>
-    <ul className="space-y-2">
+    <ul className="space-y-2 max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
       {items.map((item, idx) => (
         <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
           <CheckCircle className="w-4 h-4 text-green-400" />
