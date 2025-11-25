@@ -62,10 +62,12 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
   titleColor: string;
 }) => (
   <div className={`animate-on-scroll bg-transparent group-hover:bg-gradient-to-br group-hover:from-gray-800/50 group-hover:to-gray-900/50 p-2 group-hover:p-6 sm:group-hover:p-8 rounded group-hover:rounded-2xl border border-transparent group-hover:border-gray-700 hover:${hoverColor} transition-all duration-500 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group overflow-hidden`}>
-    <div className={`w-16 h-16 ${gradient} rounded-2xl flex items-center justify-center mb-6 opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100 transition-all duration-500`}>
-      <Icon className="w-8 h-8 text-white" />
+    <div className="flex items-center gap-3 mb-0 group-hover:mb-4 transition-all duration-300">
+      <div className={`w-10 h-10 sm:w-12 sm:h-12 ${gradient} rounded-xl flex items-center justify-center transition-all duration-300`}>
+        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+      </div>
+      <h3 className={`text-xl sm:text-2xl font-bold ${titleColor} transition-all duration-300`}>{title}</h3>
     </div>
-    <h3 className={`text-xl sm:text-2xl font-bold mb-0 group-hover:mb-4 ${titleColor} transition-all duration-300`}>{title}</h3>
     <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
       {description}
     </p>
