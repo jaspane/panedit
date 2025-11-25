@@ -552,7 +552,7 @@ const App = memo(() => {
                 AI-Powered Solutions
               </span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
+            <p className={`text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Transform business operations with intelligent AI chat agents, automated lead generation, 
                seamless CRM integrations and More... Scale faster, work smarter.
             </p>
@@ -619,7 +619,7 @@ const App = memo(() => {
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
               Our <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">AI Solutions</span>
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
+            <p className={`text-lg sm:text-xl max-w-3xl mx-auto px-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Comprehensive automation solutions designed to streamline your operations and accelerate growth. Improve ALL your business processes with AI: Social Media, Legal, Project Management, and More...
             </p>
           </div>
@@ -660,8 +660,8 @@ const App = memo(() => {
                 <h3 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent mb-1">
                   Jasper Panè
                 </h3>
-                <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
-                <p className="text-gray-300 text-sm sm:text-base">Las Vegas, NV - USA</p>
+                <p className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>AI Business Consultant</p>
+                <p className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>Las Vegas, NV - USA</p>
               </div>
             </div>
           </div>
@@ -682,7 +682,7 @@ const App = memo(() => {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 text-blue-400">Lightning Fast Implementation</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Get your AI systems up and running in days, not months. Our proven methodology ensures rapid deployment with minimal disruption. Most Implementation done within 72 Hours after onboarding!</p>
+                  <p className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Get your AI systems up and running in days, not months. Our proven methodology ensures rapid deployment with minimal disruption. Most Implementation done within 72 Hours after onboarding!</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -691,7 +691,7 @@ const App = memo(() => {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 text-pink-400">Precision Targeting</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Our AI algorithms learn from your data to deliver highly targeted results, improving conversion rates by up to 300%. Offline private AI implementation available.</p>
+                  <p className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Our AI algorithms learn from your data to deliver highly targeted results, improving conversion rates by up to 300%. Offline private AI implementation available.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -700,7 +700,7 @@ const App = memo(() => {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-bold mb-2 text-pink-400">Enterprise-Grade Security</h3>
-                  <p className="text-sm sm:text-base text-gray-300">Bank-level encryption and compliance with GDPR, CCPA, and SOC 2 standards ensure your data is always protected. HIPPA Compliant available for Medical Sector.</p>
+                  <p className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Bank-level encryption and compliance with GDPR, CCPA, and SOC 2 standards ensure your data is always protected. HIPPA Compliant available for Medical Sector.</p>
                 </div>
               </div>
             </div>
@@ -803,7 +803,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
               Ready to <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 px-2">
+            <p className={`text-lg sm:text-xl mb-6 sm:mb-8 px-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 1 Month, 30-Day, Money Back Guarantee!
             </p>
             <button
@@ -825,7 +825,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
               Frequently Asked <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Questions</span>
             </h2>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
+            <p className={`text-lg sm:text-xl max-w-2xl mx-auto px-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Get answers to common questions about AI automation and our services
             </p>
           </div>
@@ -862,7 +862,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                 }`}>
                   <div className="px-6 sm:px-8 pb-6">
                     <div className="pl-14">
-                      <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
+                      <p className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                         {faq.answer}
                       </p>
                     </div>
@@ -878,7 +878,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
               <h3 className="text-xl sm:text-2xl font-bold mb-4 text-white">
                 Still Have Questions?
               </h3>
-              <p className="text-gray-300 mb-6">
+              <p className={`mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 Our AI automation experts are here to help. Schedule a free consultation to get personalized answers.
               </p>
               <button
