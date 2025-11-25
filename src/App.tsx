@@ -771,7 +771,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   <button 
                     onClick={() => setIsModalOpen(true)}
                     className="px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300 text-sm sm:text-base w-full sm:w-auto">
-                    Watch Demo
+                    Request for a Demo
                   </button>
                 </div>
               </div>
