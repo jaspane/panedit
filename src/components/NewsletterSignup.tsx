@@ -120,7 +120,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                   isDarkMode ? 'text-gray-300' : 'text-gray-600'
                 }`}>
                   Get exclusive AI automation strategies, case studies, and industry insights delivered to your inbox.
-                  Join 5,000+ business leaders transforming their operations.
+                  Join a Growing number of business leaders transforming their operations.
                 </p>
               </div>
 
@@ -282,7 +282,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
               }`}>
                 <div>
                   <div className={`text-3xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
-                    5,000+
+                    Growing
                   </div>
                   <div className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     Subscribers
