@@ -910,7 +910,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
             </button>
             
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
-              Book Your <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
+              <span className="text-white drop-shadow-lg">Book Your</span> <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
