@@ -52,19 +52,20 @@ const ComponentLoader = memo(() => (
 ComponentLoader.displayName = 'ComponentLoader';
 
 // Memoized service card component
-const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hoverColor }: {
+const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hoverColor, titleColor }: {
   icon: any;
   title: string;
   description: string;
   items: string[];
   gradient: string;
   hoverColor: string;
+  titleColor: string;
 }) => (
   <div className={`animate-on-scroll bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-6 sm:p-8 rounded-2xl border border-gray-700 hover:${hoverColor} transition-all duration-300 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group`}>
     <div className={`w-16 h-16 ${gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
       <Icon className="w-8 h-8 text-white" />
     </div>
-    <h3 className={`text-xl sm:text-2xl font-bold mb-4 text-${hoverColor.split('-')[1]}-400`}>{title}</h3>
+    <h3 className={`text-xl sm:text-2xl font-bold mb-4 ${titleColor}`}>{title}</h3>
     <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed">
       {description}
     </p>
@@ -380,7 +381,8 @@ const App = memo(() => {
       description: "Deploy intelligent conversational AI that handles customer inquiries, qualifies leads, and provides 24/7 support with human-like interactions.",
       items: ["Natural Language Processing", "Multi-platform Integration", "Contextual Conversations"],
       gradient: "bg-gradient-to-r from-blue-500 to-blue-600",
-      hoverColor: "border-blue-500/50"
+      hoverColor: "border-blue-500/50",
+      titleColor: "text-blue-400"
     },
     {
       icon: TrendingUp,
@@ -388,7 +390,8 @@ const App = memo(() => {
       description: "Automate your lead generation process with AI-powered prospecting, qualification, and nurturing systems that work around the clock.",
       items: ["Automated Prospecting", "Lead Scoring & Qualification", "Personalized Outreach"],
       gradient: "bg-gradient-to-r from-pink-500 to-pink-600",
-      hoverColor: "border-pink-500/50"
+      hoverColor: "border-pink-500/50",
+      titleColor: "text-pink-400"
     },
     {
       icon: Users,
@@ -396,7 +399,8 @@ const App = memo(() => {
       description: "Seamlessly connect your existing CRM systems with our AI solutions for unified customer data management and automated workflows.",
       items: ["Salesforce, HubSpot, Pipedrive", "Data Synchronization", "Workflow Automation"],
       gradient: "bg-gradient-to-r from-pink-500 to-pink-600",
-      hoverColor: "border-pink-500/50"
+      hoverColor: "border-pink-500/50",
+      titleColor: "text-pink-400"
     },
     {
       icon: Target,
@@ -404,7 +408,8 @@ const App = memo(() => {
       description: "Streamline project workflows with AI-powered task automation, resource allocation, and intelligent progress tracking for maximum efficiency.",
       items: ["Automated Task Assignment", "Resource Optimization", "Progress Analytics"],
       gradient: "bg-gradient-to-r from-green-500 to-green-600",
-      hoverColor: "border-green-500/50"
+      hoverColor: "border-green-500/50",
+      titleColor: "text-green-400"
     },
     {
       icon: Users,
@@ -412,7 +417,8 @@ const App = memo(() => {
       description: "Transform your recruitment process with AI-driven candidate screening, automated interviews, and intelligent talent matching systems.",
       items: ["Resume Screening & Ranking", "Automated Interview Scheduling", "Skills Assessment & Matching"],
       gradient: "bg-gradient-to-r from-orange-500 to-orange-600",
-      hoverColor: "border-orange-500/50"
+      hoverColor: "border-orange-500/50",
+      titleColor: "text-orange-400"
     },
     {
       icon: TrendingUp,
@@ -420,7 +426,8 @@ const App = memo(() => {
       description: "Optimize your sales operations with AI-powered pipeline management, automated follow-ups, and intelligent sales forecasting tools.",
       items: ["Pipeline Automation", "Smart Follow-up Sequences", "Sales Forecasting & Analytics"],
       gradient: "bg-gradient-to-r from-cyan-500 to-cyan-600",
-      hoverColor: "border-cyan-500/50"
+      hoverColor: "border-cyan-500/50",
+      titleColor: "text-cyan-400"
     },
     {
       icon: Zap,
@@ -428,7 +435,8 @@ const App = memo(() => {
       description: "Generate professional proposals automatically with AI-powered content creation, dynamic pricing, and customized templates for faster deal closure.",
       items: ["Dynamic Proposal Generation", "Smart Pricing Optimization", "Template Customization"],
       gradient: "bg-gradient-to-r from-indigo-500 to-indigo-600",
-      hoverColor: "border-indigo-500/50"
+      hoverColor: "border-indigo-500/50",
+      titleColor: "text-indigo-400"
     },
     {
       icon: Bot,
@@ -436,7 +444,8 @@ const App = memo(() => {
       description: "Scale your content marketing with AI-powered blog posts, social media content, and marketing materials that maintain your brand voice.",
       items: ["Blog Post Generation", "Social Media Automation", "Brand Voice Consistency"],
       gradient: "bg-gradient-to-r from-yellow-500 to-yellow-600",
-      hoverColor: "border-yellow-500/50"
+      hoverColor: "border-yellow-500/50",
+      titleColor: "text-yellow-400"
     },
     {
       icon: Users,
@@ -444,7 +453,8 @@ const App = memo(() => {
       description: "Streamline client and employee onboarding with automated workflows, document collection, and personalized welcome sequences.",
       items: ["Automated Welcome Sequences", "Document Collection & Processing", "Progress Tracking & Reminders"],
       gradient: "bg-gradient-to-r from-teal-500 to-teal-600",
-      hoverColor: "border-teal-500/50"
+      hoverColor: "border-teal-500/50",
+      titleColor: "text-teal-400"
     }
   ];
 
