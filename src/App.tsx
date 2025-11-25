@@ -506,12 +506,29 @@ const App = memo(() => {
               Proposal
             </button>
           </div>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
-          >
-            Book a Call
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                isDarkMode
+                  ? 'bg-gray-800/50 hover:bg-gray-700/50 text-yellow-400'
+                  : 'bg-gray-200/50 hover:bg-gray-300/50 text-blue-500'
+              }`}
+              aria-label="Toggle theme"
+            >
+              {isDarkMode ? (
+                <Sun className="w-5 h-5" />
+              ) : (
+                <Moon className="w-5 h-5" />
+              )}
+            </button>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+            >
+              Book a Call
+            </button>
+          </div>
         </div>
       </nav>
 
