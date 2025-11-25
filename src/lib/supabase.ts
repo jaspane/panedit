@@ -59,3 +59,44 @@ export async function submitContactForm(data: Omit<ContactSubmission, 'id' | 'cr
   console.log('Form submitted successfully:', submission)
   return submission
 }
+
+interface NewsletterSignup {
+  id?: string
+  email: string
+  name?: string
+  subscribed_at?: string
+  ip_address?: string
+  user_agent?: string
+  consent_given: boolean
+  status?: 'active' | 'unsubscribed' | 'bounced'
+  unsubscribed_at?: string
+  source?: string
+}
+
+export async function submitNewsletterSignup(data: Omit<NewsletterSignup, 'id' | 'subscribed_at' | 'unsubscribed_at' | 'status'>) {
+  if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+    throw new Error('Supabase is not connected. Please click "Connect to Supabase" button in the top right corner.')
+  }
+
+  console.log('Submitting newsletter signup:', data)
+
+  const { data: signup, error } = await supabase
+    .from('newsletter_signups')
+    .insert([data])
+    .select()
+    .maybeSingle()
+
+  if (error) {
+    console.error('Newsletter signup error:', error)
+
+    if (error.code === '23505') {
+      throw new Error('This email is already subscribed to our newsletter.')
+    }
+    throw error
+  }
+
+  console.log('Newsletter signup successful:', signup)
+  return signup
+}
+
+export { supabase }

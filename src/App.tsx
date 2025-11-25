@@ -2,6 +2,7 @@ import React, { useState, useEffect, lazy } from 'react';
 import { Suspense, memo } from 'react';
 import { submitContactForm } from '@/lib/supabase';
 import ProposalGenerator from '@/components/ProposalGenerator';
+import NewsletterSignup from '@/components/NewsletterSignup';
 import {
   Bot,
   TrendingUp,
@@ -905,6 +906,9 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
           </div>
         </div>
       </section>
+
+      {/* Newsletter Signup Section */}
+      <NewsletterSignup isDarkMode={isDarkMode} />
 
       {/* New Footer Component */}
       <Suspense fallback={<ComponentLoader />}>
