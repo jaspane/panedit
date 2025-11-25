@@ -140,7 +140,7 @@ const ProposalGenerator: React.FC = () => {
         '90-day support'
       ],
       icon: TrendingUp,
-      gradient: 'from-purple-500 to-purple-600',
+      gradient: 'from-pink-500 to-pink-600',
       popular: true,
       monthlyMaintenance: {
         enabled: false,
@@ -315,7 +315,7 @@ const ProposalGenerator: React.FC = () => {
             
             {/* Lock Icon */}
             <div className="flex justify-center mb-6">
-              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-pink-500 rounded-full flex items-center justify-center shadow-lg">
                 <Lock className="w-10 h-10 text-white" />
               </div>
             </div>
@@ -323,7 +323,7 @@ const ProposalGenerator: React.FC = () => {
             {/* Header */}
             <div className="text-center mb-8">
               <h1 className="text-2xl font-bold mb-2">
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
                   Proposal Generator
                 </span>
               </h1>
@@ -368,7 +368,7 @@ const ProposalGenerator: React.FC = () => {
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-500 to-pink-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
               >
                 <Lock className="w-5 h-5" />
                 Access Proposal Generator
@@ -406,7 +406,7 @@ const ProposalGenerator: React.FC = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              AI Automation <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Proposal Generator</span>
+              AI Automation <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Proposal Generator</span>
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Create professional, customized proposals for AI automation consultancy services in minutes.
@@ -553,7 +553,7 @@ const ProposalGenerator: React.FC = () => {
           <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 p-8 rounded-2xl border border-gray-700 mb-8">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold flex items-center gap-3">
-                <Target className="w-6 h-6 text-purple-400" />
+                <Target className="w-6 h-6 text-pink-400" />
                 Select Service Tier
               </h2>
               <button
@@ -595,7 +595,7 @@ const ProposalGenerator: React.FC = () => {
                   >
                     {tier.popular && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                        <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                        <span className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                           Most Popular
                         </span>
                       </div>
@@ -745,7 +745,7 @@ const ProposalGenerator: React.FC = () => {
             </div>
 
             {selectedTier && (
-              <div className="mt-8 p-6 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl border border-blue-500/20">
+              <div className="mt-8 p-6 bg-gradient-to-r from-blue-500/10 to-pink-500/10 rounded-xl border border-blue-500/20">
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="text-lg font-semibold text-white">Selected Service</h3>
@@ -777,7 +777,7 @@ const ProposalGenerator: React.FC = () => {
             <button
               onClick={generateProposal}
               disabled={!clientData.companyName || !clientData.contactName || !clientData.email || !selectedTier}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 mx-auto"
+              className="bg-gradient-to-r from-blue-500 to-pink-500 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-3 mx-auto"
             >
               <Target className="w-6 h-6" />
               Generate Professional Proposal
@@ -803,7 +803,7 @@ const ProposalGenerator: React.FC = () => {
         </button>
         <button
           onClick={handlePrint}
-          className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg hover:shadow-lg transition-all"
+          className="flex items-center gap-2 px-6 py-2 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg hover:shadow-lg transition-all"
         >
           <Download className="w-4 h-4" />
           Download/Print Proposal
@@ -815,11 +815,11 @@ const ProposalGenerator: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 border-b border-gray-200 pb-8">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-pink-500 rounded-2xl flex items-center justify-center">
               <Bot className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-pink-600 bg-clip-text text-transparent">
                 Panèdit
               </h1>
               <p className="text-gray-600">AI Automation Consultancy</p>
@@ -915,7 +915,7 @@ const ProposalGenerator: React.FC = () => {
         {selectedTierData && (
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-              <Star className="w-6 h-6 text-purple-600" />
+              <Star className="w-6 h-6 text-pink-600" />
               Your Selected Solution
             </h3>
             
@@ -1032,7 +1032,7 @@ const ProposalGenerator: React.FC = () => {
             Investment Summary
           </h3>
           
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 p-8 rounded-2xl border border-blue-200">
+          <div className="bg-gradient-to-r from-blue-50 to-pink-50 p-8 rounded-2xl border border-blue-200">
             <div className="space-y-4">
               {selectedTierData && (
                 <>
@@ -1101,7 +1101,7 @@ const ProposalGenerator: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-              <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
+              <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold">2</div>
               <div>
                 <h4 className="font-semibold text-gray-800">Development & Integration (Weeks 2-6)</h4>
                 <p className="text-gray-600">AI system development, testing, and integration with existing tools</p>
@@ -1138,7 +1138,7 @@ const ProposalGenerator: React.FC = () => {
               <span className="text-gray-300">ai@panedit.com</span>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <Phone className="w-6 h-6 text-purple-400" />
+              <Phone className="w-6 h-6 text-pink-400" />
               <span className="font-semibold">Phone</span>
               <span className="text-gray-300">+1 (315) 726-3348</span>
             </div>

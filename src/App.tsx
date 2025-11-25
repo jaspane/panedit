@@ -339,7 +339,7 @@ const App = memo(() => {
                 window.location.hash = '';
                 window.location.reload();
               }} 
-              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
+              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
             >
               Panèdit
             </button>
@@ -362,7 +362,7 @@ const App = memo(() => {
             </div>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+              className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
             >
               Book a Call
             </button>
@@ -387,8 +387,8 @@ const App = memo(() => {
       title: "Lead Generation",
       description: "Automate your lead generation process with AI-powered prospecting, qualification, and nurturing systems that work around the clock.",
       items: ["Automated Prospecting", "Lead Scoring & Qualification", "Personalized Outreach"],
-      gradient: "bg-gradient-to-r from-purple-500 to-purple-600",
-      hoverColor: "border-purple-500/50"
+      gradient: "bg-gradient-to-r from-pink-500 to-pink-600",
+      hoverColor: "border-pink-500/50"
     },
     {
       icon: Users,
@@ -463,7 +463,7 @@ const App = memo(() => {
           isDarkMode ? 'bg-blue-500/10' : 'bg-blue-500/5'
         }`}></div>
         <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000 ${
-          isDarkMode ? 'bg-purple-500/10' : 'bg-purple-500/5'
+          isDarkMode ? 'bg-pink-500/10' : 'bg-pink-500/5'
         }`}></div>
       </div>
 
@@ -478,7 +478,7 @@ const App = memo(() => {
             : 'bg-white/20 border-gray-200/30'
       }`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
             Panèdit
           </div>
           <div className="hidden md:flex space-x-8">
@@ -508,7 +508,7 @@ const App = memo(() => {
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+            className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 py-2 rounded-full hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
           >
             Book a Call
           </button>
@@ -521,7 +521,7 @@ const App = memo(() => {
           <div className="animate-on-scroll">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
               Automate Your Business with
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+              <span className="bg-gradient-to-r from-blue-400 via-pink-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                 AI-Powered Solutions
               </span>
             </h1>
@@ -550,7 +550,7 @@ const App = memo(() => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12 px-4">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center"
+                className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center"
               >
                 <Calendar className="w-5 h-5" />
                 Book Your Free Consultation
@@ -574,7 +574,7 @@ const App = memo(() => {
               <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>AI Global Adoption</div>
             </div>
             <div className="text-center p-4">
-              <div className="text-3xl sm:text-4xl font-bold text-purple-400 mb-2">85%</div>
+              <div className="text-3xl sm:text-4xl font-bold text-pink-400 mb-2">85%</div>
               <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Average Cost Reduction</div>
             </div>
             <div className="text-center p-4">
@@ -590,7 +590,7 @@ const App = memo(() => {
         <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">AI Solutions</span>
+              Our <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">AI Solutions</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto px-4">
               Comprehensive automation solutions designed to streamline your operations and accelerate growth. Improve ALL your business processes with AI: Social Media, Legal, Project Management, and More...
@@ -616,12 +616,12 @@ const App = memo(() => {
         <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              Why Choose <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Panèdit</span>
+              Why Choose <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Panèdit</span>
             </h2>
             
             {/* Profile Section */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12">
-              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-purple-400 shadow-lg">
+              <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-pink-400 shadow-lg">
                 <img 
                   src="/Profile Picture.png" 
                   alt="Jasper Panè" 
@@ -630,7 +630,7 @@ const App = memo(() => {
                 />
               </div>
               <div className="text-center sm:text-left">
-                <h3 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                <h3 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent mb-1">
                   Jasper Panè
                 </h3>
                 <p className="text-gray-300 text-sm sm:text-base">AI Business Consultant</p>
@@ -650,7 +650,7 @@ const App = memo(() => {
             </div>
             <div className="animate-on-scroll space-y-6 sm:space-y-8">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Zap className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -659,11 +659,11 @@ const App = memo(() => {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Target className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-purple-400">Precision Targeting</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2 text-pink-400">Precision Targeting</h3>
                   <p className="text-sm sm:text-base text-gray-300">Our AI algorithms learn from your data to deliver highly targeted results, improving conversion rates by up to 300%. Offline private AI implementation available.</p>
                 </div>
               </div>
@@ -695,7 +695,7 @@ const App = memo(() => {
               <div className="text-center animate-on-scroll">
                 <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
                   Experience the Future of
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+                  <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                     AI Automation
                   </span>
                 </h2>
@@ -710,7 +710,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
 
                 <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
                   Now with 1-Month, 30-Days, 
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+                <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                     Money Back Guarantee!
                   </span>
                   </h2>
@@ -722,7 +722,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                     <div className="text-white/80 text-sm sm:text-base">Processes Automated</div>
                   </div>
                   <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
-                    <div className="text-2xl sm:text-3xl font-bold text-purple-400 mb-1 sm:mb-2">95%</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">95%</div>
                     <div className="text-white/80 text-sm sm:text-base">Client Satisfaction</div>
                   </div>
                   <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
@@ -734,7 +734,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                 <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2">
                   <button
                     onClick={() => setIsModalOpen(true)}
-                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
                   >
                     <Calendar className="w-5 h-5" />
                     Start Your AI Journey
@@ -772,16 +772,16 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
       {/* CTA Section */}
       <section className="py-3 sm:py-4 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 sm:p-12 rounded-3xl border border-gray-700">
+          <div className="bg-gradient-to-r from-blue-500/10 to-pink-500/10 p-6 sm:p-12 rounded-3xl border border-gray-700">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              Ready to <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Transform</span> Your Business?
+              Ready to <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 mb-6 sm:mb-8 px-2">
               Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 1 Month, 30-Day, Money Back Guarantee!
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-gradient-to-r from-blue-500 to-purple-500 px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-3"
+              className="bg-gradient-to-r from-blue-500 to-pink-500 px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-3"
             >
               <Phone className="w-6 h-6" />
               Book Your Free Strategy Call
@@ -796,7 +796,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-16 animate-on-scroll">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
-              Frequently Asked <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Questions</span>
+              Frequently Asked <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Questions</span>
             </h2>
             <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto px-2">
               Get answers to common questions about AI automation and our services
@@ -814,7 +814,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   className="w-full px-6 sm:px-8 py-6 text-left flex items-center justify-between hover:bg-gray-800/30 transition-colors duration-200"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <HelpCircle className="w-5 h-5 text-white" />
                     </div>
                     <h3 className="text-lg sm:text-xl font-semibold text-white pr-4">
@@ -847,7 +847,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
 
           {/* Still have questions CTA */}
           <div className="text-center mt-12 animate-on-scroll">
-            <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 p-6 sm:p-8 rounded-2xl border border-gray-700">
+            <div className="bg-gradient-to-r from-blue-500/10 to-pink-500/10 p-6 sm:p-8 rounded-2xl border border-gray-700">
               <h3 className="text-xl sm:text-2xl font-bold mb-4 text-white">
                 Still Have Questions?
               </h3>
@@ -856,7 +856,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
               </p>
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 px-6 sm:px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
+                className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 sm:px-8 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-2"
               >
                 <Phone className="w-5 h-5" />
                 Get Your Questions Answered
@@ -883,7 +883,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
             </button>
             
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
-              Book Your <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Free Consultation</span>
+              Book Your <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -978,7 +978,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-purple-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-blue-500 to-pink-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
               >
                 Schedule My Free Consultation
               </button>
@@ -992,8 +992,8 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 p-8 rounded-3xl border border-gray-700 max-w-md w-full relative overflow-hidden">
             {/* Background glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-3xl"></div>
-            <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-pink-500/10 rounded-3xl"></div>
+            <div className="absolute top-4 right-4 w-32 h-32 bg-gradient-to-br from-blue-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
             
             <div className="relative z-10">
               <button
@@ -1033,7 +1033,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                       <span className="text-sm">{submittedData.email}</span>
                     </div>
                     {submittedData.phone && (
-                      <div className="flex items-center justify-center gap-2 text-purple-400">
+                      <div className="flex items-center justify-center gap-2 text-pink-400">
                         <Phone className="w-4 h-4" />
                         <span className="text-sm">{submittedData.phone}</span>
                       </div>
@@ -1046,7 +1046,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => setShowSuccessDialog(false)}
-                  className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                  className="flex-1 bg-gradient-to-r from-blue-500 to-pink-500 px-6 py-3 rounded-full font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
                 >
                   <CheckCircle className="w-5 h-5" />
                   Got it!
