@@ -1162,13 +1162,15 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   Book your strategy call in the next 10 minutes and get a FREE lead generation audit ($2,500 value)
                 </p>
               </div>
-              <a
-                href="#contact"
-                onClick={() => setShowExitPopup(false)}
-                className="block bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-3"
+              <button
+                onClick={() => {
+                  setShowExitPopup(false);
+                  setIsModalOpen(true);
+                }}
+                className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-3"
               >
                 Claim My Free Audit Now
-              </a>
+              </button>
               <button
                 onClick={() => setShowExitPopup(false)}
                 className={`text-sm transition-colors ${
