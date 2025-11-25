@@ -2,13 +2,13 @@ import React, { useState, useEffect, lazy } from 'react';
 import { Suspense, memo } from 'react';
 import { submitContactForm } from '@/lib/supabase';
 import ProposalGenerator from '@/components/ProposalGenerator';
-import { 
-  Bot, 
-  TrendingUp, 
-  Users, 
-  Zap, 
-  CheckCircle, 
-  ArrowRight, 
+import {
+  Bot,
+  TrendingUp,
+  Users,
+  Zap,
+  CheckCircle,
+  ArrowRight,
   Phone,
   Mail,
   Calendar,
@@ -20,7 +20,8 @@ import {
   ChevronUp,
   HelpCircle,
   Sun,
-  Moon
+  Moon,
+  Clock
 } from 'lucide-react';
 
 // Extend Window interface for YouTube API
@@ -90,6 +91,7 @@ const App = memo(() => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [scrolled, setScrolled] = useState(false);
+  const [showExitPopup, setShowExitPopup] = useState(false);
   const [submittedData, setSubmittedData] = useState({
     firstName: '',
     email: '',
@@ -190,12 +192,21 @@ const App = memo(() => {
       setupYouTubeSpeed();
     }
     
+    // Exit intent detection
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !showExitPopup) {
+        setShowExitPopup(true);
+      }
+    };
+    document.addEventListener('mouseleave', handleMouseLeave);
+
     return () => {
       observer.disconnect();
       window.removeEventListener('hashchange', handleHashChange);
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+  }, [showExitPopup]);
 
   // Toggle theme function
   const toggleTheme = () => {
@@ -1099,6 +1110,73 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   <span>We typically respond within 2-4 hours</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Exit Intent Popup */}
+      {showExitPopup && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className={`rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-in zoom-in duration-200 ${
+            isDarkMode
+              ? 'bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700'
+              : 'bg-white'
+          }`}>
+            <button
+              onClick={() => setShowExitPopup(false)}
+              className={`absolute top-4 right-4 transition-colors ${
+                isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <div className="text-center">
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                isDarkMode
+                  ? 'bg-gradient-to-br from-blue-500 to-pink-500'
+                  : 'bg-blue-100'
+              }`}>
+                <Clock className={`w-8 h-8 ${isDarkMode ? 'text-white' : 'text-blue-600'}`} />
+              </div>
+              <h3 className={`text-2xl font-bold mb-4 ${
+                isDarkMode ? 'text-white' : 'text-gray-900'
+              }`}>
+                Wait! Before You Go...
+              </h3>
+              <p className={`text-lg mb-6 ${
+                isDarkMode ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                Every day without AI automation costs you thousands in lost revenue. Don't let your competitors win.
+              </p>
+              <div className={`border rounded-lg p-4 mb-6 ${
+                isDarkMode
+                  ? 'bg-gradient-to-br from-blue-500/10 to-pink-500/10 border-blue-500/30'
+                  : 'bg-blue-50 border-blue-200'
+              }`}>
+                <p className={`font-bold mb-2 ${
+                  isDarkMode ? 'text-white' : 'text-gray-900'
+                }`}>Limited Time Offer:</p>
+                <p className={isDarkMode ? 'text-gray-300' : 'text-gray-700'}>
+                  Book your strategy call in the next 10 minutes and get a FREE lead generation audit ($2,500 value)
+                </p>
+              </div>
+              <a
+                href="#contact"
+                onClick={() => setShowExitPopup(false)}
+                className="block bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 shadow-lg hover:shadow-xl mb-3"
+              >
+                Claim My Free Audit Now
+              </a>
+              <button
+                onClick={() => setShowExitPopup(false)}
+                className={`text-sm transition-colors ${
+                  isDarkMode ? 'text-gray-400 hover:text-gray-300' : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                No thanks, I don't want more leads
+              </button>
             </div>
           </div>
         </div>
