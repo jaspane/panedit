@@ -472,10 +472,10 @@ const App = memo(() => {
         scrolled
           ? isDarkMode
             ? 'bg-black/60 border-gray-700/50 shadow-xl'
-            : 'bg-white/60 border-gray-300/50 shadow-xl'
+            : 'bg-gray-100/80 border-gray-300/50 shadow-xl'
           : isDarkMode
             ? 'bg-black/20 border-gray-800/30'
-            : 'bg-white/20 border-gray-200/30'
+            : 'bg-gray-100/60 border-gray-200/30'
       }`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
