@@ -148,7 +148,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                           isDarkMode ? 'text-gray-300' : 'text-gray-700'
                         }`}
                       >
-                        Name <span className="text-gray-500 font-normal">(optional)</span>
+                        Name <span className="text-gray-500 font-normal"></span>
                       </label>
                       <input
                         type="text"
