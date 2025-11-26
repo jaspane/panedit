@@ -281,7 +281,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                 isDarkMode ? 'border-gray-700' : 'border-gray-200'
               }`}>
                 <div>
-                  <div className={`text-3xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
+                  <div className={`text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
                     Growing
                   </div>
                   <div className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -289,7 +289,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                   </div>
                 </div>
                 <div>
-                  <div className={`text-3xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
+                  <div className={`text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
                     Weekly
                   </div>
                   <div className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -297,7 +297,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                   </div>
                 </div>
                 <div>
-                  <div className={`text-3xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
+                  <div className={`text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent`}>
                     Free
                   </div>
                   <div className={`text-sm mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
