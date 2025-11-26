@@ -561,7 +561,7 @@ const App = memo(() => {
         <div className="max-w-6xl mx-auto text-center w-full">
           <div className="animate-on-scroll">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight px-2">
-              Multiply Sales, Reclaim Time with
+              Multiply Sales & Reclaim Time with
               <span className="bg-gradient-to-r from-blue-400 via-pink-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                 AI-Powered Solutions
               </span>
