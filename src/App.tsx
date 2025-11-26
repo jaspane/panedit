@@ -558,19 +558,19 @@ const App = memo(() => {
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 pt-24 sm:pt-28">
         <div className="max-w-6xl mx-auto text-center w-full">
           <div className="animate-on-scroll">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight px-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 leading-tight px-2">
               Multiply Sales & Reclaim Time with
               <span className="bg-gradient-to-r from-blue-400 via-pink-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                 AI-Powered Solutions
               </span>
             </h1>
-            <p className={`text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <p className={`text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 max-w-3xl mx-auto leading-relaxed px-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Transform business operations with intelligent AI chat agents, automated lead generation, 
                seamless CRM integrations and More... Scale faster, work smarter.
             </p>
             
             {/* YouTube Video 1 */}
-            <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
+            <div className="mb-4 sm:mb-6 w-full max-w-5xl mx-auto px-4">
               <div className={`relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border transition-colors duration-300 ${
                 isDarkMode ? 'border-gray-700' : 'border-gray-300'
               }`}>
@@ -586,7 +586,7 @@ const App = memo(() => {
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-12 px-4">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 sm:mb-6 px-4">
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-gradient-to-r from-blue-500 to-pink-500 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 w-full sm:w-auto justify-center"
@@ -607,7 +607,7 @@ const App = memo(() => {
           </div>
           
           {/* Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 animate-on-scroll px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8 animate-on-scroll px-4">
             <div className="text-center p-4">
               <div className="text-3xl sm:text-4xl font-bold text-blue-400 mb-2">77%</div>
               <div className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>AI Global Adoption</div>
@@ -625,10 +625,10 @@ const App = memo(() => {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-4 sm:py-5 px-4 sm:px-6 relative z-10">
+      <section id="services" className="py-2 sm:py-3 px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
+          <div className="text-center mb-8 animate-on-scroll">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3 px-2">
               Our <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">AI Solutions</span>
             </h2>
             <p className={`text-lg sm:text-xl max-w-3xl mx-auto px-4 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -636,13 +636,13 @@ const App = memo(() => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {services.slice(0, 6).map((service, index) => (
               <ServiceCard key={index} {...service} isDarkMode={isDarkMode} />
             ))}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-4">
             {services.slice(6).map((service, index) => (
               <ServiceCard key={index + 6} {...service} isDarkMode={isDarkMode} />
             ))}
@@ -651,15 +651,15 @@ const App = memo(() => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+      <section id="features" className="py-8 sm:py-10 px-4 sm:px-6 relative z-10">
         <div className="max-w-6xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
+          <div className="text-center mb-8 animate-on-scroll">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3 px-2">
               Why Choose <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Panèdit</span>
             </h2>
-            
+
             {/* Profile Section */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-12">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
               <div className="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-pink-400 shadow-lg">
                 <img 
                   src="/Profile Picture.png" 
@@ -678,7 +678,7 @@ const App = memo(() => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-center">
             <div className="animate-on-scroll">
               <img 
                 src="https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=800" 
@@ -687,7 +687,7 @@ const App = memo(() => {
                 loading="lazy"
               />
             </div>
-            <div className="animate-on-scroll space-y-6 sm:space-y-8">
+            <div className="animate-on-scroll space-y-4 sm:space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
                   <Zap className="w-6 h-6 text-white" />
@@ -721,7 +721,7 @@ const App = memo(() => {
       </section>
 
       {/* Vortex Section */}
-      <section className="py-4 sm:py-6 px-4 sm:px-6 relative z-10">
+      <section className="py-2 sm:py-3 px-4 sm:px-6 relative z-10">
         <div className="w-full">
           <div className="w-full h-[50rem] sm:h-[55rem] overflow-hidden">
             <Vortex
@@ -732,22 +732,22 @@ const App = memo(() => {
               className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
             >
               <div className="text-center animate-on-scroll">
-                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
+                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-2 sm:mb-3 leading-tight">
                   Experience the Future of
                   <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                     AI Automation
                   </span>
                 </h2>
-                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
+                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-2 sm:mt-3 text-center mb-3 sm:mb-4 opacity-90 px-2">
                   Unlike other companies who just waste your time and money on products you don't want or need,
 Panèdit focuses on perfecting your systems first, then we supercharge it with AI. 
                 </p>
-                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-4 sm:mt-6 text-center mb-6 sm:mb-8 opacity-90 px-2">
+                <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-2 sm:mt-3 text-center mb-3 sm:mb-4 opacity-90 px-2">
                 We Consult and Improve Your Business Process Before Adding Onto It. Our goal is singular: Increase Your Profits!
                 </p>
 
 
-                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-4 sm:mb-6 leading-tight">
+                <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-2 sm:mb-3 leading-tight">
                   Now with 60 Day 
                 <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
                     Money Back Guarantee!
@@ -755,7 +755,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   </h2>
                 
                 {/* Stats in Vortex */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-12 mb-6 sm:mb-8 px-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6 mb-3 sm:mb-4 px-2">
                   <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
                     <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">500+</div>
                     <div className="text-white/80 text-sm sm:text-base">Processes Automated</div>
@@ -770,7 +770,7 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   </div>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-6 sm:mt-8 px-2">
+                <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-3 sm:mt-4 px-2">
                   <button
                     onClick={() => setIsModalOpen(true)}
                     className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
@@ -791,8 +791,8 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
       </section>
 
                   {/* YouTube Video 2 */}
-          <section id="about" className="py-4 sm:py-6 px-4 sm:px-6 relative z-10">
-            <div className="mb-8 sm:mb-12 w-full max-w-5xl mx-auto px-4">
+          <section id="about" className="py-2 sm:py-3 px-4 sm:px-6 relative z-10">
+            <div className="mb-4 sm:mb-6 w-full max-w-5xl mx-auto px-4">
               <div className="relative w-full h-0 pb-[56.25%] rounded-2xl overflow-hidden shadow-2xl border border-gray-700">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
@@ -809,13 +809,13 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
           </section>
       
       {/* CTA Section */}
-      <section className="py-3 sm:py-4 px-4 sm:px-6 relative z-10">
+      <section className="py-2 sm:py-3 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center animate-on-scroll w-full">
           <div className="bg-gradient-to-r from-blue-500/10 to-pink-500/10 p-6 sm:p-12 rounded-3xl border border-gray-700">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3 px-2">
               Ready to <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Transform</span> Your Business?
             </h2>
-            <p className={`text-lg sm:text-xl mb-6 sm:mb-8 px-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+            <p className={`text-lg sm:text-xl mb-3 sm:mb-4 px-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
               Join hundreds of companies already using AI to scale their operations and accelerate growth. Now with 60-Day Guarantee!
             </p>
             <button
@@ -831,10 +831,10 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-16 sm:py-20 px-4 sm:px-6 relative z-10">
+      <section id="faq" className="py-8 sm:py-10 px-4 sm:px-6 relative z-10">
         <div className="max-w-4xl mx-auto w-full">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 px-2">
+          <div className="text-center mb-8 animate-on-scroll">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-3 px-2">
               Frequently Asked <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Questions</span>
             </h2>
             <p className={`text-lg sm:text-xl max-w-2xl mx-auto px-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
@@ -885,12 +885,12 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
           </div>
 
           {/* Still have questions CTA */}
-          <div className="text-center mt-12 animate-on-scroll">
+          <div className="text-center mt-6 animate-on-scroll">
             <div className="bg-gradient-to-r from-blue-500/10 to-pink-500/10 p-6 sm:p-8 rounded-2xl border border-gray-700">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 text-white">
+              <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">
                 Still Have Questions?
               </h3>
-              <p className={`mb-6 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              <p className={`mb-3 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                 Our AI automation experts are here to help. Schedule a free consultation to get personalized answers.
               </p>
               <button
