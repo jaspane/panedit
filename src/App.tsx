@@ -71,7 +71,7 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
       <div className="flex items-center gap-2 flex-1">
         <h3 className={`text-xl sm:text-2xl font-bold ${titleColor} transition-all duration-300`}>{title}</h3>
         <ArrowRight
-          className={`w-5 h-5 ${titleColor} opacity-0 group-hover:opacity-100 transform translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-out flex-shrink-0`}
+          className={`w-5 h-5 ${titleColor} opacity-100 group-hover:opacity-0 transform translate-x-0 transition-all duration-300 ease-out flex-shrink-0`}
           aria-hidden="true"
         />
       </div>
