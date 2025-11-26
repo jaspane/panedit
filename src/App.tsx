@@ -54,7 +54,7 @@ const ComponentLoader = memo(() => (
 ComponentLoader.displayName = 'ComponentLoader';
 
 // Memoized service card component
-const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hoverColor, titleColor }: {
+const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hoverColor, titleColor, isDarkMode }: {
   icon: any;
   title: string;
   description: string;
@@ -62,6 +62,7 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
   gradient: string;
   hoverColor: string;
   titleColor: string;
+  isDarkMode: boolean;
 }) => (
   <div className={`animate-on-scroll bg-transparent group-hover:bg-gradient-to-br group-hover:from-gray-800/50 group-hover:to-gray-900/50 p-2 group-hover:p-6 sm:group-hover:p-8 rounded group-hover:rounded-2xl border border-transparent group-hover:border-gray-700 hover:${hoverColor} transition-all duration-500 hover:shadow-xl hover:shadow-${hoverColor.split('-')[1]}-500/10 group overflow-hidden`}>
     <div className="flex items-center gap-3 mb-0 group-hover:mb-4 transition-all duration-300">
@@ -76,12 +77,12 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
         />
       </div>
     </div>
-    <p className="text-sm sm:text-base text-gray-300 mb-6 leading-relaxed max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+    <p className={`text-sm sm:text-base mb-6 leading-relaxed max-h-0 opacity-0 group-hover:max-h-32 group-hover:opacity-100 transition-all duration-500 overflow-hidden ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
       {description}
     </p>
     <ul className="space-y-2 max-h-0 opacity-0 group-hover:max-h-96 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
       {items.map((item, idx) => (
-        <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
+        <li key={idx} className={`flex items-center gap-2 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
           <CheckCircle className="w-4 h-4 text-green-400" />
           {item}
         </li>
@@ -646,13 +647,13 @@ const App = memo(() => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {services.slice(0, 6).map((service, index) => (
-              <ServiceCard key={index} {...service} />
+              <ServiceCard key={index} {...service} isDarkMode={isDarkMode} />
             ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-8">
             {services.slice(6).map((service, index) => (
-              <ServiceCard key={index + 6} {...service} />
+              <ServiceCard key={index + 6} {...service} isDarkMode={isDarkMode} />
             ))}
           </div>
         </div>
