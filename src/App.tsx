@@ -3,6 +3,7 @@ import { Suspense, memo } from 'react';
 import { submitContactForm } from '@/lib/supabase';
 import ProposalGenerator from '@/components/ProposalGenerator';
 import NewsletterSignup from '@/components/NewsletterSignup';
+import HoverDisappearArrowDemo from '@/components/HoverDisappearArrowDemo';
 import {
   Bot,
   TrendingUp,
@@ -915,6 +916,9 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
 
       {/* Newsletter Signup Section */}
       <NewsletterSignup isDarkMode={isDarkMode} />
+
+      {/* Hover Disappear Arrow Demo Section */}
+      <HoverDisappearArrowDemo isDarkMode={isDarkMode} />
 
       {/* New Footer Component */}
       <Suspense fallback={<ComponentLoader />}>
