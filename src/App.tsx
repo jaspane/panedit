@@ -488,15 +488,6 @@ const App = memo(() => {
       <Suspense fallback={null}>
         <SplashCursor />
       </Suspense>
-      {/* Animated Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse ${
-          isDarkMode ? 'bg-blue-500/10' : 'bg-blue-500/5'
-        }`}></div>
-        <div className={`absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl animate-pulse delay-1000 ${
-          isDarkMode ? 'bg-pink-500/10' : 'bg-pink-500/5'
-        }`}></div>
-      </div>
 
       {/* Navigation */}
       <nav className={`fixed top-4 left-4 right-4 z-50 px-6 py-4 rounded-2xl backdrop-blur-md border transition-all duration-300 ${
