@@ -9,7 +9,7 @@ import {
   Users,
   Zap,
   CheckCircle,
-  MousePointerClick,
+  ArrowRight,
   Phone,
   Mail,
   Calendar,
@@ -71,9 +71,9 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
       </div>
       <div className="flex items-center gap-2 flex-1">
         <h3 className={`text-xl sm:text-2xl font-bold ${titleColor} transition-all duration-300`}>{title}</h3>
-        <MousePointerClick
-          className={`w-5 h-5 ${titleColor} opacity-100 group-hover:opacity-0 arrow-pulse transition-opacity duration-300 ease-out flex-shrink-0`}
-          aria-label="Click to view details"
+        <ArrowRight
+          className={`w-5 h-5 ${titleColor} opacity-100 group-hover:opacity-0 transform translate-x-0 transition-all duration-300 ease-out flex-shrink-0`}
+          aria-hidden="true"
         />
       </div>
     </div>

@@ -104,20 +104,6 @@ button, a, input, textarea {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Arrow pulse animation for Services section */
-@keyframes arrow-pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-.arrow-pulse {
-  animation: arrow-pulse 1.8s ease-in-out infinite;
-}
-
 /* Loading animation */
 @keyframes pulse-glow {
   0%, 100% {
