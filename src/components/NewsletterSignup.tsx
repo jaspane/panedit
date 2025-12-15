@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, CheckCircle, AlertCircle, Loader2, Send } from 'lucide-react';
-import { submitNewsletterSignup } from '@/lib/supabase';
+import { submitNewsletterSignup } from '@/lib/googleSheets';
 
 interface NewsletterSignupProps {
   isDarkMode: boolean;

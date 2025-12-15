@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy } from 'react';
 import { Suspense, memo } from 'react';
-import { submitContactForm } from '@/lib/supabase';
+import { submitContactForm } from '@/lib/googleSheets';
 import ProposalGenerator from '@/components/ProposalGenerator';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import {
@@ -229,14 +229,7 @@ const App = memo(() => {
     const submitForm = async () => {
       try {
         console.log('Form submission started...');
-        console.log('Environment check:', {
-          supabaseUrl: import.meta.env.VITE_SUPABASE_URL ? 'Present' : 'Missing',
-          supabaseKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Present' : 'Missing',
-          actualUrl: import.meta.env.VITE_SUPABASE_URL,
-          actualKey: import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Key exists' : 'No key'
-        });
-        
-        // Prepare data for Supabase
+
         const submissionData = {
           first_name: formData.firstName,
           last_name: formData.lastName,
@@ -248,43 +241,30 @@ const App = memo(() => {
           message: formData.message || undefined,
         };
 
-        console.log('Attempting to submit form with data:', submissionData);
+        console.log('Submitting form data:', submissionData);
 
         await submitContactForm(submissionData);
-        
+
         console.log('Form submitted successfully!');
-        
-        // Store submitted data for success dialog
+
         setSubmittedData({
           firstName: formData.firstName,
           email: formData.email,
           phone: formData.phone
         });
-        
-        // Success - close modal and reset form
+
         setIsModalOpen(false);
         setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
-        
-        // Show custom success dialog
+
         setShowSuccessDialog(true);
-        
+
       } catch (error) {
         console.error('Form submission error:', error);
-        console.error('Error details:', {
-          message: error instanceof Error ? error.message : 'Unknown error',
-          stack: error instanceof Error ? error.stack : undefined,
-          type: typeof error
-        });
-        
-        // More specific error messages
+
         if (error instanceof Error) {
-          if (error.message.includes('Supabase is not connected')) {
-            alert('Please connect to Supabase first by clicking the "Connect to Supabase" button in the top right corner.');
-          } else {
-            alert(`Error: ${error.message}`);
-          }
+          alert(`Error: ${error.message}`);
         } else {
-          alert(`There was an error submitting your request. Error: ${JSON.stringify(error)}. Please check the console for details and try again.`);
+          alert('There was an error submitting your request. Please check the console for details and try again.');
         }
       }
     };
