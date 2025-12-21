@@ -4,6 +4,7 @@ import { submitContactForm } from '@/lib/googleSheets';
 import ProposalGenerator from '@/components/ProposalGenerator';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
+import TermsAndConditions from '@/components/TermsAndConditions';
 import {
   Bot,
   TrendingUp,
@@ -94,7 +95,7 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
 ServiceCard.displayName = 'ServiceCard';
 
 const App = memo(() => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'proposal' | 'privacy'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'proposal' | 'privacy' | 'terms'>('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -131,6 +132,8 @@ const App = memo(() => {
         setCurrentPage('proposal');
       } else if (window.location.hash === '#privacy') {
         setCurrentPage('privacy');
+      } else if (window.location.hash === '#terms') {
+        setCurrentPage('terms');
       } else {
         setCurrentPage('home');
       }
@@ -389,6 +392,18 @@ const App = memo(() => {
   if (currentPage === 'privacy') {
     return (
       <PrivacyPolicy
+        onClose={() => {
+          setCurrentPage('home');
+          window.location.hash = '';
+        }}
+        isDarkMode={isDarkMode}
+      />
+    );
+  }
+
+  if (currentPage === 'terms') {
+    return (
+      <TermsAndConditions
         onClose={() => {
           setCurrentPage('home');
           window.location.hash = '';
@@ -916,6 +931,10 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
           setCurrentPage('privacy');
           window.location.hash = 'privacy';
         }}
+        onNavigateToTerms={() => {
+          setCurrentPage('terms');
+          window.location.hash = 'terms';
+        }}
       />
 
       {/* New Footer Component */}
@@ -1047,8 +1066,8 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                     type="button"
                     onClick={(e) => {
                       e.preventDefault();
-                      setCurrentPage('privacy');
-                      window.location.hash = 'privacy';
+                      setCurrentPage('terms');
+                      window.location.hash = 'terms';
                     }}
                     className="text-blue-400 hover:text-blue-300 underline"
                   >

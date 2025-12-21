@@ -5,9 +5,10 @@ import { submitNewsletterSignup } from '@/lib/googleSheets';
 interface NewsletterSignupProps {
   isDarkMode: boolean;
   onNavigateToPrivacy?: () => void;
+  onNavigateToTerms?: () => void;
 }
 
-const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode, onNavigateToPrivacy }) => {
+const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode, onNavigateToPrivacy, onNavigateToTerms }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [consentGiven, setConsentGiven] = useState(false);
@@ -248,10 +249,10 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode, onNavig
                           type="button"
                           onClick={(e) => {
                             e.preventDefault();
-                            if (onNavigateToPrivacy) {
-                              onNavigateToPrivacy();
+                            if (onNavigateToTerms) {
+                              onNavigateToTerms();
                             } else {
-                              window.location.hash = 'privacy';
+                              window.location.hash = 'terms';
                             }
                           }}
                           className="text-blue-400 hover:text-blue-300 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
