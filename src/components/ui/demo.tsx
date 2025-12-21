@@ -142,11 +142,11 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
                 </a>                 
               </li>
               <li>
-                <a href="mailto:ai@panedit.com" className={`hover:text-blue-400 transition-colors duration-300 flex items-center group ${
+                <a href="mailto:jasper@panedit.com" className={`hover:text-blue-400 transition-colors duration-300 flex items-center group ${
                   isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
                 }`}>
                   <Mail className={`w-5 h-5 mr-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
-                  ai@panedit.com
+                  jasper@panedit.com
                 </a>
               </li>
               <li>
