@@ -113,7 +113,8 @@ const App = memo(() => {
     company: '',
     website: '',
     monthlyRevenue: '',
-    message: ''
+    message: '',
+    termsAccepted: false
   });
 
   useEffect(() => {
@@ -254,7 +255,7 @@ const App = memo(() => {
         });
 
         setIsModalOpen(false);
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '' });
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', company: '', website: '', monthlyRevenue: '', message: '', termsAccepted: false });
 
         setShowSuccessDialog(true);
 
@@ -283,6 +284,13 @@ const App = memo(() => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
+    });
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.checked
     });
   };
 
@@ -998,9 +1006,27 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 resize-none"
                 ></textarea>
               </div>
+              <div className="flex items-start gap-3 py-2">
+                <input
+                  type="checkbox"
+                  id="termsAccepted"
+                  name="termsAccepted"
+                  checked={formData.termsAccepted}
+                  onChange={handleCheckboxChange}
+                  required
+                  className="mt-1 w-5 h-5 rounded border-2 border-gray-600 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer bg-gray-800"
+                />
+                <label
+                  htmlFor="termsAccepted"
+                  className="text-sm text-gray-300 leading-relaxed cursor-pointer"
+                >
+                  I agree to terms & conditions provided by the company. By providing my phone number, I agree to receive text messages from Panedit.com.
+                </label>
+              </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-500 to-pink-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+                disabled={!formData.termsAccepted}
+                className="w-full bg-gradient-to-r from-blue-500 to-pink-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
               >
                 Schedule My Free Consultation
               </button>
