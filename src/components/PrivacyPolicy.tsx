@@ -7,6 +7,21 @@ interface PrivacyPolicyProps {
 }
 
 const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose, isDarkMode }) => {
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-black text-gray-100' : 'bg-white text-gray-900'}`}>
       <div className="max-w-4xl mx-auto px-6 py-12">
@@ -35,19 +50,19 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose, isDarkMode }) =>
           <div className="my-8 space-y-2">
             <p className="font-semibold">Table of Contents:</p>
             <ol className="list-decimal list-inside space-y-1">
-              <li><a href="#section-1" className="text-blue-400 hover:text-blue-300">Important Information and Who We Are</a></li>
-              <li><a href="#section-2" className="text-blue-400 hover:text-blue-300">Types of Personal Data We Collect About You</a></li>
-              <li><a href="#section-3" className="text-blue-400 hover:text-blue-300">How Is Your Personal Data Collected?</a></li>
-              <li><a href="#section-4" className="text-blue-400 hover:text-blue-300">How We Use Your Personal Data</a></li>
-              <li><a href="#section-5" className="text-blue-400 hover:text-blue-300">Disclosures of Your Personal Data</a></li>
-              <li><a href="#section-6" className="text-blue-400 hover:text-blue-300">International Transfers</a></li>
-              <li><a href="#section-7" className="text-blue-400 hover:text-blue-300">Data Security</a></li>
-              <li><a href="#section-8" className="text-blue-400 hover:text-blue-300">Data Retention</a></li>
-              <li><a href="#section-9" className="text-blue-400 hover:text-blue-300">Your Legal Rights</a></li>
-              <li><a href="#section-10" className="text-blue-400 hover:text-blue-300">Contact Details</a></li>
-              <li><a href="#section-11" className="text-blue-400 hover:text-blue-300">Complaints</a></li>
-              <li><a href="#section-12" className="text-blue-400 hover:text-blue-300">Changes to the Privacy Policy</a></li>
-              <li><a href="#section-13" className="text-blue-400 hover:text-blue-300">Third Party Links</a></li>
+              <li><a href="#section-1" onClick={(e) => handleAnchorClick(e, 'section-1')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Important Information and Who We Are</a></li>
+              <li><a href="#section-2" onClick={(e) => handleAnchorClick(e, 'section-2')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Types of Personal Data We Collect About You</a></li>
+              <li><a href="#section-3" onClick={(e) => handleAnchorClick(e, 'section-3')} className="text-blue-400 hover:text-blue-300 cursor-pointer">How Is Your Personal Data Collected?</a></li>
+              <li><a href="#section-4" onClick={(e) => handleAnchorClick(e, 'section-4')} className="text-blue-400 hover:text-blue-300 cursor-pointer">How We Use Your Personal Data</a></li>
+              <li><a href="#section-5" onClick={(e) => handleAnchorClick(e, 'section-5')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Disclosures of Your Personal Data</a></li>
+              <li><a href="#section-6" onClick={(e) => handleAnchorClick(e, 'section-6')} className="text-blue-400 hover:text-blue-300 cursor-pointer">International Transfers</a></li>
+              <li><a href="#section-7" onClick={(e) => handleAnchorClick(e, 'section-7')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Data Security</a></li>
+              <li><a href="#section-8" onClick={(e) => handleAnchorClick(e, 'section-8')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Data Retention</a></li>
+              <li><a href="#section-9" onClick={(e) => handleAnchorClick(e, 'section-9')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Your Legal Rights</a></li>
+              <li><a href="#section-10" onClick={(e) => handleAnchorClick(e, 'section-10')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Contact Details</a></li>
+              <li><a href="#section-11" onClick={(e) => handleAnchorClick(e, 'section-11')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Complaints</a></li>
+              <li><a href="#section-12" onClick={(e) => handleAnchorClick(e, 'section-12')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Changes to the Privacy Policy</a></li>
+              <li><a href="#section-13" onClick={(e) => handleAnchorClick(e, 'section-13')} className="text-blue-400 hover:text-blue-300 cursor-pointer">Third Party Links</a></li>
             </ol>
           </div>
 
@@ -72,8 +87,24 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose, isDarkMode }) =>
             </p>
             <p>
               If you have any questions about this privacy policy, including any requests to exercise
-              your legal rights (paragraph 9), please contact us using the information set out in
-              the contact details section (paragraph 10).
+              your legal rights (
+              <a
+                href="#section-9"
+                onClick={(e) => handleAnchorClick(e, 'section-9')}
+                className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
+              >
+                paragraph 9
+              </a>
+              ), please contact us using the information set out in
+              the contact details section (
+              <a
+                href="#section-10"
+                onClick={(e) => handleAnchorClick(e, 'section-10')}
+                className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
+              >
+                paragraph 10
+              </a>
+              ).
             </p>
           </section>
 
@@ -276,7 +307,15 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose, isDarkMode }) =>
             </ul>
 
             <p className="mt-6">
-              If you wish to exercise any of the rights set out above, please contact us using the details in section 10.
+              If you wish to exercise any of the rights set out above, please contact us using the details in{' '}
+              <a
+                href="#section-10"
+                onClick={(e) => handleAnchorClick(e, 'section-10')}
+                className="text-blue-400 hover:text-blue-300 underline cursor-pointer"
+              >
+                section 10
+              </a>
+              .
             </p>
 
             <h3 className="text-xl font-semibold mt-6 mb-3">No Fee Usually Required</h3>
@@ -292,7 +331,15 @@ const PrivacyPolicy: React.FC<PrivacyPolicyProps> = ({ onClose, isDarkMode }) =>
             <p>If you have any questions about this privacy policy or about the use of your personal data or you want to exercise your privacy rights, please contact us:</p>
 
             <div className={`mt-6 p-6 rounded-lg ${isDarkMode ? 'bg-gray-800/50' : 'bg-gray-100'}`}>
-              <p className="mb-2"><strong>Email:</strong> info@panedit.com</p>
+              <p className="mb-2">
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:info@panedit.com"
+                  className="text-blue-400 hover:text-blue-300 underline"
+                >
+                  info@panedit.com
+                </a>
+              </p>
               <p><strong>Postal Address:</strong> 6527 Candy Apple Cir. Las Vegas, NV 89142</p>
             </div>
           </section>
