@@ -3,6 +3,7 @@ import { Suspense, memo } from 'react';
 import { submitContactForm } from '@/lib/googleSheets';
 import ProposalGenerator from '@/components/ProposalGenerator';
 import NewsletterSignup from '@/components/NewsletterSignup';
+import PrivacyPolicy from '@/components/PrivacyPolicy';
 import {
   Bot,
   TrendingUp,
@@ -93,7 +94,7 @@ const ServiceCard = memo(({ icon: Icon, title, description, items, gradient, hov
 ServiceCard.displayName = 'ServiceCard';
 
 const App = memo(() => {
-  const [currentPage, setCurrentPage] = useState<'home' | 'proposal'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'proposal' | 'privacy'>('home');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -128,6 +129,8 @@ const App = memo(() => {
     const handleHashChange = () => {
       if (window.location.hash === '#proposal') {
         setCurrentPage('proposal');
+      } else if (window.location.hash === '#privacy') {
+        setCurrentPage('privacy');
       } else {
         setCurrentPage('home');
       }
@@ -382,6 +385,19 @@ const App = memo(() => {
       </div>
     );
   }
+
+  if (currentPage === 'privacy') {
+    return (
+      <PrivacyPolicy
+        onClose={() => {
+          setCurrentPage('home');
+          window.location.hash = '';
+        }}
+        isDarkMode={isDarkMode}
+      />
+    );
+  }
+
   // Service data for rendering
   const services = [
     {
@@ -894,7 +910,13 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
       </section>
 
       {/* Newsletter Signup Section */}
-      <NewsletterSignup isDarkMode={isDarkMode} />
+      <NewsletterSignup
+        isDarkMode={isDarkMode}
+        onNavigateToPrivacy={() => {
+          setCurrentPage('privacy');
+          window.location.hash = 'privacy';
+        }}
+      />
 
       {/* New Footer Component */}
       <Suspense fallback={<ComponentLoader />}>
@@ -1020,7 +1042,19 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   htmlFor="termsAccepted"
                   className="text-sm text-gray-300 leading-relaxed cursor-pointer"
                 >
-                  I agree to terms & conditions provided by the company. By providing my phone number, I agree to receive text messages from Panedit.com.
+                  I agree to{' '}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage('privacy');
+                      window.location.hash = 'privacy';
+                    }}
+                    className="text-blue-400 hover:text-blue-300 underline"
+                  >
+                    terms & conditions
+                  </button>{' '}
+                  provided by the company. By providing my phone number, I agree to receive text messages from Panedit.com.
                 </label>
               </div>
               <button

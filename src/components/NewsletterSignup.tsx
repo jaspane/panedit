@@ -4,9 +4,10 @@ import { submitNewsletterSignup } from '@/lib/googleSheets';
 
 interface NewsletterSignupProps {
   isDarkMode: boolean;
+  onNavigateToPrivacy?: () => void;
 }
 
-const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
+const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode, onNavigateToPrivacy }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [consentGiven, setConsentGiven] = useState(false);
@@ -228,15 +229,36 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                       <span id="consent-description">
                         I agree to receive marketing emails and understand I can unsubscribe at any time.
                         View our{' '}
-                        <a
-                          href="/privacy-policy"
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (onNavigateToPrivacy) {
+                              onNavigateToPrivacy();
+                            } else {
+                              window.location.hash = 'privacy';
+                            }
+                          }}
                           className="text-blue-400 hover:text-blue-300 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
-                          target="_blank"
-                          rel="noopener noreferrer"
                         >
                           Privacy Policy
-                        </a>
-                        . I agree to terms & conditions provided by the company. If providing my phone number, I agree to receive text messages from Panedit.com.
+                        </button>
+                        . I agree to{' '}
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            if (onNavigateToPrivacy) {
+                              onNavigateToPrivacy();
+                            } else {
+                              window.location.hash = 'privacy';
+                            }
+                          }}
+                          className="text-blue-400 hover:text-blue-300 underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+                        >
+                          terms & conditions
+                        </button>{' '}
+                        provided by the company. If providing my phone number, I agree to receive text messages from Panedit.com.
                       </span>
                     </label>
                   </div>
