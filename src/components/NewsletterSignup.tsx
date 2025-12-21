@@ -236,7 +236,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ isDarkMode }) => {
                         >
                           Privacy Policy
                         </a>
-                        .
+                        . I agree to terms & conditions provided by the company. If providing my phone number, I agree to receive text messages from Panedit.com.
                       </span>
                     </label>
                   </div>
