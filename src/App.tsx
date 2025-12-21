@@ -354,10 +354,15 @@ const App = memo(() => {
               onClick={() => {
                 window.location.hash = '';
                 window.location.reload();
-              }} 
-              className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent hover:scale-105 transition-transform"
+              }}
+              className="flex items-center transition-transform duration-300 hover:scale-105"
+              aria-label="Panèdit Home"
             >
-              Panèdit
+              <img
+                src="/logo_panedit__1_-removebg-preview_copy_2.png"
+                alt="Panèdit Logo"
+                className="h-8 w-auto sm:h-10 object-contain"
+              />
             </button>
             <div className="hidden md:flex space-x-8">
               <button 
@@ -519,9 +524,21 @@ const App = memo(() => {
             : 'bg-gray-100/60 border-gray-200/30'
       }`}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
-            Panèdit
-          </div>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="flex items-center transition-transform duration-300 hover:scale-105"
+            aria-label="Panèdit Home"
+          >
+            <img
+              src="/logo_panedit__1_-removebg-preview_copy_2.png"
+              alt="Panèdit Logo"
+              className="h-8 w-auto sm:h-10 object-contain"
+            />
+          </a>
           <div className="hidden md:flex space-x-8">
             <a href="#services" className={`hover:text-blue-400 transition-colors ${
               isDarkMode ? 'text-white' : 'text-gray-900'

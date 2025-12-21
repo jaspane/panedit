@@ -815,14 +815,13 @@ const ProposalGenerator: React.FC = () => {
         {/* Header */}
         <div className="text-center mb-12 border-b border-gray-200 pb-8">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-pink-500 rounded-2xl flex items-center justify-center">
-              <Bot className="w-8 h-8 text-white" />
-            </div>
+            <img
+              src="/logo_panedit__1_-removebg-preview_copy_2.png"
+              alt="Panèdit Logo"
+              className="h-16 w-auto object-contain"
+            />
             <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-pink-600 bg-clip-text text-transparent">
-                Panèdit
-              </h1>
-              <p className="text-gray-600">AI Automation Consultancy</p>
+              <p className="text-gray-600 text-lg">AI Automation Consultancy</p>
             </div>
           </div>
           <h2 className="text-3xl font-bold text-gray-800 mb-2">

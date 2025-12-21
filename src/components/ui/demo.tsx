@@ -1,10 +1,9 @@
 import React from 'react';
-import { 
-  Brain, 
-  Facebook, 
-  Twitter, 
-  Linkedin, 
-  Github, 
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Github,
   Instagram,
   Mail,
   Phone,
@@ -43,12 +42,11 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode, toggleTheme }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 max-w-7xl mx-auto">
           <div className="group">
             <div className="flex items-center mb-8">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform duration-300">
-                <Brain className="h-6 w-6" />
-              </div>
-              <span className="ml-3 text-xl font-bold tracking-tight bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">
-                Panèdit
-              </span>
+              <img
+                src="/logo_panedit__1_-removebg-preview_copy_2.png"
+                alt="Panèdit Logo"
+                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </div>
             <p className={`leading-relaxed mb-8 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
               Transforming businesses with intelligent AI automation solutions that scale operations and accelerate growth.
