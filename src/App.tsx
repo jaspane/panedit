@@ -973,17 +973,19 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
       </section>
 
       {/* Newsletter Signup Section */}
-      <NewsletterSignup
-        isDarkMode={isDarkMode}
-        onNavigateToPrivacy={() => {
-          setCurrentPage('privacy');
-          window.location.hash = 'privacy';
-        }}
-        onNavigateToTerms={() => {
-          setCurrentPage('terms');
-          window.location.hash = 'terms';
-        }}
-      />
+      <div hidden>
+        <NewsletterSignup
+          isDarkMode={isDarkMode}
+          onNavigateToPrivacy={() => {
+            setCurrentPage('privacy');
+            window.location.hash = 'privacy';
+          }}
+          onNavigateToTerms={() => {
+            setCurrentPage('terms');
+            window.location.hash = 'terms';
+          }}
+        />
+      </div>
 
       {/* New Footer Component */}
       <Suspense fallback={<ComponentLoader />}>
