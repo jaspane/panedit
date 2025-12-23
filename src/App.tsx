@@ -5,6 +5,7 @@ import ProposalGenerator from '@/components/ProposalGenerator';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 import TermsAndConditions from '@/components/TermsAndConditions';
+import ConsultationForm from '@/components/ConsultationForm';
 import {
   Bot,
   TrendingUp,
@@ -621,7 +622,37 @@ const App = memo(() => {
                 ></iframe>
               </div>
             </div>
-            
+
+            {/* Inline Consultation Form */}
+            <div className="mb-6 sm:mb-8 w-full max-w-2xl mx-auto px-4 animate-on-scroll">
+              <div className={`p-6 sm:p-8 rounded-2xl border transition-colors duration-300 ${
+                isDarkMode
+                  ? 'bg-gradient-to-br from-gray-900 to-black border-gray-700'
+                  : 'bg-white border-gray-300'
+              }`}>
+                <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
+                  <span className={isDarkMode ? 'text-white drop-shadow-lg' : 'text-gray-900'}>Book Your</span>{' '}
+                  <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
+                </h3>
+                <ConsultationForm
+                  formData={formData}
+                  onInputChange={handleInputChange}
+                  onSelectChange={handleSelectChange}
+                  onCheckboxChange={handleCheckboxChange}
+                  onSubmit={handleSubmit}
+                  onNavigateToPrivacy={() => {
+                    setCurrentPage('privacy');
+                    window.location.hash = 'privacy';
+                  }}
+                  onNavigateToTerms={() => {
+                    setCurrentPage('terms');
+                    window.location.hash = 'terms';
+                  }}
+                  idPrefix="inline-"
+                />
+              </div>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4 sm:mb-6 px-4">
               <button
                 onClick={() => setIsModalOpen(true)}
@@ -973,146 +1004,23 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
             <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-center">
               <span className="text-white drop-shadow-lg">Book Your</span> <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent">Free Consultation</span>
             </h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <input
-                    type="text"
-                    name="firstName"
-                    placeholder="First Name"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    name="lastName"
-                    placeholder="Last Name"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                  required
-                />
-              </div>
-              <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number (e.g., +1 555 123 4567)"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="company"
-                  placeholder="Company Name"
-                  value={formData.company}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                />
-              </div>
-              <div>
-                <input
-                  type="url"
-                  name="website"
-                  placeholder="Business Website (e.g., https://example.com)"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-                />
-              </div>
-              <div>
-                <select
-                  name="monthlyRevenue"
-                  value={formData.monthlyRevenue}
-                  onChange={handleSelectChange}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white"
-                >
-                  <option value="" className="text-gray-400">Select Company Monthly Revenue (USD)</option>
-                  <option value="5K - 50K">$5K - $50K</option>
-                  <option value="50K - 100K">$50K - $100K</option>
-                  <option value="100K - 500K">$100K - $500K</option>
-                  <option value="500K - 5M">$500K - $5M</option>
-                </select>
-              </div>
-              <div>
-                <textarea
-                  name="message"
-                  placeholder="Tell us about your automation needs... For Instance: Help with Social Media Engagement, Facilitate On-Boarding, Assist Collections, Etc..."
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 resize-none"
-                ></textarea>
-              </div>
-              <div className="flex items-start gap-3 py-2">
-                <input
-                  type="checkbox"
-                  id="termsAccepted"
-                  name="termsAccepted"
-                  checked={formData.termsAccepted}
-                  onChange={handleCheckboxChange}
-                  required
-                  className="mt-1 w-5 h-5 rounded border-2 border-gray-600 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 cursor-pointer bg-gray-800"
-                />
-                <label
-                  htmlFor="termsAccepted"
-                  className="text-sm text-gray-300 leading-relaxed cursor-pointer"
-                >
-                  I agree to the{' '}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setCurrentPage('privacy');
-                      window.location.hash = 'privacy';
-                    }}
-                    className="text-blue-400 hover:text-blue-300 underline"
-                  >
-                    Privacy Policy
-                  </button>{' '}
-                  and{' '}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setCurrentPage('terms');
-                      window.location.hash = 'terms';
-                    }}
-                    className="text-blue-400 hover:text-blue-300 underline"
-                  >
-                    Terms & Conditions
-                  </button>
-                  . By providing my phone number, I agree to receive text messages from Panedit.com.
-                </label>
-              </div>
-              <button
-                type="submit"
-                disabled={!formData.termsAccepted}
-                className="w-full bg-gradient-to-r from-blue-500 to-pink-500 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
-              >
-                Schedule My Free Consultation
-              </button>
-            </form>
+
+            <ConsultationForm
+              formData={formData}
+              onInputChange={handleInputChange}
+              onSelectChange={handleSelectChange}
+              onCheckboxChange={handleCheckboxChange}
+              onSubmit={handleSubmit}
+              onNavigateToPrivacy={() => {
+                setCurrentPage('privacy');
+                window.location.hash = 'privacy';
+              }}
+              onNavigateToTerms={() => {
+                setCurrentPage('terms');
+                window.location.hash = 'terms';
+              }}
+              idPrefix="modal-"
+            />
           </div>
         </div>
       )}
