@@ -1,8 +1,4 @@
-// Google Sheets integration
-// Replace GOOGLE_SCRIPT_URL with your actual Google Apps Script deployment URL
-
-const CONTACT_FORM_SCRIPT_URL = import.meta.env.VITE_GOOGLE_SCRIPT_URL || ''
-const NEWSLETTER_SCRIPT_URL = import.meta.env.VITE_GOOGLE_NEWSLETTER_SCRIPT_URL || ''
+import { supabase } from './supabase'
 
 interface ContactSubmission {
   id?: string
@@ -33,39 +29,32 @@ interface NewsletterSignup {
 }
 
 export async function submitContactForm(data: Omit<ContactSubmission, 'id' | 'created_at' | 'updated_at' | 'status'>) {
-  if (!CONTACT_FORM_SCRIPT_URL) {
-    throw new Error('Google Sheets integration not configured. Please set VITE_GOOGLE_SCRIPT_URL in your .env file.')
-  }
-
-  console.log('Submitting contact form data to Google Sheets:', data)
+  console.log('Submitting contact form data to Supabase:', data)
 
   try {
-    const response = await fetch(CONTACT_FORM_SCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'addContact',
-        data: {
-          ...data,
-          created_at: new Date().toISOString(),
-        }
-      })
-    })
+    const { data: result, error } = await supabase
+      .from('contact_submissions')
+      .insert([{
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone || null,
+        company: data.company || null,
+        website: data.website || null,
+        monthly_revenue: data.monthly_revenue || null,
+        message: data.message || null,
+        status: 'new'
+      }])
+      .select()
+      .single()
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const result = await response.json()
-
-    if (result.error) {
-      throw new Error(result.error)
+    if (error) {
+      console.error('Supabase error:', error)
+      throw new Error(error.message)
     }
 
     console.log('Contact form submitted successfully:', result)
-    return result.data || result
+    return result
   } catch (error) {
     console.error('Contact form submission error:', error)
     throw error
@@ -73,39 +62,30 @@ export async function submitContactForm(data: Omit<ContactSubmission, 'id' | 'cr
 }
 
 export async function submitNewsletterSignup(data: Omit<NewsletterSignup, 'id' | 'subscribed_at' | 'unsubscribed_at' | 'status'>) {
-  if (!NEWSLETTER_SCRIPT_URL) {
-    throw new Error('Google Sheets integration not configured. Please set VITE_GOOGLE_NEWSLETTER_SCRIPT_URL in your .env file.')
-  }
-
-  console.log('Submitting newsletter signup to Google Sheets:', data)
+  console.log('Submitting newsletter signup to Supabase:', data)
 
   try {
-    const response = await fetch(NEWSLETTER_SCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'addNewsletter',
-        data: {
-          ...data,
-          subscribed_at: new Date().toISOString(),
-        }
-      })
-    })
+    const { data: result, error } = await supabase
+      .from('newsletter_signups')
+      .insert([{
+        email: data.email,
+        name: data.name || null,
+        ip_address: data.ip_address || null,
+        user_agent: data.user_agent || null,
+        consent_given: data.consent_given,
+        source: data.source || 'website',
+        status: 'active'
+      }])
+      .select()
+      .single()
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
-    }
-
-    const result = await response.json()
-
-    if (result.error) {
-      throw new Error(result.error)
+    if (error) {
+      console.error('Supabase error:', error)
+      throw new Error(error.message)
     }
 
     console.log('Newsletter signup submitted successfully:', result)
-    return result.data || result
+    return result
   } catch (error) {
     console.error('Newsletter signup error:', error)
     throw error
