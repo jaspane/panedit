@@ -72,7 +72,7 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
         <input
           type="tel"
           name="phone"
-          placeholder="Phone Number (e.g., +1 555 123 4567)"
+          placeholder="Phone Number (Optional) e.g., +1 555 123 4567"
           value={formData.phone}
           onChange={onInputChange}
           className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
