@@ -68,16 +68,7 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
           required
         />
       </div>
-      <div>
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Phone Number (Optional) e.g., +1 555 123 4567"
-          value={formData.phone}
-          onChange={onInputChange}
-          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
-        />
-      </div>
+  
       <div>
         <input
           type="text"
@@ -121,6 +112,16 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
           rows={4}
           className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400 resize-none"
         ></textarea>
+      </div>
+          <div>
+        <input
+          type="tel"
+          name="phone"
+          placeholder="Phone Number (Optional) e.g., +1 555 123 4567"
+          value={formData.phone}
+          onChange={onInputChange}
+          className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg focus:outline-none focus:border-blue-400 text-white placeholder-gray-400"
+        />
       </div>
       <div className="flex items-start gap-3 py-2">
         <input
