@@ -167,7 +167,7 @@ const TermsAndConditions: React.FC<TermsAndConditionsProps> = ({ onClose, isDark
 
             <h3 className="text-xl font-semibold mt-6 mb-3">Sharing</h3>
             <p>
-              We may share your information with service providers who help us deliver text messages (such as messaging platforms and telecommunications providers). We do not sell or rent your mobile number. We do not share your mobile number with third parties for their own marketing purposes.
+              We may share your information with service providers who help us deliver text messages (such as messaging platforms and telecommunications providers). We do not sell or rent your mobile number. We do NOT share your mobile number with third parties for their own marketing purposes.
             </p>
 
             <h3 className="text-xl font-semibold mt-6 mb-3">Your Choices</h3>
