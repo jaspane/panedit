@@ -1078,7 +1078,19 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                   htmlFor="termsAccepted"
                   className="text-sm text-gray-300 leading-relaxed cursor-pointer"
                 >
-                  I agree to{' '}
+                  I agree to the{' '}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCurrentPage('privacy');
+                      window.location.hash = 'privacy';
+                    }}
+                    className="text-blue-400 hover:text-blue-300 underline"
+                  >
+                    Privacy Policy
+                  </button>{' '}
+                  and{' '}
                   <button
                     type="button"
                     onClick={(e) => {
@@ -1088,9 +1100,9 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                     }}
                     className="text-blue-400 hover:text-blue-300 underline"
                   >
-                    terms & conditions
-                  </button>{' '}
-                  provided by the company. By providing my phone number, I agree to receive text messages from Panedit.com.
+                    Terms & Conditions
+                  </button>
+                  . By providing my phone number, I agree to receive text messages from Panedit.com.
                 </label>
               </div>
               <button
