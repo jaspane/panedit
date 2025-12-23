@@ -624,7 +624,7 @@ const App = memo(() => {
             </div>
 
             {/* Inline Consultation Form */}
-            <div className="mb-6 sm:mb-8 w-full max-w-2xl mx-auto px-4 animate-on-scroll">
+            <div id="sms-optin" className="mb-6 sm:mb-8 w-full max-w-2xl mx-auto px-4 animate-on-scroll">
               <div className={`p-6 sm:p-8 rounded-2xl border transition-colors duration-300 ${
                 isDarkMode
                   ? 'bg-gradient-to-br from-gray-900 to-black border-gray-700'
