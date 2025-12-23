@@ -159,7 +159,7 @@ const ConsultationForm: React.FC<ConsultationFormProps> = ({
           >
             Terms & Conditions
           </button>
-          . By providing my phone number, I agree to receive text messages from Panedit.com.
+          . By providing my phone number, I agree to receive SMS from Panedit about account notifications, order updates, and support messages (and promotions if applicable). Message frequency varies. Msg & data rates may apply. Reply STOP to opt out, HELP for help. See Terms and Privacy Policy.
         </label>
       </div>
       <button
