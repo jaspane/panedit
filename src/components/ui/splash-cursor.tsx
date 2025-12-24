@@ -3,22 +3,24 @@ import { useEffect, useRef } from "react";
 
 function SplashCursor({
   // Add whatever props you like for customization
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 1440,
-  CAPTURE_RESOLUTION = 512,
+  SIM_RESOLUTION = 64,
+  DYE_RESOLUTION = 512,
+  CAPTURE_RESOLUTION = 256,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
-  PRESSURE_ITERATIONS = 20,
+  PRESSURE_ITERATIONS = 10,
   CURL = 3,
   SPLAT_RADIUS = 0.2,
   SPLAT_FORCE = 6000,
-  SHADING = true,
+  SHADING = false,
   COLOR_UPDATE_SPEED = 10,
   BACK_COLOR = { r: 0.5, g: 0, b: 0 },
   TRANSPARENT = true,
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameRef = useRef<number>();
+  const isVisibleRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -802,13 +804,18 @@ function SplashCursor({
     let colorUpdateTimer = 0.0;
 
     function updateFrame() {
+      if (!isVisibleRef.current) {
+        animationFrameRef.current = requestAnimationFrame(updateFrame);
+        return;
+      }
+
       const dt = calcDeltaTime();
       if (resizeCanvas()) initFramebuffers();
       updateColors(dt);
       applyInputs();
       step(dt);
       render(null);
-      requestAnimationFrame(updateFrame);
+      animationFrameRef.current = requestAnimationFrame(updateFrame);
     }
 
     function calcDeltaTime() {
@@ -1233,6 +1240,19 @@ function SplashCursor({
       }
     };
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    if (canvas) {
+      observer.observe(canvas);
+    }
+
     window.addEventListener("mousedown", handleMouseDown);
     document.body.addEventListener("mousemove", handleFirstMouseMove);
     window.addEventListener("mousemove", handleMouseMove);
@@ -1245,6 +1265,10 @@ function SplashCursor({
 
     // Cleanup function
     return () => {
+      observer.disconnect();
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
       window.removeEventListener("mousedown", handleMouseDown);
       document.body.removeEventListener("mousemove", handleFirstMouseMove);
       window.removeEventListener("mousemove", handleMouseMove);

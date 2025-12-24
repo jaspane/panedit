@@ -6,6 +6,7 @@ import NewsletterSignup from '@/components/NewsletterSignup';
 import PrivacyPolicy from '@/components/PrivacyPolicy';
 import TermsAndConditions from '@/components/TermsAndConditions';
 import ConsultationForm from '@/components/ConsultationForm';
+import { getPerformancePreference, setPerformancePreference } from '@/lib/performanceDetection';
 import {
   Bot,
   TrendingUp,
@@ -25,7 +26,8 @@ import {
   HelpCircle,
   Sun,
   Moon,
-  Clock
+  Clock,
+  Sparkles
 } from 'lucide-react';
 
 // Extend Window interface for YouTube API
@@ -103,6 +105,7 @@ const App = memo(() => {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [showExitPopup, setShowExitPopup] = useState(false);
+  const [enableAnimations, setEnableAnimations] = useState(true);
   const [submittedData, setSubmittedData] = useState({
     firstName: '',
     email: '',
@@ -126,6 +129,10 @@ const App = memo(() => {
     if (savedTheme) {
       setIsDarkMode(savedTheme === 'dark');
     }
+
+    // Load animation preference and detect performance
+    const { enableAnimations: shouldEnableAnimations } = getPerformancePreference();
+    setEnableAnimations(shouldEnableAnimations);
 
     // Handle hash navigation for proposal page
     const handleHashChange = () => {
@@ -229,6 +236,14 @@ const App = memo(() => {
     const newTheme = !isDarkMode;
     setIsDarkMode(newTheme);
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
+  };
+
+  // Toggle animations function
+  const toggleAnimations = () => {
+    const newValue = !enableAnimations;
+    setEnableAnimations(newValue);
+    setPerformancePreference(newValue);
+    window.location.reload();
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -506,13 +521,15 @@ const App = memo(() => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white' 
+      isDarkMode
+        ? 'bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white'
         : 'bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-900'
     }`}>
-      <Suspense fallback={null}>
-        <SplashCursor />
-      </Suspense>
+      {enableAnimations && (
+        <Suspense fallback={null}>
+          <SplashCursor />
+        </Suspense>
+      )}
 
       {/* Navigation */}
       <nav className={`fixed top-4 left-4 right-4 z-50 px-6 py-4 rounded-2xl backdrop-blur-md border transition-all duration-300 ${
@@ -565,7 +582,19 @@ const App = memo(() => {
               Proposal
             </button>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleAnimations}
+              className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
+                isDarkMode
+                  ? 'bg-gray-800/50 hover:bg-gray-700/50'
+                  : 'bg-gray-200/50 hover:bg-gray-300/50'
+              } ${enableAnimations ? 'text-blue-400' : 'text-gray-400'}`}
+              aria-label="Toggle animations"
+              title={enableAnimations ? 'Disable animations' : 'Enable animations'}
+            >
+              <Sparkles className="w-5 h-5" />
+            </button>
             <button
               onClick={toggleTheme}
               className={`p-2 rounded-lg transition-all duration-300 hover:scale-110 ${
@@ -790,15 +819,16 @@ const App = memo(() => {
       {/* Vortex Section */}
       <section className="py-2 sm:py-3 px-4 sm:px-6 relative z-10">
         <div className="w-full">
-          <div className="w-full h-[50rem] sm:h-[55rem] overflow-hidden">
-            <Vortex
-              backgroundColor="black"
-              rangeY={800}
-              particleCount={300}
-              baseHue={220}
-              className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
-            >
-              <div className="text-center animate-on-scroll">
+          <div className={`w-full h-[50rem] sm:h-[55rem] overflow-hidden ${!enableAnimations ? 'bg-black' : ''}`}>
+            {enableAnimations ? (
+              <Vortex
+                backgroundColor="black"
+                rangeY={800}
+                particleCount={100}
+                baseHue={220}
+                className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full"
+              >
+                <div className="text-center animate-on-scroll">
                 <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-2 sm:mb-3 leading-tight">
                   Experience the Future of
                   <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
@@ -853,6 +883,62 @@ Panèdit focuses on perfecting your systems first, then we supercharge it with A
                 </div>
               </div>
             </Vortex>
+            ) : (
+              <div className="flex items-center flex-col justify-center px-4 sm:px-6 md:px-10 py-4 sm:py-8 w-full h-full">
+                <div className="text-center animate-on-scroll">
+                  <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-2 sm:mb-3 leading-tight">
+                    Experience the Future of
+                    <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+                      AI Automation
+                    </span>
+                  </h2>
+                  <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-2 sm:mt-3 text-center mb-3 sm:mb-4 opacity-90 px-2">
+                    Unlike other companies who just waste your time and money on products you don't want or need,
+                    Panèdit focuses on perfecting your systems first, then we supercharge it with AI.
+                  </p>
+                  <p className="text-white text-sm sm:text-lg md:text-xl lg:text-2xl max-w-3xl mt-2 sm:mt-3 text-center mb-3 sm:mb-4 opacity-90 px-2">
+                    We Consult and Improve Your Business Process Before Adding Onto It. Our goal is singular: Increase Your Profits!
+                  </p>
+
+                  <h2 className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-center mb-2 sm:mb-3 leading-tight">
+                    Now with 60 Day
+                    <span className="bg-gradient-to-r from-blue-400 to-pink-400 bg-clip-text text-transparent block mt-1 sm:mt-2">
+                      Money Back Guarantee!
+                    </span>
+                  </h2>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6 mb-3 sm:mb-4 px-2">
+                    <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                      <div className="text-2xl sm:text-3xl font-bold text-blue-400 mb-1 sm:mb-2">500+</div>
+                      <div className="text-white/80 text-sm sm:text-base">Processes Automated</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                      <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">95%</div>
+                      <div className="text-white/80 text-sm sm:text-base">Client Satisfaction</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/20">
+                      <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-1 sm:mb-2">$2M+</div>
+                      <div className="text-white/80 text-sm sm:text-base">Cost Savings Generated</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 mt-3 sm:mt-4 px-2">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 transition duration-300 rounded-full text-white font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
+                    >
+                      <Calendar className="w-5 h-5" />
+                      Start Your AI Journey
+                    </button>
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="px-6 sm:px-8 py-3 sm:py-4 text-white border border-white/30 rounded-full hover:bg-white/10 transition duration-300 text-sm sm:text-base w-full sm:w-auto">
+                      Request a Demo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
